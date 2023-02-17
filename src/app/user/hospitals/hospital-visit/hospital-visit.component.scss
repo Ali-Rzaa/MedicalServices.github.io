@@ -98,6 +98,28 @@
     justify-content: center;
     border-left: 1.5px solid #179C8C;
 }
+.facility-container{
+    font-size: 17px;
+    font-weight: 500;
+}
+.service{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #179C8C;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 40px;
+    width: 180px;
+    font-weight: 500;
+    font-size: 15px;
+    min-width: max-content;
+    margin-right: 20px;
+}
+.service:hover, .service:active{
+    background-color: #179C8C;
+    color: white;
+}
 @media (max-width: 768px){
     .image-container{
         display: none !important;

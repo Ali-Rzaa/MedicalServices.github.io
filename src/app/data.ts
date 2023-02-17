@@ -64,6 +64,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/khospital.jpg',
       opening: '8AM to 7PM',
       panel: 15,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: ''
     },
@@ -73,6 +74,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/dhq.jpg',
       opening: '24 hours',
       panel: 50,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: '01234567890'
     },
@@ -82,6 +84,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/zhospital.jpg',
       opening: '24 hours',
       panel: 25,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: '01234567890'
     },
@@ -91,6 +94,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/dhq.jpg',
       opening: '8AM to 7PM',
       panel: 15,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: '01234567890'
     },
@@ -100,6 +104,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/dhq.jpg',
       opening: '8AM to 7PM',
       panel: 15,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: '01234567890'
     },
@@ -109,6 +114,7 @@ export const doctors = [
       imgUrl: '../../../assets/Images/dhq.jpg',
       opening: '8AM to 7PM',
       panel: 15,
+      facilities:['Plastic Surgery','Clinical Psychology','Pediatrics','Internal Medicine','Physiotherapy','Dermatologist','ENT Department','Cardiology','Dental Surgery','Nutrition/Dietitian','Emergency Services','Pain Relief Center'],
       address:'Canal Rd, Faiz Colony, Toba Tek Singh, Toba Tek Singh District, Punjab',
       contact: '01234567890'
     }]

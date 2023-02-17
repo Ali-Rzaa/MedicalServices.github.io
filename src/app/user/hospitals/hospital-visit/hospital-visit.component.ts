@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { hospitals } from 'src/app/data';
+import { hospitals, doctors } from 'src/app/data';
 
 @Component({
   selector: 'app-hospital-visit',
@@ -8,4 +8,5 @@ import { hospitals } from 'src/app/data';
 })
 export class HospitalVisitComponent {
   hospital = hospitals[2];
+  doctor = doctors[2]
 }
