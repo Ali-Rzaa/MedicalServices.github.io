@@ -7,5 +7,5 @@ import { hospitals } from 'src/app/data';
   styleUrls: ['./hospital-visit.component.scss']
 })
 export class HospitalVisitComponent {
-  hospital = hospitals[0];
+  hospital = hospitals[2];
 }
