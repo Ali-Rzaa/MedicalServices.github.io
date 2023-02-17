@@ -1,0 +1,59 @@
+<div>
+    <div class="image-container">
+        <img class="slider-img" src="../../../assets/Images/clinicSlider.png" alt="">
+      </div>
+      <div class="hospital-container">
+        <div class="first-row">
+            <span class="booking-text">Clinics in Toba Tek Singh</span>
+        </div>
+        <div *ngIf="hospitals" class="second-row row px-3 mt-4">
+            <div *ngFor="let hospital of hospitals" class="col-12 px-2">
+                <div class="row">
+                <div class="info-card">
+                    <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                        <img  class="card-img" src="{{hospital.imgUrl?hospital.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="sub-info">
+                                    <span class="card-name">{{hospital.name}}</span>
+                                    <br>
+                                    <span class="card-text">
+                                        Opening hours:
+                                        <span style="color: #179C8C;"> {{hospital.opening}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="card-text">
+                                        Address: 
+                                        <span style="color: #179C8C;">{{hospital.address}}</span>
+                                    </span>
+                                </div>
+                                <br>
+                                <div class="hospital-card-button">
+                                    <button routerLink="/user/clinicVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                                </div>
+                            </div>
+                            <div class="last-content col-lg-4 col-md-4 col-sm-12">
+                                <div class="contact-container">
+                                    <div>
+                                        <span class="card-text">
+                                            Contact:
+                                            <span style="color: #179C8C;">{{hospital.contact?hospital.contact:'No contact'}}</span> 
+                                        </span>
+                                        <div class="hospital-card-button2">
+                                            <button routerLink="/user/clinicVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

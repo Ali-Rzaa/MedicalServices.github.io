@@ -1,0 +1,120 @@
+<div>
+    <div class="hospital-container">
+        <div class="first-row">
+            <span class="booking-text">Doctor Profile</span>
+        </div>
+        <div *ngIf="doctor" class="second-row row px-3 mt-4">
+            <div class="col-12 px-2">
+                <div class="row">
+                <div class="info-card">
+                    <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                        <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <div class="sub-info">
+                                    <span class="card-name">{{doctor.name}}</span>
+                                    <br>
+                                    <span class="card-text">
+                                        <span style="color: #179C8C;"> {{doctor.profession}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="card-text">
+                                        Fee: 
+                                        <span style="color: #179C8C;">{{doctor.fee}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="card-text">
+                                        Experiance: 
+                                        <span style="color: #179C8C;">{{doctor.experience}}</span>
+                                    </span>
+                                    <br>
+                                    <span class="card-text">
+                                        <span style="color: #179C8C;">{{doctor.availability}}</span>
+                                    </span>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="last-content col-lg-3 col-md-3 col-sm-12">
+                                <div class="contact-container">
+                                    <div>
+                                        <span class="card-text">
+                                            <button routerLink="/user/doctorBooking/{{doctor.id}}" class="visit-button" >Book Appointment</button> 
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="row px-3 mt-2">
+            <div class="px-2 col-12">
+                <div class="third-row row p-3">
+                    <div class="col-lg-10 col-md-8 col-sm-12">
+                        <span class="card-name">Available day&time</span>
+                        <br>
+                        <br>
+                        <div class="card-text">
+                            <span style="color:#179C8C">Morning Time</span>
+                            <div class="activeHours" >
+                                <button class="timeblock" mat-stroked-button *ngFor="let morningT of doctor.morningActiveHours"><i class='bi bi-clock'></i><span> {{morningT}}</span></button>
+                            </div>
+                            <br><br>
+                            <span style="color:#179C8C">Evening Time</span>
+                            <div class="activeHours" >
+                                <button class="timeblock" mat-stroked-button *ngFor="let morningT of doctor.eveningActiveHours"><i class='bi bi-clock'></i><span> {{morningT}}</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        hi
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row px-3 mt-2">
+            <div class="px-2 col-12">
+                <div class="third-row row p-3">
+                    <div class="col-12">
+                        <span class="card-name">About Doctor</span>
+                        <br>
+                        <br>
+                        <p class="about-content">
+                            Dr. Joan Soomro - Dermatologist, Toba Tek Singh - Appointment Details:
+                            Dr. Joan Soomro is a qualified Dermatologist in Toba Tek Singh with over 5 years of experience in the field. With numerous qualifications, the doctor provides the best treatment for all Dermatologist 
+                            related diseases. Dr. Joan Soomro has treated over 12 patients. You can book an appointment with Dr. Joan Soomro through Online Booking of Medical Appointments and Services website.
+                            
+                            Role of Dermatologist:
+                            Skin specialists like Dr. Joan Soomro help in the treatment of all diseases related to the skin hair and nails. Other commonly used names for a Dermatologist are skin care specialist, aestheticism, 
+                            and skin doctor. They can care for people of all ages from babies to adults.
+                            Some of the common roles of a dermatologist are the diagnosis and treatment of all skin-related diseases and disorders whether minor or major. You can also get cosmetic procedures done from skin 
+                            specialists like hydra facials, wrinkle treatment, mole removal, or acne scar treatments, etc.
+                            
+                            Experience:
+                            Dr. Joan Soomro has been treating patients with Dermatologist related diseases for the past 5 years and has an excellent Experince.
+                            
+                            Special interests of Dr. Joan Soomro:
+                            The special interests of Dr. Joan Soomro are:
+                            Hair Problems
+                            Laser for Hair removal
+                            Nails Treatment
+                            Dr. Joan Soomro Appointment Details:
+                            Dr. Joan Soomro, the Dermatologist, is available for Online Booking of Medical Appointments and Services website in-person.
+                            Dr. Joan Soomro‘s Gulshan e Iqbal, Toba Tek Sing:
+                            Gulshan e Iqbal, Karachi
+                            Dr. Joan Soomro‘s clinic timings are 06:00 PM - 08:00 PM.
+                            You can contact Dr. Joan Soomro at 042-35531221.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

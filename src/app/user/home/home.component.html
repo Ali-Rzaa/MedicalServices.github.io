@@ -1,0 +1,105 @@
+<div >
+    <div class="image-container">
+        <img class="slider-img" src="../../../assets/Images/homeSlider.png" alt="">
+      </div>
+    <div class="home-container">
+        <div class="first-row">
+            <span class="booking-text">Book a Doctor</span>
+            <a routerLink="/user/doctors" class="see-more" mat-button color="accent">See More</a>
+        </div>
+        <div *ngIf="doctors" class="second-row row px-3 mt-4">
+            <div *ngFor="let doctor of doctors | slice:0:3" class="col-lg-4 col-md-6 col-sm-12 px-2">
+                <div routerLink="/user/doctorProfile/{{doctor.id}}" class="info-card doctor-card">
+                    <div class="card-img-container">
+                        <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container mt-3">
+                        <div class="card-name">{{doctor.name}}</div>
+                        <span class="card-specialization">{{doctor.profession}}</span>
+                        <br>
+                        <span><b>Fee:</b></span><span class="card-fee"> Rs. {{doctor.fee}}</span>
+                        <br>
+                        <span><b>Experience:</b></span><span class="card-experience"> {{doctor.experience?doctor.experience:'No experience'}} year</span>
+                        <br>
+                        <span class="card-availability">{{doctor.availability}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first-row">
+            <span class="booking-text">Visit Hospitals</span>
+            <a routerLink="/user/hospitals" class="see-more" mat-button color="accent">See More</a>
+        </div>
+        <div *ngIf="hospitals" class="second-row row px-3 mt-4">
+            <div *ngFor="let hospital of hospitals | slice:0:3" class="col-lg-4 col-md-6 col-sm-12 px-2">
+                <div class="info-card">
+                    <div class="card-img-container">
+                        <img  class="card-img" src="{{hospital.imgUrl?hospital.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container mt-3">
+                        <div class="card-name">{{hospital.name}}</div>
+                        <span class="card-specialization">{{hospital.opening}}</span>
+                        <br>
+                        <span><b>Doctors: </b></span><span class="card-fee">{{hospital.panel}}</span>
+                        <br>
+                        <span><b>Contact: </b></span><span class="hospital-card-contact">{{hospital.contact ? hospital.contact : 'No Contact'}}</span>
+                        <br>
+                        <div class="hospital-card-button">
+                            <button routerLink="/user/hospitalVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first-row">
+            <span class="booking-text">Visit Clinic</span>
+            <a routerLink="/user/clinics" class="see-more" mat-button color="accent">See More</a>
+        </div>
+        <div *ngIf="hospitals" class="second-row row px-3 mt-4">
+            <div *ngFor="let hospital of hospitals | slice:0:3" class="col-lg-4 col-md-6 col-sm-12 px-2">
+                <div class="info-card">
+                    <div class="card-img-container">
+                        <img  class="card-img" src="{{hospital.imgUrl ? hospital.imgUrl : '../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container mt-3">
+                        <div class="card-name">{{hospital.name}}</div>
+                        <span class="card-specialization">{{hospital.opening}}</span>
+                        <br>
+                        <!-- <span><b>Doctors: </b></span><span class="card-fee">{{hospital.panel}}</span> -->
+                        <!-- <br> -->
+                        <span><b>Contact: </b></span><span class="hospital-card-contact">{{hospital.contact? hospital.contact : 'No Contact'}}</span>
+                        <br>
+                        <div class="hospital-card-button">
+                            <button routerLink="/user/clinicVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="first-row">
+            <span class="booking-text">Visit Lab</span>
+            <a routerLink="/user/labs" class="see-more" mat-button color="accent">See More</a>
+        </div>
+        <div *ngIf="hospitals" class="second-row row px-3 mt-4">
+            <div *ngFor="let hospital of hospitals | slice:0:3" class="col-lg-4 col-md-6 col-sm-12 px-2">
+                <div class="info-card">
+                    <div class="card-img-container">
+                        <img  class="card-img" src="{{hospital.imgUrl ? hospital.imgUrl : '../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                    </div>
+                    <div class="card-info-container mt-3">
+                        <div class="card-name">{{hospital.name}}</div>
+                        <span class="card-specialization">{{hospital.opening}}</span>
+                        <br>
+                        <!-- <span><b>Doctors: </b></span><span class="card-fee">{{hospital.panel}}</span> -->
+                        <!-- <br> -->
+                        <span><b>Contact: </b></span><span class="hospital-card-contact">{{hospital.contact? hospital.contact : 'No Contact'}}</span>
+                        <br>
+                        <div class="hospital-card-button">
+                            <button routerLink="/user/labVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
