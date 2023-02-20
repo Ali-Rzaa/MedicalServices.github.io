@@ -1,1 +1,177 @@
-<p>user-profile works!</p>
+<div>
+    <div class="hospital-container">
+        <div class="first-row">
+            <span class="booking-text">User Profile</span>
+        </div>
+        <div *ngIf="user" class="second-row row px-3 mt-4">
+            <div class="col-12 px-2">
+                <div class="row">
+                    <div class="info-card" >
+                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                            <img  class="card-img" src="{{user.imgUrl?user.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                        </div>
+                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                            <div class="row">
+                                <div class="col-lg-9 col-md-9 col-sm-12">
+                                    <div class="sub-info">
+                                        <span class="card-name">{{user.name}}</span>
+                                        <br>
+                                        <span class="card-text">
+                                            Age:
+                                            <span style="color: #179C8C;"> {{user.age}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Gender: 
+                                            <span style="color: #179C8C;">{{user.gender}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Phone No: 
+                                            <span style="color: #179C8C;">{{user.phoneNo}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-3 col-md-3 col-sm-12">
+                                    <div class="contact-container">
+                                        <div>
+                                            <div>
+                                                <button class="logout-button" >Logout</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="first-row">
+                    <span class="doctors-heading">Current Booked Appointments</span>
+                </div>
+                <div class="row mt-1">
+                    <div class="info-card" *ngFor="let doctor of filterUser2(doctors)">
+                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                            <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                        </div>
+                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <div class="sub-info">
+                                        <span class="card-name">{{doctor.name}}</span>
+                                        <br>
+                                        <span class="card-text">
+                                            <span style="color: #179C8C;"> {{doctor.profession}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Fee:
+                                            <span style="color: #179C8C;"> {{doctor.fee}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Experience: 
+                                            <span style="color: #179C8C;">{{doctor.experience}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            <span style="color: #179C8C;">{{doctor.availability}}</span>
+                                        </span>
+                                        <br>
+                                        <br>
+                                        <div class="hospital-card-button">
+                                            <button class="visit-button" >Cancel Appointment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-4 col-md-4 col-sm-12">
+                                    <div style="border: none;" class="contact-container">
+                                        <div class="row">
+                                            <div class="card-text col-12">
+                                                <span style="color: #179C8C;">Selected Day</span> 
+                                                <span class="activeHours" >
+                                                    <span class="timeblock">12/03/2023</span> 
+                                                </span>
+                                            </div>
+                                            <div class="card-text col-12">
+                                                <span style="color: #179C8C;">Selected Time</span> 
+                                                <span class="activeHours" >
+                                                    <span class="timeblock"><i class='bi bi-clock'></i>7:00pm</span> 
+                                                </span>
+                                            </div>
+                                            <div class="hospital-card-button2">
+                                                <button class="visit-button">Cancel Appointment</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="first-row">
+                    <span class="doctors-heading">Appointments History</span>
+                </div>
+                <div class="row mt-1">
+                    <div class="info-card" *ngFor="let doctor of filterUser(doctors)">
+                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                            <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                        </div>
+                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <div class="sub-info">
+                                        <span class="card-name">{{doctor.name}}</span>
+                                        <br>
+                                        <span class="card-text">
+                                            <span style="color: #179C8C;"> {{doctor.profession}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Fee:
+                                            <span style="color: #179C8C;"> {{doctor.fee}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Experience: 
+                                            <span style="color: #179C8C;">{{doctor.experience}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            <span style="color: #179C8C;">{{doctor.availability}}</span>
+                                        </span>
+                                        <br>
+                                        <br>
+                                        <div class="hospital-card-button">
+                                            <button class="visit-button" >Appointment Complete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-4 col-md-4 col-sm-12">
+                                    <div style="border: none;" class="contact-container">
+                                        <div class="row">
+                                            <div class="card-text col-12">
+                                                <span style="color: #179C8C;">Selected Day</span> 
+                                                <span class="activeHours" >
+                                                    <span class="timeblock">12/03/2023</span> 
+                                                </span>
+                                            </div>
+                                            <div class="card-text col-12">
+                                                <span style="color: #179C8C;">Selected Time</span> 
+                                                <span class="activeHours" >
+                                                    <span class="timeblock"><i class='bi bi-clock'></i>7:00pm</span> 
+                                                </span>
+                                            </div>
+                                            <div class="hospital-card-button2">
+                                                <button class="visit-button">Appointment Complete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

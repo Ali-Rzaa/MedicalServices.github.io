@@ -5,11 +5,9 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
-  {path:'user', children:[
     {path:'doctors', component:DoctorListComponent},
     {path:'doctorBooking/:id', component:DoctorBookingComponent},
-    {path:'doctorProfile/:id', component:DoctorProfileComponent},
-  ]}
+    {path:'doctorProfile/:id', component:DoctorProfileComponent}
 ];
 
 @NgModule({

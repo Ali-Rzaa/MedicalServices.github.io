@@ -6,7 +6,7 @@ import { doctors, hospitals } from 'src/app/data';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent{
   doctors = doctors;
   hospitals = hospitals;
 }

@@ -1,0 +1,106 @@
+<div>
+    <div class="hospital-container">
+        <div class="first-row">
+            <span class="booking-text">{{clinic.name}}, Toba Tek Singh</span>
+        </div>
+        <div *ngIf="clinic" class="second-row row px-3 mt-4">
+            <div class="col-12 px-2">
+                <div class="row">
+                    <div class="info-card">
+                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+                            <img  class="card-img" src="{{clinic.imgUrl?clinic.imgUrl:'../../../assets/Images/clinicSlider.png'}}" alt="Card Image">
+                        </div>
+                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                    <div class="sub-info">
+                                        <span class="card-name">{{clinic.name}}</span>
+                                        <br>
+                                        <span class="card-text">
+                                            Opening hours:
+                                            <span style="color: #179C8C;"> {{clinic.opening}}</span>
+                                        </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Address: 
+                                            <span style="color: #179C8C;">{{clinic.address}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-4 col-md-4 col-sm-12">
+                                    <div class="contact-container">
+                                        <div>
+                                            <span class="card-text">
+                                                Contact:
+                                                <span style="color: #179C8C;">{{clinic.contact?clinic.contact:'No contact'}}</span> 
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <span class="card-name">Patient Details</span>
+                    <div class="third-row col-12">
+                        <form class="row p-3">
+                            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                                <div class="card-text">
+                                    <label for="patientname">Patient Full Name</label>
+                                    <div class="inputField">
+                                        <input id="patientname" placeholder="Enter Name" type="text">
+                                    </div>
+                                    <br><br>
+                                    <label for="patientweight">Patient Weight</label>
+                                    <div class="inputField">
+                                        <input id="patientweight" placeholder="Enter Weight" type="text">
+                                    </div>
+                                    <br><br>
+                                    <label for="patientdisease">Disease</label>
+                                    <div class="inputField larger-field">
+                                        <textarea ng-model="myTextarea" id="patientdisease" type="text"> </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                                <div class="card-text">
+                                    <label for="patientage">Patient Age</label>
+                                    <div class="inputField">
+                                        <input id="patientage" placeholder="Enter Age" type="text">
+                                    </div>
+                                    <br><br>
+                                    <label for="patientemail">Patient Email</label>
+                                    <div class="inputField">
+                                        <input id="patientemail" placeholder="Enter Email" type="text">
+                                    </div>
+                                    <br><br>
+                                    <label for="patienthistory">Disease in History</label>
+                                    <div class="inputField larger-field">
+                                        <textarea ng-model="myTextarea" id="patienthistory" type="text"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+                                <div class="card-text">
+                                    <label for="patientgender">Gender</label>
+                                    <div class="inputField">
+                                        <input id="patientgender" placeholder="Enter Gender" type="text">
+                                    </div>
+                                    <br><br>
+                                    <label for="patientphone">Patient Phone No</label>
+                                    <div class="inputField">
+                                        <input id="patientphone" placeholder="Enter Phone No" type="text">
+                                    </div>
+                                    <br><br>
+                                    <button type="submit" class="visit-button" >
+                                        Confirm Appointment
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+    </div>
+</div>

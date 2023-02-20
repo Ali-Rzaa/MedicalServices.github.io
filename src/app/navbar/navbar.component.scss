@@ -28,7 +28,11 @@
     padding-right: 7px;
     height: 50px;
     border: 1px solid #179C8C;
-    background-color: #EFFCFA
+    background-color: #EFFCFA;
+    transition: all 0.3s ease-out;
+}
+.search:focus-within{
+    box-shadow: 0 4px 6px -1px gray;
 }
 .search-input{
     background-color: none;
@@ -101,6 +105,7 @@
     font-weight: 400;
 }
 .UserProfile{
+    cursor: pointer;
     width: 50px;
     height: 50px;
     border-radius: 50px;

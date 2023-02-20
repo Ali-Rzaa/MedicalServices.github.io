@@ -27,7 +27,7 @@
         </div>
         <div *ngIf="doctors" class="second-row row px-3 mt-4">
             <div *ngFor="let doctor of doctors" class="col-lg-4 col-md-6 col-sm-12 px-2">
-                <div routerLink="/user/doctorProfile/{{doctor.id}}" class="info-card">
+                <div routerLink="/doctor/doctorProfile/{{doctor.id}}" class="info-card">
                     <div class="card-img-container">
                         <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                     </div>
