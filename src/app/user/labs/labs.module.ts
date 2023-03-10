@@ -20,4 +20,8 @@ import { LabAppointmentComponent } from './lab-appointment/lab-appointment.compo
     MatButtonModule
   ]
 })
-export class LabsModule { }
+export class LabsModule { 
+  constructor(){
+    console.log('lab module')
+  }
+}

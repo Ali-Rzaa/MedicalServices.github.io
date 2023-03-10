@@ -8,14 +8,12 @@ import { LabsComponent } from './labs/labs.component';
 import { PatientsComponent } from './patients/patients.component';
 
 const routes: Routes = [
-  {path:"admin", children:[
     {path:'dashboard', component:DashboardComponent},
     {path:'clinics', component:ClinicsComponent},
     {path:'doctors', component:DoctorsComponent},
     {path:'hospitals', component:HospitalsComponent},
     {path:'labs', component:LabsComponent},
     {path:'patients', component:PatientsComponent},
-  ]}
 ];
 
 @NgModule({

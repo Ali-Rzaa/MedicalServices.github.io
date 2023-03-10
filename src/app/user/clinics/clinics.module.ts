@@ -20,4 +20,8 @@ import { ClinicAppointmentComponent } from './clinic-appointment/clinic-appointm
     MatButtonModule
   ]
 })
-export class ClinicsModule { }
+export class ClinicsModule { 
+  constructor(){
+    console.log('clinic module')
+  }
+}

@@ -24,4 +24,8 @@ import { LabsComponent } from './labs/labs.component';
     AdminRoutingModule
   ]
 })
-export class AdminModule { }
+export class AdminModule { 
+  constructor(){
+    console.log('admin module')
+  }
+}

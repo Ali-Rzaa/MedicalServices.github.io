@@ -11,22 +11,25 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminModule } from './admin/admin.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button'
+import { HomeComponent } from './user/home/home.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    HomeComponent,
+    UserProfileComponent,
     SidebarComponent,
     NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AdminModule,
     UserModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
