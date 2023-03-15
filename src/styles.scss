@@ -2,12 +2,14 @@
 *{
     margin: 0;
     padding: 0;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
 }
 *{ -ms-overflow-style: none; }
-*::-webkit-scrollbar { width: 0 !important }
+*::-webkit-scrollbar { width: 0 !important; display: none; }
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.scss';
 
 html, body { height: 100%; }
-body { margin: 0; border: 1px solid black; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
