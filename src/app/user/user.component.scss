@@ -1,0 +1,152 @@
+.navbar{
+    position: fixed;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px gray;
+}
+.logoContainer{
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    width: 100px;
+    height: 80px;
+    margin-left: 30px;
+}
+
+.search{
+    font-size: 19px;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: row;
+    border-radius: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    height: 50px;
+    border: 1px solid #179C8C;
+    background-color: #EFFCFA;
+    transition: all 0.3s ease-out;
+}
+.search:focus-within{
+    box-shadow: 0 4px 6px -1px gray;
+}
+.search-input{
+    background-color: none;
+    background-color: inherit;
+    width: 90%;
+    border: 0;
+    font-size: 19px;
+    box-shadow: none;
+    text-overflow: ellipsis;
+}
+.search-botton{
+    width: 10%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease-out;
+}
+.search-botton:hover{
+    font-size: 22px;
+}
+.showToggle{
+    display:none;
+}
+.searchToggle{
+    position: absolute;
+    right: 330px;
+}
+.responsiveSearchBar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #179C8C;
+}
+.location{
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    font-size: 17px;
+    display: inline-block;
+    position: absolute;
+    right: 190px;
+}
+.location-icon{
+    color: #179C8C;
+    margin-right: 2px;
+}
+.image{
+    width: 100%;
+    height: 100%;
+}
+.rightContent{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+}
+.userInfo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    right: 30px;
+}
+.userName{
+    margin-right: 10px;
+    font-size: 17px;
+    font-weight: 400;
+}
+.UserProfile{
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    overflow:hidden;
+}
+.profile-image{
+    width: 100%;
+    height: 100%;
+}
+@media (max-width:780px){
+    .location{
+        right: 170px;
+    }
+    .userInfo{
+        right: 15px;
+    }
+}
+@media (max-width:680px) {
+    .showToggle{
+        display:inline-block;
+    }
+    .logoContainer{
+        margin-left: 15px !important;
+    }
+    .search{
+        display: none;
+    }
+}
+@media (max-width:580px) {
+    .searchToggle{
+        right: 170px;
+    }
+    .rightContent{
+        width: 200px;
+    }
+    .location{
+        display: none;
+    }
+    .userName{
+        min-width:max-content;
+    }
+}

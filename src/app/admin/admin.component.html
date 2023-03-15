@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-2">
+        <div class="sidebar pt-4">
+            <div>
+                <img class='sidebarLogo' src="../../assets/navbar/adminLogo.png"/>
+            </div>
+            <div class="pt-4">
+                <button routerLink="/admin/dashboard" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-columns-gap sidebar-icon"></i>
+                    <span class="sidebar-title">Dashboard</span>
+                </button>
+                <button routerLink="/admin/doctors" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-bag-plus sidebar-icon"></i>
+                    <span class="sidebar-title">Doctors</span>
+                </button>
+                <button routerLink="/admin/patients" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-person sidebar-icon"></i>
+                    <span class="sidebar-title">Users</span>
+                </button>
+                <button routerLink="/admin/appointments" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-person-vcard-fill sidebar-icon"></i>
+                    <span class="sidebar-title">Appointments</span>
+                </button>
+                <button routerLink="/admin/hospitals" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-hospital-fill sidebar-icon"></i>
+                    <span class="sidebar-title">Hospitals</span>
+                </button>
+                <button routerLink="/admin/clinics" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-search-heart sidebar-icon"></i>
+                    <span class="sidebar-title">Clinics</span>
+                </button>
+                <button routerLink="/admin/labs" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-prescription2 sidebar-icon"></i>
+                    <span class="sidebar-title">Labs</span>
+                </button>
+                <button routerLink="/admin/cities" routerLinkActive="active" class="sidebar-item">
+                    <i class="bi bi-pin-map-fill sidebar-icon"></i>
+                    <span class="sidebar-title">Cities</span>
+                </button>
+                <div class="sidebar-item logout">
+                    <i class="bi bi-box-arrow-right sidebar-icon"></i>
+                    <span class="sidebar-title">Logout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10">
+        <router-outlet/>
+    </div>
+</div>

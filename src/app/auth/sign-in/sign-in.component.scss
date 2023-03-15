@@ -1,0 +1,80 @@
+.signin-content{
+    height: 900px;
+}
+*{
+    font-family: 'Ubuntu';
+    font-style: normal;
+}
+.login-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.logo{
+    width: 144px;
+    height: 130px;
+}
+.tittle{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+    color: #179C8C;
+    margin-top: 15px;
+}
+.welcome-text{
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 41px;
+    color: #179C8C;
+    margin-top: 25px;
+}
+.input-fields{
+    margin-top: 79px;
+}
+.label{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    margin-left: 20px;
+}
+.input-field input{
+    width: 500px;
+    height: 60px;
+    padding: 18px;
+    font-size: 20px;
+    border-style: none;
+    background: #EFFCFA;
+    border: 1px solid #179C8C;
+    padding-left: 20px;
+    margin-top: 4px;
+    padding-right: 20px;
+    border-radius: 40px;
+}
+.password-field{
+    margin-top: 20px;
+}
+.login-button{
+    margin-top: 52px;
+    font-size: 24px;
+    transition: all 0.5s ease-out;
+    width: 328px;
+    height: 60px;
+    border-style: none;
+    border-radius: 50px; 
+    background-color: #179C8C;
+    color: rgb(253, 247, 247);
+}
+.login-button:hover, .login-button:active{
+    background-color: #f6fcfb;
+    color: #179C8C;
+    box-shadow: 0 4px 6px -1px gray;
+    transform: scale(1.05);
+}
+.create-account{
+    margin-top: 38px;
+}
+.sign-up{
+    color: #179C8C;
+    cursor: pointer;
+}

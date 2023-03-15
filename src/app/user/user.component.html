@@ -1,0 +1,39 @@
+<!-- <div class="user-container"> -->
+    <div class="navbar">
+        <div routerLink="/" class="logoContainer col-2">
+            <img src="../../assets/navbar/logo.png" alt="logo">
+        </div>
+        
+        <div Align="center" class="search col-4 col-md-4 col-sm-3">
+            <input type="text" class="form-control search-input" placeholder="Search Doctors,Labs and Hospitals">
+            <div class="search-botton">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+        <div class="rightContent col-4 col-md-5 col-sm-7">
+            <div [ngClass]="{'searchToggle':!showSearch,'showToggle':true}" (click)="toggle()">
+                <i *ngIf="!showSearch" class="bi bi-search search-botton"></i>
+                <i *ngIf="showSearch" class="bi bi-x-circle"></i>
+            </div>
+            <div *ngIf="showSearch" class="responsiveSearchBar">
+                <input type="text" class="form-control search-input" placeholder="Search Doctors,Labs and Hospitals">
+                <div class="search-botton">
+                    <i class="bi bi-search"></i>
+                </div>
+            </div>
+            <div *ngIf="!showSearch" class="location">
+                <i class="bi bi-geo-alt-fill location-icon"></i>
+                <span>Toba Tek Singh</span>
+            </div>
+            <div *ngIf="!showSearch" class="userInfo">
+                <div class="userName">
+                    <span>Ali Raza</span>
+                </div>
+                <div routerLink="/userProfile" class="UserProfile">
+                    <img class="profile-image" src="../../assets/Images/joan.jfif" alt="user image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+<!-- </div> -->

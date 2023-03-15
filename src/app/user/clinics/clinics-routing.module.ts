@@ -5,7 +5,7 @@ import { ClinicListComponent } from './clinic-list/clinic-list.component';
 import { ClinicVisitComponent } from './clinic-visit/clinic-visit.component';
 
 const routes: Routes = [
-    {path:'clinics',component:ClinicListComponent},
+    {path:'',component:ClinicListComponent},
     {path:'clinicVisit/:id',component:ClinicVisitComponent},
     {path:'clinicAppointment/:id',component:ClinicAppointmentComponent},
 ];

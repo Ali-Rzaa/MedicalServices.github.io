@@ -4,7 +4,7 @@ import { HospitalListComponent } from './hospital-list/hospital-list.component';
 import { HospitalVisitComponent } from './hospital-visit/hospital-visit.component';
 
 const routes: Routes = [
-    {path:'hospitals', component:HospitalListComponent},
+    {path:'', component:HospitalListComponent},
     {path:'hospitalVisit/:id', component:HospitalVisitComponent}
 ];
 

@@ -5,7 +5,7 @@ import { LabListComponent } from './lab-list/lab-list.component';
 import { LabVisitComponent } from './lab-visit/lab-visit.component';
 
 const routes: Routes = [
-    {path:'labs', component:LabListComponent},
+    {path:'', component:LabListComponent},
     {path:'labVisit/:id', component:LabVisitComponent},
     {path:'labAppointment/:id', component:LabAppointmentComponent}
 ];

@@ -113,14 +113,13 @@
 .hospital-card-contact{
     white-space: wrap;
 }
-@media (max-width: 768px){
-    .image-container{
-        display: none !important;
-    } 
+@media (max-width: 1400px){
     .home-container{
         margin-left: 5px;
         margin-right: 5px;
     }
+}
+@media (max-width: 768px){
     .image-container{
         display: none !important;
     }
