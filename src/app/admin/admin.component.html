@@ -1,50 +1,79 @@
-<div class="row">
-    <div class="col-2">
-        <div class="sidebar pt-4">
-            <div>
-                <img class='sidebarLogo' src="../../assets/navbar/adminLogo.png"/>
-            </div>
-            <div class="pt-4">
-                <button routerLink="/admin/dashboard" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-columns-gap sidebar-icon"></i>
-                    <span class="sidebar-title">Dashboard</span>
-                </button>
-                <button routerLink="/admin/doctors" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-bag-plus sidebar-icon"></i>
-                    <span class="sidebar-title">Doctors</span>
-                </button>
-                <button routerLink="/admin/patients" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-person sidebar-icon"></i>
-                    <span class="sidebar-title">Users</span>
-                </button>
-                <button routerLink="/admin/appointments" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-person-vcard-fill sidebar-icon"></i>
-                    <span class="sidebar-title">Appointments</span>
-                </button>
-                <button routerLink="/admin/hospitals" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-hospital-fill sidebar-icon"></i>
-                    <span class="sidebar-title">Hospitals</span>
-                </button>
-                <button routerLink="/admin/clinics" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-search-heart sidebar-icon"></i>
-                    <span class="sidebar-title">Clinics</span>
-                </button>
-                <button routerLink="/admin/labs" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-prescription2 sidebar-icon"></i>
-                    <span class="sidebar-title">Labs</span>
-                </button>
-                <button routerLink="/admin/cities" routerLinkActive="active" class="sidebar-item">
-                    <i class="bi bi-pin-map-fill sidebar-icon"></i>
-                    <span class="sidebar-title">Cities</span>
-                </button>
-                <div class="sidebar-item logout">
-                    <i class="bi bi-box-arrow-right sidebar-icon"></i>
-                    <span class="sidebar-title">Logout</span>
-                </div>
-            </div>
+<!-- /dashboard/sharedList/Item/ -->
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <div class="bg-sidebar border-right" id="sidebar-wrapper">
+    <div class="d-flex" style="padding: 20px">
+      <img src="./assets/navbar/adminLogo.png" height="90px" width="200px" />
+    </div>
+    <br />
+    <div class="list-group list-group-flush">
+      <a [routerLink]="['/admin/dashboard']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <span class="material-icons"> dashboard </span>
+          <div class="title-m-l" [routerLink]="['/admin/dashboard']" [routerLinkActive]="['boxclass1']">Dashboard</div>
         </div>
+      </a>
+      <a [routerLink]="['/admin/doctors']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <span class="material-icons"> work_outline </span>
+          <span class="title-m-l" [routerLink]="['/admin/doctors']" [routerLinkActive]="['boxclass1']">Doctors</span>
+        </div>
+      </a>
+      <a [routerLink]="['/admin/patients']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <span class="material-icons"> account_circle </span>
+          <span class="title-m-l" [routerLink]="['/admin/patients']" [routerLinkActive]="['boxclass1']">Users</span>
+        </div>
+      </a>
+      <a [routerLink]="['/admin/appointments']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <i class="bi bi-person-vcard-fill icons"></i>
+          <span class="title-m-l" style="margin-top: 0px" [routerLink]="['/admin/appointments']" [routerLinkActive]="['boxclass1']">Appointments</span>
+        </div>
+      </a>
+      <a [routerLink]="['/admin/hospitals']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <i class="bi bi-hospital-fill icons"></i>
+          <span class="title-m-l" style="margin-top: 0px" [routerLink]="['/admin/hospitals']" [routerLinkActive]="['boxclass1']">Hospitals</span>
+        </div>
+      </a>
+
+      <a [routerLink]="['/admin/clinics']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <i class="bi bi-search-heart icons"></i>
+          <span class="title-m-l" style="margin-top: 0px" [routerLink]="['/admin/clinics']" [routerLinkActive]="['boxclass1']">Clinics</span>
+        </div>
+      </a>
+      <a [routerLink]="['/admin/labs']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <i class="bi bi-prescription2 icons"></i>
+          <span class="title-m-l" style="margin-top: 0px" [routerLink]="['/admin/labs']" [routerLinkActive]="['boxclass1']">Labs</span>
+        </div>
+      </a>
+      <a [routerLink]="['/admin/cities']" [routerLinkActive]="['boxclass']" class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <i class="bi bi-pin-map-fill icons"></i>
+          <span class="title-m-l" style="margin-top: 0px" [routerLink]="['/admin/cities']" [routerLinkActive]="['boxclass1']">Cities</span>
+        </div>
+      </a>
+      <br /><br /><br />
+      <a class="item-sidebar list-group-item list-group-item-action d-pointer">
+        <div class="d-flex">
+          <span class="material-icons"> logout </span>
+          <span class="title-m-l" style="margin-top: -1px">Log Out</span>
+        </div>
+      </a>
+      <br />
     </div>
-    <div class="col-10">
-        <router-outlet/>
+  </div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="offset-lg-3 col-lg-9 offset-md-4 col-md-8">
+        <div style="margin-left: -80px">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
