@@ -42,8 +42,14 @@
     <div class="modal-body">
       <div class="content-modal">
         <span class="heading">Please! select your city</span>
-        <div>
+        <div class="dropdown-container">
             <label for="city">City</label>
+            <select class="dropdown-field" matNativeControl name="city">
+                <option class="dropdown-option" value="">None</option>
+                <option class="dropdown-option" *ngFor="let car of cities" [value]="car.value">
+                {{car.viewValue}}
+                </option>
+            </select>
         </div>
       </div>
     </div>

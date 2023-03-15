@@ -116,11 +116,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px;
 }
 .heading{
     font-size: 19px;
     font-weight: 500;
     color: #179C8C;
+}
+.dropdown-container{
+    margin-top: 20px;
+    width: 100%;  
+}
+.dropdown-field{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #179C8C; 
+    border-radius: 50px;
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    appearance: none;
+    outline: none;
+}
+.dropdown-option{
+    border-radius: 50px;
+    outline: none;
+    height: 50px !important;
+    border: 1px solid #179C8C; 
 }
 .next-button{
  border: 1px solid #179C8C;   
