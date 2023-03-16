@@ -77,7 +77,46 @@
                 </div>
                 <div class="row mt-4">
                     <span class="doctors-heading">Doctors by Disease in Toba Tek Singh</span>
-                    <div class="info-card" *ngFor="let doctor of doctors">
+
+                    <div *ngIf="doctors" class="second-row row mt-4">
+                        <div
+                          *ngFor="let doctor of doctors | slice : 0 : 3"
+                          class="col-lg-6 col-md-12 col-sm-12"
+                        >
+                          <div
+                            routerLink="/doctors/doctorProfile/{{ doctor.id }}"
+                            class="doctor-info-card doctor-card"
+                          >
+                            <div class="doctor-card-img-container">
+                              <img
+                                class="card-img"
+                                src="{{
+                                  doctor.imgUrl
+                                    ? doctor.imgUrl
+                                    : '../../../../../assets/navbar/blank-user.jpg'
+                                }}"
+                                alt="Card Image"
+                              />
+                            </div>
+                            <div class="doctor-card-info-container mt-3">
+                              <div class="doctor-card-name">{{ doctor.name }}</div>
+                              <span class="card-specialization">{{ doctor.profession }}</span>
+                              <br />
+                              <span><b>Fee:</b></span
+                              ><span class="card-fee"> Rs. {{ doctor.fee }}</span>
+                              <br />
+                              <span><b>Experience:</b></span
+                              ><span class="card-experience">
+                                {{ doctor.experience ? doctor.experience : "No experience" }}
+                                year</span
+                              >
+                              <br />
+                              <span class="card-availability">{{ doctor.availability }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- <div class="info-card" *ngFor="let doctor of doctors">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
                             <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                         </div>
@@ -113,7 +152,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
