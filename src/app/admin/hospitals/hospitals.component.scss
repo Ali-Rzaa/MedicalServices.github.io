@@ -10,3 +10,34 @@
     line-height: 16px;
     letter-spacing: 0em;
 }
+
+
+//popup style
+.model-image{
+    border-radius: 10px 10px 0px 0px;
+    margin-top: -5px !important;
+}
+.add-logo{
+    position: absolute;
+    
+}
+.add-logo-text{
+    position: absolute;
+    margin-top: 57px;
+    margin-left: -51px;
+}
+.project-name{
+    position: absolute;
+    margin-left: 25%;
+}
+.camera-icon{
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    position: absolute;
+    float: right;
+    margin-left: 568px;
+    margin-top: 109px;
+    border-radius: 50px;
+    border: 1px solid #179C8C;
+}

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Doctor } from 'src/app/models/admin-models';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-doctors',
@@ -13,12 +13,19 @@ export class DoctorsComponent {
   AddDoctorForm!: FormGroup;
   closeModal: string = '';
   dataSource: any;
+  imageURL: any[] = [];
+  ImageFormData: FormData = new FormData();
   columnsToDisplay: string[] = ['icon', 'image', 'name', 'address', 'phoneNo', 'opening', 'hospital', 'status'];
   doctors: Doctor[] = [];
-  constructor(private modalService: NgbModal) {}
+  selectedCity = 'Select City';
+  showDropdown = false;
+  product: any;
+
+  constructor(private modalService: NgbModal, private formBuilder: FormBuilder) {}
   ngOnInit(): void {
     this.getDoctors();
   }
+
   getDoctors() {
     this.doctors = [];
     for (let a = 0; a < 10; a++) {
@@ -37,7 +44,11 @@ export class DoctorsComponent {
     this.modalService.dismissAll();
   }
   AddDoctorModal(Item: any) {
-    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
+    this.imageURL = [];
+    this.AddDoctorForm = this.formBuilder.group({
+      Name: [''],
+    });
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
       (res) => {
         this.closeModal = `Closed with: ${res}`;
       },
@@ -47,6 +58,19 @@ export class DoctorsComponent {
     );
   }
   onSubmitAddDoctor() {}
+  onUpdateImage(event: any) {
+    this.imageURL = [];
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.ImageFormData.append('Image', file, file.name);
+      var reader = new FileReader();
+      //this.imagePath = files;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imageURL.push(reader.result);
+      };
+    }
+  }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
