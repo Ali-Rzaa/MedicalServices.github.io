@@ -23,13 +23,76 @@
     position: absolute;
     line-height: 37px;
     font-weight: 500;
-    font-size: 25px;
+    font-size: 18px;
     left: 5px;
 }
 .second-row{
     width: 100%;
     overflow: scroll;
 }
+
+
+
+
+
+.doctor-info-card{
+    border: 1px solid #179C8C;
+    background-color: white;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    margin: 10px 15px 10px 0;
+    transition: all 0.5s ease-out;
+    cursor: pointer;
+}
+.doctor-info-card:hover{
+    box-shadow: 0 4px 6px -1px gray;
+    transform: scale(1.05);
+}
+.doctor-card-img-container{
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    left: 0;
+}
+.doctor-card-info-container{
+    right: 0; 
+    width: 60%;
+    height: 100%;
+    font-size: 12px;
+    line-height: 30px;
+    padding-left: 20px;
+    position: absolute;
+    display: inline-block;
+}
+.doctor-card-name{
+    font-size: 18px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.card-specialization{
+    font-size: 12px;
+    line-height: 16px;
+    color: #179C8C;
+}
+.card-fee, .card-experience, .card-availability{
+    color: #179C8C;
+    font-weight: 500;
+}
+.card-availability{
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+}
+
+
+
+
+
 .info-card{
     border: 1px solid #179C8C;
     background-color: white;
@@ -57,21 +120,21 @@
     left: 16%;
     margin-bottom: 8px;
     height: 100%;
-    font-size: 17px;
+    font-size: 12px;
     line-height: 30px;
     padding-left: 20px;
     position: relative;
     display: inline-block;
 }
 .card-name{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 }
 .card-text{
-    font-size: 17px;
+    font-size: 12px;
     letter-spacing: 1px;
     line-height: 16px;
     font-weight: 500;
@@ -101,7 +164,7 @@
 .facility-container{
     padding-right: 17px;
     padding-left: 5px;
-    font-size: 17px;
+    font-size: 12px;
     font-weight: 500;
     word-wrap: break-word;
 }
@@ -127,7 +190,7 @@
     color: white;
 }
 .doctors-heading{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     padding-bottom: 5px;
     min-height: fit-content;
@@ -136,6 +199,9 @@
     overflow: hidden;
 }
 @media (max-width: 768px){
+    .doctor-info-card{
+        margin: 10px 0px 10px 0;
+    }
     .image-container{
         display: none !important;
     }

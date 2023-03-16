@@ -7,11 +7,22 @@ import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-b
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent {
+
+  selectedCity = 'Select City'
+  showDropdown = false
   cities = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
+    {name: 'Lahore'},
+    {name: 'Karachi'},
+    {name: 'Faisalabad'},
+    {name: 'Toba Tek Singh'},
+    {name: 'Kamalia'},
   ];
+  selectCtiy(val: string){
+    this.selectedCity = val
+  }
+  mouseleave(){
+    this.showDropdown = false
+  }
   title = 'Hi! Hiram Khan';
   closeResult: string='';
   modalOptions:NgbModalOptions;

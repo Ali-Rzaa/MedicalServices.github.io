@@ -34,7 +34,7 @@
 </div>
 <ng-template #mymodal let-modal>
     <div class="modal-header">
-        <span class="modal-title" id="modal-basic-title">Hi! Hiram Khan</span>
+        <span class="modal-title" id="modal-basic-title">{{title}}</span>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -42,15 +42,12 @@
     <div class="modal-body">
       <div class="content-modal">
         <span class="heading">Please! select your city</span>
-        <div class="dropdown-container">
-            <label for="city">City</label>
-            <select class="dropdown-field" matNativeControl name="city">
-                <option class="dropdown-option" value="">None</option>
-                <option class="dropdown-option" *ngFor="let car of cities" [value]="car.value">
-                {{car.viewValue}}
-                </option>
-            </select>
-        </div>
+        <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
+            <div (click)="showDropdown = !showDropdown" class="dropdown-field">{{selectedCity}}</div>
+            <div *ngIf="showDropdown" class="dropdown-content">
+                <div (click)="selectCtiy(city.name)" *ngFor="let city of cities">{{city.name}}</div>
+            </div>
+          </div>
       </div>
     </div>
     <div class="modal-footer">
