@@ -13,6 +13,86 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif; }
+
+//cursor effect
 .d-pointer{
     cursor: pointer;
+}
+
+//admin table header
+.table-header{
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+//admin table add button
+.Add-button{
+    font-size: 17px;
+    transition: all 0.5s ease-out;
+    min-width: 110px;
+    height: 50px;
+    border-style: none;
+    border-radius: 50px; 
+    background-color: #EFFCFA;
+    color: #179C8C;
+    float: right;
+    padding: 0px 15px 0px 15px;
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    border:1px solid #179C8C;
+}
+
+//admin table add button hover effect
+.Add-button:hover{
+    background-color: #179C8C;
+    color: #FFFFFF;
+    box-shadow: 0 4px 6px -1px gray;
+    transform: scale(1.05);
+}
+//admin table header text
+.table-header-text{
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 23px;
+    letter-spacing: 0em;
+}
+//Admin table text color
+.color{
+    color: #179C8C;
+}
+//User image
+.user-image{
+    height: 70px;
+    width: 60px;
+    border-radius: 20px;
+    padding: 5px 0px 5px 0px;
+}
+.mat-mdc-table .mdc-data-table__header-row {
+    background: #EFFCFA;
+    border-radius: 10px;
+}
+.mdc-data-table__table {
+    border: 1px solid #179C8C !important;
+    border-spacing: 8px !important;
+}
+.mdc-data-table__header-cell {
+    text-align: center !important;
+}
+.mdc-data-table__cell {
+    text-align: center !important;
+}
+//admin model bg
+.admin-modal{
+    background-color: #EFFCFA;
+    border-radius: 10px;
+}
+.modal-body{
+    padding: 20px;
 }
