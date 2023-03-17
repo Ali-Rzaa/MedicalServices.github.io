@@ -1,0 +1,112 @@
+.mat-mdc-menu-trigger{
+    border: none !important;
+    background-color: white !important;
+    color: gray !important;
+}
+.table-body-text{
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+}
+
+
+//popup style
+.model-image{
+    border-radius: 10px 10px 0px 0px;
+    margin-top: -5px !important;
+}
+.add-logo{
+    position: absolute;
+    
+}
+.add-logo-text{
+    position: absolute;
+    margin-top: 57px;
+    margin-left: -51px;
+}
+.project-name{
+    position: absolute;
+    margin-left: 25%;
+}
+.camera-icon{
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    position: absolute;
+    float: right;
+    margin-left: 568px;
+    margin-top: 109px;
+    border-radius: 50px;
+    border: 1px solid #179C8C;
+}
+.form-container{
+    border: 1px solid #179C8C;
+    margin: 60px;
+    padding: 30px;
+    min-height: 100px;
+    border-radius: 10px;
+}
+//popup form data 
+.input-field input{
+    height: 40px;
+    padding: 18px;
+    font-size: 20px;
+    border-style: none;
+    background: #FFFFFF;
+    border: 1px solid #179C8C;
+    padding-left: 20px;
+    margin-top: 4px;
+    padding-right: 20px;
+    border-radius: 40px;
+    outline: none;
+    width: 98%;
+}
+
+.input-field label{
+    font-family: Ubuntu;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.day-name{
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-left: 10px;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #179C8C !important;
+}
+.label-time{
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.model-image1{
+    border: 1px solid #179C8C;
+    border-radius: 10px;
+}
+.camera-icon1{
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    position: absolute;
+    float: right;
+    margin-left: 100px;
+    margin-top: -42px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid #179C8C;
+}

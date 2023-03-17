@@ -1,1 +1,35 @@
-<p>patients works!</p>
+<div class="fluid-container mt-4">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="table-header">Users</div>
+    </div>
+  </div>
+
+  <!-- Material table -->
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 mt-5" style="margin-bottom: 20px">
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef style="width: 100px" class="table-header-text">Image</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text-order">
+        <img src="./assets/navbar/blank-user.jpg" height="60px" width="60px" class="user-image" />
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">First Name</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">Hiram</td>
+    </ng-container>
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Last Name</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">Khan</td>
+    </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef style="width: 250px" class="table-header-text">Email</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">Hiram708@gmail.com</td>
+    </ng-container>
+    <ng-container matColumnDef="empty">
+      <th mat-header-cell *matHeaderCellDef style="width: 400px" class="table-header-text"></th>
+      <td mat-cell *matCellDef="let element" class="table-body-text"></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+  </table>
+</div>

@@ -13,7 +13,7 @@ export class SignUpComponent implements OnInit {
   errorMessage = "";
   SignupForm!: FormGroup;
   signupLoading: boolean = false;
-  signupAsUser: boolean = true;
+  signupAsUser = 'true';
   submitted = false;
   constructor(private route: ActivatedRoute, private router: Router,private formBuilder: FormBuilder, private accountService: AccountService){}
   ngOnInit(): void {
@@ -38,39 +38,37 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
         this.errorMessage = "";
         this.signupLoading = true;
-        if(this.signupAsUser)
+        if(this.signupAsUser == 'true')
         {
-          console.log("user")
-          // this.accountService.RegisterUser(this.SignupForm.value).subscribe({
-          //   next: (v) => {
-          //     this.router.navigateByUrl('/signIn');
-          //     this.signupLoading = false;
-          //   },
-          //   error: (e) => {
-          //     this.signupLoading = false;
-          //     this.errorMessage = e.error.message;
-          //   },
-          //   complete: () => {
-          //     console.info('complete');
-          //     this.signupLoading = false;
-          //   },
-          // });
+          this.accountService.RegisterUser(this.SignupForm.value).subscribe({
+            next: (v) => {
+              this.router.navigateByUrl('/signIn');
+              this.signupLoading = false;
+            },
+            error: (e) => {
+              this.signupLoading = false;
+              this.errorMessage = e.error.message;
+            },
+            complete: () => {
+              console.info('complete');
+              this.signupLoading = false;
+            },
+          });
         } else {
-          console.log("admin")
-          // this.accountService.RegisterAdmin(this.SignupForm.value).subscribe({
-          //   next: (v) => {
-          //     this.router.navigateByUrl('/signIn');
-          //     this.signupLoading = false;
-          //   },
-          //   error: (e) => {
-          //     this.signupLoading = false;
-          //     this.errorMessage = e.error.message;
-          //   },
-          //   complete: () => {
-          //     console.info('complete');
-          //     this.signupLoading = false;
-          //   },
-          // });
+          this.accountService.RegisterAdmin(this.SignupForm.value).subscribe({
+            next: (v) => {
+              this.router.navigateByUrl('/signIn');
+              this.signupLoading = false;
+            },
+            error: (e) => {
+              this.signupLoading = false;
+              this.errorMessage = e.error.message;
+            },
+            complete: () => {
+              console.info('complete');
+              this.signupLoading = false;
+            },
+          });
         }
     }
 }

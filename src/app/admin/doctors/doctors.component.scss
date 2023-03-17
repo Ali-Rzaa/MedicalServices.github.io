@@ -1,0 +1,93 @@
+.mat-mdc-menu-trigger{
+    border: none !important;
+    background-color: white !important;
+    color: gray !important;
+}
+
+.table-body-text{
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+}
+
+.input-field input{
+    height: 40px;
+    padding: 18px;
+    font-size: 20px;
+    border-style: none;
+    background: #FFFFFF;
+    border: 1px solid #179C8C;
+    padding-left: 20px;
+    margin-top: 4px;
+    padding-right: 20px;
+    border-radius: 40px;
+    outline: none;
+    width: 98%;
+}
+
+.input-field label{
+    font-family: Ubuntu;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.label-time{
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.form-select{
+    border: 1px solid #179C8C; 
+    height: 40px;
+    width: 98%;
+}
+.model-image{
+    border: 1px solid #179C8C;
+    border-radius: 10px;
+}
+.day-name{
+    font-family: Ubuntu;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-left: 10px;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #179C8C !important;
+}
+.about-textarea{
+    border-radius: 10px;
+    border: 1px solid #179C8C;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 10px;
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+
+}
+.camera-icon{
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    position: absolute;
+    float: right;
+    margin-left: 100px;
+    margin-top: -42px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid #179C8C;
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-
+import { MatTableModule } from '@angular/material/table';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DoctorsComponent } from './doctors/doctors.component';
@@ -12,28 +13,24 @@ import { AdminComponent } from './admin.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { CitiesComponent } from './cities/cities.component';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AppointmentDetailsComponent } from './appointments/appointment-details/appointment-details.component';
+import { HospitalDetailsComponent } from './hospitals/hospital-details/hospital-details.component';
+import { ClinicDetailsComponent } from './clinics/clinic-details/clinic-details.component';
+import { LabDetailsComponent } from './labs/lab-details/lab-details.component';
 
 @NgModule({
-  declarations: [
-    AdminComponent,
-    DashboardComponent,
-    DoctorsComponent,
-    PatientsComponent,
-    HospitalsComponent,
-    ClinicsComponent,
-    LabsComponent,
-    AppointmentsComponent,
-    CitiesComponent
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MatIconModule,
-  ]
+  declarations: [AdminComponent, DashboardComponent, DoctorsComponent, PatientsComponent, HospitalsComponent, ClinicsComponent, LabsComponent, AppointmentsComponent, CitiesComponent, AppointmentDetailsComponent, HospitalDetailsComponent, ClinicDetailsComponent, LabDetailsComponent],
+  imports: [NgbModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
 })
-export class AdminModule { 
-  constructor(){
-    console.log('admin module')
+export class AdminModule {
+  constructor() {
+    console.log('admin module');
   }
 }

@@ -1,0 +1,406 @@
+<div class="containar-box">
+  <div class="cover-image-container">
+    <input style="display: none" name="profile" type="file" (change)="onUpdateCoverImage($event)" #image />
+    <div class="d-pointer" style="position: relative"></div>
+    <img src="./assets/admin/cover-img.png" style="position: relative" class="model-image mt-1" width="100%" height="200px" *ngIf="coverImageURL.length == 0" />
+    <span *ngFor="let image of coverImageURL"><img src="{{ image }}" style="position: relative" class="model-image mt-1" width="100%" height="200px" *ngIf="coverImageURL.length != 0" /></span>
+    <div style="margin-top: -150px; margin-left: 45%">
+      <div class="add-logo" *ngIf="coverImageURL.length == 0">
+        <img src="./assets/admin/select-img.png" style="position: relative" class="model-image mt-1" width="100%" />
+      </div>
+      <div class="add-logo-text" *ngIf="coverImageURL.length == 0">
+        <img src="./assets/admin/add-cover-text.png" style="position: relative" class="model-image mt-1" width="100%" />
+      </div>
+      <div class="project-name">
+        <img src="./assets/admin/logo-text.png" style="position: relative" class="model-image mt-1" width="100%" />
+      </div>
+      <div class="camera-icon d-pointer" (click)="image.click()">
+        <span class="material-icons d-pointer" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
+      </div>
+    </div>
+  </div>
+  <div class="inner-container">
+    <p class="header">District Headquarters Hospital Toba Tek Singh</p>
+    <div class="hospital-container">
+      <div class="row">
+        <div style="width: 20%">
+          <img src="https://static.marham.pk/assets/images/hospital-default.jpg" class="hospital-img mt-1" height="168px" width="100%" />
+        </div>
+        <div class="text-container" style="width: 60%">
+          <p class="hospital-name">District Headquarters Hospital Toba Tek Singh</p>
+          <div class="row mt-3">
+            <div style="width: 70px">
+              <span class="hospital-address">Address:</span>
+            </div>
+            <div class="col-10">
+              <span class="hospital-address-bold"> XF2V+QM4, Toba Tek Singh - Rajana Rd, Toba Tek Singh, Toba Tek Singh District, Punjab 36050 </span>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div style="width: 70px">
+              <span class="hospital-address">Hours:</span>
+            </div>
+            <div class="col-10">
+              <span class="hospital-address-bold"> 24</span>
+            </div>
+          </div>
+        </div>
+        <div style="width: 20%; padding: 10px">
+          <div class="row">
+            <div class="col-1">
+              <img src="./assets/admin/line.png" />
+            </div>
+            <div class="col-10 mt-5">
+              <span class="hospital-address">Panel Doctors: <span class="hospital-address-bold">50</span></span>
+              <br />
+              <span class="hospital-address">Phone No:<span class="hospital-address-bold">(046) 2200083</span> </span>
+              <br />
+              <span class="material-icons d-pointer" style="float: right; color: #179c8c" (click)="EditHospitalModal(EditHospitalTriggerModel)"> edit </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hospital-container1 mt-4" style="padding: 15px">
+      <p class="header">District Headquarters Hospital Toba Tek Singh</p>
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+            <div class="col-4 mt-1">
+              <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
+              <span class="profection">Plastic Surgery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <span class="material-icons d-pointer" style="float: right; color: #179c8c; margin-top: 30%"> edit </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding: 40px">
+    <div class="d-flex justify-content-between">
+      <span class="header">Paramedical service in District Headquarters Hospital</span>
+    </div>
+    <div class="row">
+      <div class="col-6 mt-3">
+        <div class="hospital-container">
+          <div class="row">
+            <div style="width: 30%">
+              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" class="hospital-img mt-1" height="168px" width="100%" />
+            </div>
+            <div class="text-container" style="width: 60%">
+              <span class="hospital-name">Dr. Irma</span>
+              <br /><br />
+              <span class="hospital-address-bold" style="margin-top: 3px">Heart Surgeon</span>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Fee: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px"> 1,500</span>
+              </div>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Experience: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px">5 year</span>
+              </div>
+              <div class="hospital-name" style="font-size: 16px; margin-top: 3px">Doctors in District Headquarters Hospital</div>
+            </div>
+            <div style="width: 10%; padding: 10px">
+              <span class="material-icons d-pointer" style="float: right; color: #179c8c; margin-right: 5px" (click)="AddDoctorModal(AddDoctorTriggerModel)"> edit </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mt-3">
+        <div class="hospital-container">
+          <div class="row">
+            <div style="width: 30%">
+              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" class="hospital-img mt-1" height="168px" width="100%" />
+            </div>
+            <div class="text-container" style="width: 60%">
+              <span class="hospital-name">Dr. Irma</span>
+              <br /><br />
+              <span class="hospital-address-bold" style="margin-top: 3px">Heart Surgeon</span>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Fee: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px"> 1,500</span>
+              </div>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Experience: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px">5 year</span>
+              </div>
+              <div class="hospital-name" style="font-size: 16px; margin-top: 3px">Doctors in District Headquarters Hospital</div>
+            </div>
+            <div style="width: 10%; padding: 10px">
+              <span class="material-icons d-pointer" style="float: right; color: #179c8c; margin-right: 5px"> edit </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mt-3">
+        <div class="hospital-container">
+          <div class="row">
+            <div style="width: 30%">
+              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" class="hospital-img mt-1" height="168px" width="100%" />
+            </div>
+            <div class="text-container" style="width: 60%">
+              <span class="hospital-name">Dr. Irma</span>
+              <br /><br />
+              <span class="hospital-address-bold" style="margin-top: 3px">Heart Surgeon</span>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Fee: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px"> 1,500</span>
+              </div>
+              <div class="d-flex mt-1">
+                <span class="hospital-address"> Experience: </span>&nbsp;
+                <span class="hospital-address-bold" style="margin-top: 3px">5 year</span>
+              </div>
+              <div class="hospital-name" style="font-size: 16px; margin-top: 3px">Doctors in District Headquarters Hospital</div>
+            </div>
+            <div style="width: 10%; padding: 10px">
+              <span class="material-icons d-pointer" style="float: right; color: #179c8c; margin-right: 5px"> edit </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+</div>
+<ng-template #AddDoctorTriggerModel let-modal>
+  <div class="admin-modal" style="min-height: 410px">
+    <br /><br /><br />
+    <form [formGroup]="AddDoctorForm" style="padding: 30px; margin-top: -67px" (ngSubmit)="onSubmitAddDoctor()" novalidate autocomplete="off">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="row">
+              <div class="col-6 input-field">
+                <label class="label" for="text">Name</label>
+                <br />
+                <input placeholder="Enter name" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field">
+                <label class="label" for="text">Field</label>
+                <br />
+                <input placeholder="Enter field" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Fee</label>
+                <br />
+                <input placeholder="Enter fee" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Experience</label>
+                <br />
+                <input placeholder="Enter experience" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Type</label>
+                <br />
+                <select class="form-select rounded-pill mt-1" aria-label="Disabled select example">
+                  <option selected class="dropdown-option">Heart Surgeon</option>
+                  <option class="dropdown-option">Surgeon</option>
+                  <option class="dropdown-option">Heart</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Day</label>
+                <br />
+                <div class="mt-3">
+                  <span class="day-name">Sun</span>
+                  <span class="day-name">Mon</span>
+                  <span class="day-name">Tue</span>
+                  <span class="day-name">Wed</span>
+                  <span class="day-name">Thu</span>
+                  <span class="day-name" style="margin-left: 13px">Fri</span>
+                  <span class="day-name" style="margin-left: 15px">Dat</span>
+                </div>
+                <section class="example-section">
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                </section>
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Time</label>
+                <br />
+                <div class="row mt-3">
+                  <div class="col">
+                    <div class="label-time">Start Time</div>
+                    <input type="time" id="appt" name="appt" />
+                  </div>
+                  <div class="col">
+                    <div class="label-time">End Time</div>
+                    <input type="time" id="appt" name="appt" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="col-6 input-field" style="float: right; margin-right: 20px">
+              <label class="label" for="text">Image</label>
+              <br />
+              <input style="display: none" name="profile" type="file" (change)="onUpdateDoctorImage($event)" #doctorimage />
+              <div class="d-pointer" style="position: relative"></div>
+              <img src="./assets/navbar/blank-user.jpg" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="doctorImageURL.length == 0" />
+              <span *ngFor="let image of doctorImageURL"><img src="{{ image }}" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="doctorImageURL.length != 0" /></span>
+              <div class="camera-icon1" (click)="doctorimage.click()">
+                <span class="material-icons" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-field mt-4">
+          <label class="label" for="text">About Doctor</label>
+        </div>
+        <textarea rows="10" class="about-textarea"></textarea>
+      </div>
+      <div class="d-flex" style="float: right; margin-bottom: 10px">
+        <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px">Save</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #EditHospitalTriggerModel let-modal>
+  <div class="admin-modal" style="min-height: 410px">
+    <br /><br /><br />
+    <form [formGroup]="AddDoctorForm" style="padding: 30px; margin-top: -67px" (ngSubmit)="onSubmitAddDoctor()" novalidate autocomplete="off">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-9">
+            <div class="row">
+              <div class="col-6 input-field">
+                <label class="label" for="text">Name</label>
+                <br />
+                <input placeholder="Enter name" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field">
+                <label class="label" for="text">Address</label>
+                <br />
+                <input placeholder="Enter address" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Phone No</label>
+                <br />
+                <input placeholder="Enter phone No" id="name" formControlName="Name" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">City</label>
+                <br />
+                <input placeholder="Enter city" id="name" formControlName="Name" type="text" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Day</label>
+                <br />
+                <div class="mt-3">
+                  <span class="day-name">Sun</span>
+                  <span class="day-name">Mon</span>
+                  <span class="day-name">Tue</span>
+                  <span class="day-name">Wed</span>
+                  <span class="day-name">Thu</span>
+                  <span class="day-name" style="margin-left: 13px">Fri</span>
+                  <span class="day-name" style="margin-left: 15px">Dat</span>
+                </div>
+                <section class="example-section">
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin"></mat-checkbox>
+                </section>
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Time</label>
+                <br />
+                <div class="row mt-3">
+                  <div class="col">
+                    <div class="label-time">Start Time</div>
+                    <input type="time" id="appt" name="appt" />
+                  </div>
+                  <div class="col">
+                    <div class="label-time">End Time</div>
+                    <input type="time" id="appt" name="appt" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="col-6 input-field" style="float: right; margin-right: 20px">
+              <label class="label" for="text">Image</label>
+              <br />
+              <input style="display: none" name="profile" type="file" (change)="onUpdateCoverImage($event)" #doctorimage />
+              <div class="d-pointer" style="position: relative"></div>
+              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="coverImageURL.length == 0" />
+              <span *ngFor="let image of coverImageURL"><img src="{{ image }}" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="coverImageURL.length != 0" /></span>
+              <div class="camera-icon1" (click)="doctorimage.click()">
+                <span class="material-icons" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex" style="float: right; margin-bottom: 10px">
+        <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px">Save</button>
+      </div>
+    </form>
+    <br /><br />
+    <br /><br />
+  </div>
+</ng-template>
