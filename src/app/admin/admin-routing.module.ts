@@ -4,11 +4,14 @@ import { AdminComponent } from './admin.component';
 import { AppointmentDetailsComponent } from './appointments/appointment-details/appointment-details.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { CitiesComponent } from './cities/cities.component';
+import { ClinicDetailsComponent } from './clinics/clinic-details/clinic-details.component';
 import { ClinicsComponent } from './clinics/clinics.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DoctorsComponent } from './doctors/doctors.component';
-import { AddHospitalComponent } from './hospitals/add-hospital/add-hospital.component';
+import { HospitalDetailsComponent } from './hospitals/hospital-details/hospital-details.component';
+
 import { HospitalsComponent } from './hospitals/hospitals.component';
+import { LabDetailsComponent } from './labs/lab-details/lab-details.component';
 import { LabsComponent } from './labs/labs.component';
 import { PatientsComponent } from './patients/patients.component';
 
@@ -19,14 +22,16 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'clinics', component: ClinicsComponent },
+      { path: 'clinics/details', component: ClinicDetailsComponent },
       { path: 'doctors', component: DoctorsComponent },
       { path: 'hospitals', component: HospitalsComponent },
       { path: 'labs', component: LabsComponent },
+      { path: 'labs/details', component: LabDetailsComponent },
       { path: 'patients', component: PatientsComponent },
       { path: 'appointments', component: AppointmentsComponent },
       { path: 'cities', component: CitiesComponent },
       { path: 'appointments/details', component: AppointmentDetailsComponent },
-      { path: 'hospitals/add-hospital', component: AddHospitalComponent },
+      { path: 'hospitals/details', component: HospitalDetailsComponent },
     ],
   },
 ];

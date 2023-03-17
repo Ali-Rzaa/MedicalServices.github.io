@@ -11,10 +11,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HospitalsComponent {
   dataSource: any;
-  AddDoctorForm!: FormGroup;
+  AddHospitalForm!: FormGroup;
   closeModal: string = '';
-  imageURL: any[] = [];
-  ImageFormData: FormData = new FormData();
+  coverImageURL: any[] = [];
+  userImageURL: any[] = [];
+  userImageFormData: FormData = new FormData();
+  coverImageFormData: FormData = new FormData();
   columnsToDisplay: string[] = ['icon', 'image', 'name', 'address', 'phoneNo', 'opening'];
   doctors: Doctor[] = [];
   constructor(private modalService: NgbModal, private formBuilder: FormBuilder) {}
@@ -40,8 +42,9 @@ export class HospitalsComponent {
     this.modalService.dismissAll();
   }
   AddHospitalModal(Item: any) {
-    this.imageURL = [];
-    this.AddDoctorForm = this.formBuilder.group({
+    this.userImageURL = [];
+    this.coverImageURL = [];
+    this.AddHospitalForm = this.formBuilder.group({
       Name: [''],
     });
     this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
@@ -53,16 +56,30 @@ export class HospitalsComponent {
       }
     );
   }
-  onUpdateImage(event: any) {
-    this.imageURL = [];
+  onSubmitAddHospital() {}
+  onUpdateCoverImage(event: any) {
+    this.coverImageURL = [];
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.ImageFormData.append('Image', file, file.name);
+      this.coverImageFormData.append('Image', file, file.name);
       var reader = new FileReader();
       //this.imagePath = files;
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
-        this.imageURL.push(reader.result);
+        this.coverImageURL.push(reader.result);
+      };
+    }
+  }
+  onUpdateUserImage(event: any) {
+    this.userImageURL = [];
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.userImageFormData.append('Image', file, file.name);
+      var reader = new FileReader();
+      //this.imagePath = files;
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.userImageURL.push(reader.result);
       };
     }
   }

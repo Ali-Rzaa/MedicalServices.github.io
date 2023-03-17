@@ -101,3 +101,11 @@ body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif; }
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #179C8C !important;
   }
+::placeholder{
+    font-family: Ubuntu;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+}

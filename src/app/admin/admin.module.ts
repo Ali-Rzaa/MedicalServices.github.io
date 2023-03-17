@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -20,11 +21,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppointmentDetailsComponent } from './appointments/appointment-details/appointment-details.component';
-import { AddHospitalComponent } from './hospitals/add-hospital/add-hospital.component';
+import { HospitalDetailsComponent } from './hospitals/hospital-details/hospital-details.component';
+import { ClinicDetailsComponent } from './clinics/clinic-details/clinic-details.component';
+import { LabDetailsComponent } from './labs/lab-details/lab-details.component';
 
 @NgModule({
-  declarations: [AdminComponent, DashboardComponent, DoctorsComponent, PatientsComponent, HospitalsComponent, ClinicsComponent, LabsComponent, AppointmentsComponent, CitiesComponent, AppointmentDetailsComponent, AddHospitalComponent],
-  imports: [CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
+  declarations: [AdminComponent, DashboardComponent, DoctorsComponent, PatientsComponent, HospitalsComponent, ClinicsComponent, LabsComponent, AppointmentsComponent, CitiesComponent, AppointmentDetailsComponent, HospitalDetailsComponent, ClinicDetailsComponent, LabDetailsComponent],
+  imports: [NgbModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
 })
 export class AdminModule {
   constructor() {
