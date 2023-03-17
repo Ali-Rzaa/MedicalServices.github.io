@@ -57,7 +57,13 @@
                             <br><br>
                             <label for="patientdisease">Test Type</label>
                             <div class="inputField larger-field">
-                                <textarea ng-model="myTextarea" id="patientdisease" type="text"> </textarea>
+                                <div class="suggestion-container">
+                                    <div *ngFor="let item of selectedSuggestion" class="suggestion">{{item.name}} <i (click)="removeSuggestion(item.id)" class="bi bi-x-circle-fill"></i></div>
+                                </div>
+                            </div>
+                            <div class="suggestion-container">
+                                <span>Suggested: </span>
+                                <div (click)="selectSuggestion(item)" *ngFor="let item of suggestions" class="suggestion">{{item.name}}</div>
                             </div>
                         </div>
                     </div>

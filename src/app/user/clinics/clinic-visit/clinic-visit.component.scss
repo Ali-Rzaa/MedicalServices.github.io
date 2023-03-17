@@ -27,8 +27,9 @@
     left: 5px;
 }
 .second-row{
-    width: 100%;
-    overflow: scroll;
+    // width: 100%;
+    // overflow: scroll;
+    padding: 0;
 }
 .info-card{
     border: 1px solid #179C8C;
@@ -38,9 +39,7 @@
     overflow: hidden;
     height: max-content;
     min-height: max-content;
-    margin-right: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px 15px 10px 0;
 }
 
 .card-img-container{
@@ -129,6 +128,7 @@
 }
 //third row
 .third-row{
+    padding: 0;
     border: 1px solid #179C8C;
     background-color: white;
     border-radius: 15px;
@@ -226,7 +226,7 @@
 }
 @media (max-width: 768px){
     .doctor-info-card{
-        margin: 10px 0px 10px 0;
+        margin: 10px 0 10px 0;
     }
     .image-container{
         display: none !important;

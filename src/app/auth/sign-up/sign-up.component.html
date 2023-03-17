@@ -9,45 +9,63 @@
         <div class="tittle">
             <span>Online Booking of Medical Appointments and Services</span>
         </div>
-        <div class="input-fields name-fields row">
+        <mat-radio-group class="row mb-4" [(ngModel)]="signupAsUser">
+            <mat-radio-button class="col-lg-6 col-md-6 col-sm-12" value="true">
+              As Customer
+            </mat-radio-button>
+            <mat-radio-button class="right-radio col-lg-6 col-md-6 col-sm-12" value="false">
+              As Service Provider
+            </mat-radio-button>
+          </mat-radio-group>
+        <span style="color: red;" *ngIf=" errorMessage !== '' ">{{errorMessage}}</span>
+        <form [formGroup]="SignupForm" (ngSubmit)="onSubmit()" class="input-fields" novalidate >
+        <div class=" name-fields row">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <label class="label" for="fname">First Name</label>
                 <div class="input-field">
-                    <input placeholder="Enter your first name" id="fname" type="text">
+                    <input formControlName="firstName" placeholder="Enter your first name" id="fname" type="text">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 ">
                 <div class="last-name">
                     <label class="label" for="lname">Last Name</label>
                     <div class="input-field">
-                        <input placeholder="Enter your last name" id="lname" type="text">
+                        <input formControlName="lastName" placeholder="Enter your last name" id="lname" type="text">
                     </div>
             </div>
             </div>
         </div>
-        <div class="input-fields">
+        <div>
             <div class="input-field-container">
                 <label class="label" for="email">E-mail</label>
                 <div class="input-field">
-                    <input placeholder="Enter your email" id="email" type="text">
+                    <input formControlName="email" placeholder="Enter your email" id="email" type="text">
                 </div>
             </div>
             <div class="input-field-container">
                 <label class="label" for="password">Password</label>
                 <div class="input-field">
-                    <input placeholder="Set password" id="password" type="password">
+                    <input formControlName="password" placeholder="Set password" id="password" type="password">
                 </div>
+                <span style="color: red;" *ngIf="SignupForm.controls.password.touched &&  SignupForm.controls.password.errors?.pattern">Password must be a minimum length of 12 characters containing uppercase, lowercase letters, a number and a symbol</span>
             </div>
             <div class="input-field-container">
                 <label class="label" for="cpassword">Confirm Password</label>
                 <div class="input-field">
-                    <input placeholder="Confirm password" id="cpassword" type="password">
+                    <input formControlName="confirmPassword" placeholder="Confirm password" id="cpassword" type="password">
                 </div>
+                <span style="color: red;" *ngIf="SignupForm.controls.confirmPassword.touched && SignupForm.hasError('mismatch')">Password does not match.</span>
             </div>
         </div>
-        <button class="login-button">Sign Up</button>
+        <div>
+            <button type="submit" [disabled]="!SignupForm.valid" [ngClass]="{'login-button': SignupForm.valid, 'disabled-button': !SignupForm.valid}">
+                Sign Up 
+                <mat-spinner *ngIf="signupLoading" class="spinner"></mat-spinner>
+            </button>
+        </div>
         <div class="login-account">
             <span>Already have an Account? <span routerLink="/signIn" class="sign-in">Sign In</span></span>
         </div>
+    </form>
     </div>
 </div>

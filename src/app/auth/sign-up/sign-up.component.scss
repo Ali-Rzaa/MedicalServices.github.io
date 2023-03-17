@@ -33,6 +33,9 @@
     width: 75%;
     max-width: 500px;
 }
+// .right-radio{
+//     margin-left: 70px;
+// }
 .name-fields{
     margin-top: 50px;
     padding: 0;
@@ -88,6 +91,18 @@
     box-shadow: 0 4px 6px -1px gray;
     transform: scale(1.05);
 }
+.disabled-button{
+    margin-top: 30px;
+    font-size: 24px;
+    transition: all 0.5s ease-out;
+    width: 50%;
+    max-width: 328px;
+    min-height: 50px !important;
+    border-style: none;
+    border-radius: 50px; 
+    background: #f3f3f3;
+    color: #dadada
+}
 .login-account{
     margin-top: 18px;
 }
@@ -95,6 +110,14 @@
     color: #179C8C;
     cursor: pointer;
 }
+.spinner{
+    display: inline-block;
+    width: 15px !important;
+    height: 15px !important;
+}
+.spinner::ng-deep circle {
+    stroke: #fff;
+  }
 @media (max-width: 768px){
     .last-name{
         margin-left: 0;

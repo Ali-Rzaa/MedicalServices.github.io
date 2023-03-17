@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button'
 import { HomeComponent } from './user/home/home.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpErrorInterceptor } from './services/errorhandler/errorhandler.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -31,8 +34,16 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     MatButtonModule,
     AppRoutingModule,
     MatIconModule,
+    HttpClientModule, 
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

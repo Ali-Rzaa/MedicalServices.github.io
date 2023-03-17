@@ -78,12 +78,33 @@
     background-color: #179C8C;
     color: rgb(253, 247, 247);
 }
+.disabled-button{
+    margin-top: 30px;
+    font-size: 24px;
+    transition: all 0.5s ease-out;
+    width: 50%;
+    max-width: 328px;
+    height: 50px;
+    border-style: none;
+    border-radius: 50px; 
+    cursor: not-allowed;
+    background: #f3f3f3;
+    color: #dadada
+}
 .login-button:hover, .login-button:active{
     background-color: #f6fcfb;
     color: #179C8C;
     box-shadow: 0 4px 6px -1px gray;
     transform: scale(1.05);
 }
+.spinner{
+    display: inline-block;
+    width: 15px !important;
+    height: 15px !important;
+}
+.spinner::ng-deep circle {
+    stroke: #fff;
+  }
 .create-account{
     margin-top: 18px;
 }
@@ -137,12 +158,17 @@
     outline: none;
 }
 .next-button{
- border: 1px solid #179C8C;   
+    border: 1px solid #179C8C;   
 }
 .next-button:hover{
     color: #ffffff;
     background-color: #179C8C; 
-   }
+}
+.disabled-next{
+    cursor: not-allowed;
+    background: #f3f3f3;
+    color: #dadada
+}
 
 
    .dropdown {
