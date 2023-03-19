@@ -26,7 +26,6 @@ export class AccountService {
     );
   }
   login(authenticateModel: AuthenticateModel) {
-    debugger
     return this.repositoryService.post('Account/login', authenticateModel, false).pipe(
       map((user: any) => {
         localStorage.setItem('ca_access_token', user.token);
@@ -45,16 +44,16 @@ export class AccountService {
   getUserType() {
     return localStorage.getItem('user_type');
   }
-  // get isLoggedIn(): boolean {
-  //   let authToken = localStorage.getItem('ca_access_token');
-  //   return authToken !== null ? true : false;
-  // }
-  doLogout() {
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('ca_access_token');
+    return authToken !== null ? true : false;
+  }
+doLogout() {
     let removeToken = localStorage.removeItem('ca_access_token');
     let removeUserID = localStorage.removeItem('user_id');
     let removeUserType = localStorage.removeItem('user_type');
     if (removeToken == null && removeUserID == null && removeUserType == null) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/signIn']);
     }
   }
 }

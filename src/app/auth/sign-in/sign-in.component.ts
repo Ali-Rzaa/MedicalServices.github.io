@@ -53,7 +53,7 @@ color='white'
           if (v.role == 'Admin') {
                   this.router.navigateByUrl('/admin/dashboard');
                 } else {
-                  this.router.navigateByUrl('/');
+                  this.router.navigateByUrl('/home');
                 }
                 this.loginLoading = false;
         },

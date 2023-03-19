@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
 }
 .logo{
     margin-top: 50px;
@@ -107,8 +107,13 @@
     background: #f3f3f3;
     color: #dadada
 }
+.button-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .login-account{
-    margin-top: 18px;
+    margin-top: 10px;
 }
 .sign-in{
     color: #179C8C;

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../auth-guard.guard';
 import { AdminComponent } from './admin.component';
 import { AppointmentDetailsComponent } from './appointments/appointment-details/appointment-details.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
@@ -17,9 +18,10 @@ import { PatientsComponent } from './patients/patients.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: AdminComponent,
-    children: [
+    // path: '', canActivate: [AuthGuard], component: AdminComponent,children: [
+    //   {path: '', redirectTo: 'dashboard',pathMatch: 'full',},
+    path: '', component: AdminComponent,children: [
+      { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'clinics', component: ClinicsComponent },
       { path: 'clinics/details', component: ClinicDetailsComponent },

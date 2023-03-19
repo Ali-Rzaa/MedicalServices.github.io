@@ -57,7 +57,7 @@
                 <span style="color: red;" *ngIf="SignupForm.controls.confirmPassword.touched && SignupForm.hasError('mismatch')">Password does not match.</span>
             </div>
         </div>
-        <div class="login-form">
+        <div class="button-wrapper">
             <button type="submit" [disabled]="!SignupForm.valid" [ngClass]="{'login-button': SignupForm.valid, 'disabled-button': !SignupForm.valid}">
                 Sign Up 
                 <mat-spinner *ngIf="signupLoading" class="spinner"></mat-spinner>

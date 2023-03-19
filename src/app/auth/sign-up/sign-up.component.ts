@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
   submitted = false;
   constructor(private route: ActivatedRoute, private router: Router,private formBuilder: FormBuilder, private accountService: AccountService){}
   ngOnInit(): void {
-   
+   console.log(localStorage.getItem('ca_access_token'))
     this.SignupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required ,Validators.minLength(8) ,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'),]],

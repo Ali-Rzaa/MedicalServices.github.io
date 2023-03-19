@@ -4,11 +4,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
-import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdminModule } from './admin/admin.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './user/home/home.component';
@@ -17,10 +15,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './services/errorhandler/errorhandler.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, HomeComponent, UserProfileComponent, SidebarComponent, NotFoundComponent],
-  imports: [BrowserModule, FontAwesomeModule, HttpClientModule, MatTabsModule, UserModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule],
+  declarations: [AppComponent, HomeComponent, UserProfileComponent, SidebarComponent, NotFoundComponent],
+  imports: [BrowserModule, FontAwesomeModule, HttpClientModule,AuthModule, MatTabsModule, UserModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
