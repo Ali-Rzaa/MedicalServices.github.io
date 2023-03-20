@@ -4,18 +4,21 @@
       <div class="table-header">Cities</div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
-      <button class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="showAddCancelBtn != 0">Save</button>
-      <button class="Add-button" *ngIf="showAddCancelBtn != 0">Cancel</button>
+      <button class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="showAddCancelBtn != 0" (click)="onSubmitAddCity()">Save <i class="fa fa-spinner fa-spin" *ngIf="addCityLoading == true"></i></button>
+      <button class="Add-button" *ngIf="showAddCancelBtn != 0" (click)="cancelBtn()">Cancel</button>
     </div>
   </div>
 </div>
+<span style="color: red" *ngIf="errorMessage !== ''">{{ errorMessage }}</span>
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 mt-4" style="margin-bottom: 20px; box-shadow: none !important">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">City Name</th>
     <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
       <div class="d-flex justify-content-between">
-        <input placeholder="Enter city name" class="city-input" />
-        <span class="material-icons mt-1" (click)="DeletRow(i)"> close </span>
+        <input placeholder="Enter city name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded != true" (keyup.enter)="onSubmitAddCity()" />
+        <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.name }}</div>
+
+        <span class="material-icons mt-1" (click)="DeleteCityModel(DeleteCityTriggerModel, element, i)"> close </span>
       </div>
     </td>
   </ng-container>
@@ -27,3 +30,24 @@
   <span class="material-icons add-icon d-pointer" (click)="InsertCityRow()"> add_box </span>
 </div>
 <br /><br />
+<ng-template #DeleteCityTriggerModel let-modal>
+  <div class="modal-body" style="min-height: 200px; background: #fff">
+    <h1 class="modal-title">Please confirm..</h1>
+    <h5>Are you sure that you want to remove this city ?</h5>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages != ''">
+      {{ dltErrorMessages }}
+    </div>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages == ''">
+      <span style="color: white">.</span>
+    </div>
+    <div class="d-flex justify-content-end mt-5">
+      <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
+      <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteCity()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
+        Wait
+        <i class="fa fa-spinner fa-spin"></i>
+      </button>
+    </div>
+  </div>
+</ng-template>

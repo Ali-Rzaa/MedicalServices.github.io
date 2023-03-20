@@ -28,24 +28,24 @@
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef style="width: 100px" class="table-header-text">Image</th>
       <td mat-cell *matCellDef="let element" class="table-body-text-order d-pointer">
-        <img src="./assets/navbar/blank-user.jpg" height="60px" width="60px" class="user-image" />
+        <img src="{{ element.image }}" height="60px" width="60px" class="user-image" />
       </td>
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">District Headquarters Hospital Toba Tek Singh</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">{{ element.name }}</td>
     </ng-container>
     <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef style="width: 350px" class="table-header-text">Address</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">XF2V+QM4, Toba Tek Singh - Rajana Rd, Toba Tek Singh, Toba Tek Singh District, Punjab 36050</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">{{ element.address }}</td>
     </ng-container>
     <ng-container matColumnDef="phoneNo">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Phone No</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">(046) 2200083</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.phoneNumber }}</td>
     </ng-container>
     <ng-container matColumnDef="opening">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Opening</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">24 hours</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.hours }} hours</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
@@ -78,32 +78,34 @@
           <div class="col-9 input-field">
             <label class="label" for="text">Name</label>
             <br />
-            <input placeholder="Add hospitals name" id="name" formControlName="Name" type="text" />
+            <input placeholder="Add hospitals name" id="name" formControlName="name" type="text" />
 
             <label class="label mt-3" for="text">Address</label>
             <br />
-            <input placeholder="Add hospital address" id="name" formControlName="Name" type="text" />
+            <input placeholder="Add hospital address" id="name" formControlName="address" type="text" />
             <div class="row">
               <div class="col-6">
                 <label class="label mt-3" for="text">Phone No</label>
                 <br />
-                <input placeholder="Add phone number" id="name" formControlName="Name" type="text" />
+                <input placeholder="Add phone number" id="name" formControlName="phoneNumber" type="text" />
               </div>
               <div class="col-6">
                 <label class="label mt-3" for="text">City</label>
                 <br />
-                <input placeholder="Add city name" id="name" formControlName="Name" type="text" />
+                <select formControlName="cityId" class="form-select rounded-pill mt-1" aria-label="Disabled select example">
+                  <option [value]="city.cityId" selected class="dropdown-option" *ngFor="let city of cities">{{ city.name }}</option>
+                </select>
               </div>
-              <div class="col-6">
+              <!-- <div class="col-6">
                 <label class="label mt-3" for="text">Reception E-mail</label>
                 <br />
-                <input placeholder="Add e-mail" id="name" formControlName="Name" type="text" />
+                <input placeholder="Add e-mail" id="name" formControlName="name" type="text" />
               </div>
               <div class="col-6">
                 <label class="label mt-3" for="text">Password</label>
                 <br />
-                <input placeholder="Add password" id="name" formControlName="Name" type="text" />
-              </div>
+                <input placeholder="Add password" id="name" formControlName="name" type="text" />
+              </div> -->
             </div>
             <div class="row">
               <div class="col-6 input-field mt-4">
@@ -119,13 +121,13 @@
                   <span class="day-name" style="margin-left: 15px">Dat</span>
                 </div>
                 <section class="example-section">
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="sun"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="mon"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="tus"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="wed"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="thur"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="fri"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="sat"></mat-checkbox>
                 </section>
               </div>
               <div class="col-6 input-field mt-4">
@@ -134,11 +136,11 @@
                 <div class="row mt-3">
                   <div class="col-6">
                     <div class="label-time">Start Time</div>
-                    <input type="time" id="appt" name="appt" />
+                    <input type="time" id="appt" name="appt" formControlName="openingTime" />
                   </div>
                   <div class="col-6">
                     <div class="label-time">End Time</div>
-                    <input type="time" id="appt" name="appt" />
+                    <input type="time" id="appt" name="appt" formControlName="closingTime" />
                   </div>
                 </div>
               </div>
@@ -150,8 +152,8 @@
               <br />
               <input style="display: none" name="profile" type="file" (change)="onUpdateUserImage($event)" #userimage />
               <div class="d-pointer" style="position: relative"></div>
-              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="userImageURL.length == 0" />
-              <span *ngFor="let image of userImageURL"><img src="{{ image }}" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="userImageURL.length != 0" /></span>
+              <img src="https://static.marham.pk/assets/images/hospital-default.jpg" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="hospitalImageURL.length == 0" />
+              <span *ngFor="let image of hospitalImageURL"><img src="{{ image }}" style="position: relative" class="model-image1 mt-1" height="150px" width="150px" *ngIf="hospitalImageURL.length != 0" /></span>
               <div class="camera-icon1" (click)="userimage.click()">
                 <span class="material-icons" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
               </div>
@@ -159,7 +161,8 @@
           </div>
           <div class="d-flex" style="margin-left: 75%; margin-top: 20px">
             <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
-            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px">Save</button>
+            <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!AddHospitalForm.valid">Save</button>
+            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="AddHospitalForm.valid && !addHospitalLoading">Save</button>
           </div>
         </div>
       </div>
