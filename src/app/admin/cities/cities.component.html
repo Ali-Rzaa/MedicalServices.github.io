@@ -1,1 +1,29 @@
-<p>cities works!</p>
+<div class="fluid-container mt-4">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <div class="table-header">Cities</div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <button class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="showAddCancelBtn != 0">Save</button>
+      <button class="Add-button" *ngIf="showAddCancelBtn != 0">Cancel</button>
+    </div>
+  </div>
+</div>
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 mt-4" style="margin-bottom: 20px; box-shadow: none !important">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">City Name</th>
+    <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+      <div class="d-flex justify-content-between">
+        <input placeholder="Enter city name" class="city-input" />
+        <span class="material-icons mt-1" (click)="DeletRow(i)"> close </span>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
+<div class="city-add-row">
+  <span class="material-icons add-icon d-pointer" (click)="InsertCityRow()"> add_box </span>
+</div>
+<br /><br />

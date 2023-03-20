@@ -18,9 +18,10 @@ import { PatientsComponent } from './patients/patients.component';
 
 const routes: Routes = [
   {
-    // path: '', canActivate: [AuthGuard], component: AdminComponent,children: [
-    //   {path: '', redirectTo: 'dashboard',pathMatch: 'full',},
-    path: '', component: AdminComponent,children: [
+    path: '',
+    component: AdminComponent,
+    // canActivate: [AuthGuard],
+    children: [
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'clinics', component: ClinicsComponent },

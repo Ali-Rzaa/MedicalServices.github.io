@@ -5,3 +5,7 @@ export interface Doctor {
   phoneNo: string;
   openning: string;
 }
+export interface city {
+  id: string;
+  name: string;
+}

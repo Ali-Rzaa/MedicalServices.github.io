@@ -84,9 +84,13 @@ body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif; }
 }
 .mdc-data-table__header-cell {
     text-align: center !important;
+    border-top: 1px solid #179C8C !important;
+    border-bottom: 1px solid #179C8C !important;
 }
 .mdc-data-table__cell {
     text-align: center !important;
+    border-top: 1px solid #179C8C !important;
+    border-bottom: 1px solid #179C8C !important;
 }
 //admin model bg
 .admin-modal{

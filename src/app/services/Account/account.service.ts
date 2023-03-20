@@ -5,10 +5,9 @@ import { AuthenticateModel } from 'src/app/models/authenticate-model';
 import { RepositoryService } from '../repository.ts/respository.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
-
   constructor(private router: Router, private repositoryService: RepositoryService) {}
   //User SignUp
   RegisterUser(authenticateModel: any) {
@@ -48,7 +47,8 @@ export class AccountService {
     let authToken = localStorage.getItem('ca_access_token');
     return authToken !== null ? true : false;
   }
-doLogout() {
+  doLogout() {
+    debugger;
     let removeToken = localStorage.removeItem('ca_access_token');
     let removeUserID = localStorage.removeItem('user_id');
     let removeUserType = localStorage.removeItem('user_type');
