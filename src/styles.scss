@@ -113,3 +113,25 @@ body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif; }
     letter-spacing: 0em;
     text-align: left;
 }
+//popup delete btn
+.delete-confirmation-btn {
+    margin-left: 40px;
+    background-color: #f44336;
+    border: none;
+    padding: 10px;
+    width: 100px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: bold;
+  }
+  .cancel-confirmation-btn {
+    background-color: #e7e7e7;
+    color: black;
+    border: 1px solid #e7e7e7!important;
+    padding: 10px;
+    width: 100px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: bold;
+  }
+  
