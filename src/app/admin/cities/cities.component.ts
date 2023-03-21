@@ -48,7 +48,7 @@ export class CitiesComponent {
       (error) => {
         if (error.status == 401) {
           this.accountService.doLogout();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getCities: ' + error.message);
       }
@@ -91,7 +91,7 @@ export class CitiesComponent {
           (error) => {
             if (error.status == 401) {
               this.accountService.doLogout();
-              this.router.navigateByUrl('/');
+              this.router.navigateByUrl('/signIn');
             }
             this.addCityLoading = false;
             this.errorMessage = error.error.errors.name;
@@ -126,7 +126,7 @@ export class CitiesComponent {
         this.deleteLoading = false;
         if (error.status == 401) {
           this.accountService.doLogout();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/signIn');
         }
         this.deleteLoading = false;
         this.errorMessage = error.error.message;

@@ -23,6 +23,8 @@ export class HospitalsComponent {
   columnsToDisplay: string[] = ['icon', 'image', 'name', 'address', 'phoneNo', 'opening'];
   hospitals: HospitalModel[] = [];
   errorMessage: string = '';
+  dltErrorMessages: string = '';
+  deleteLoading: boolean = false;
   addHospitalLoading: boolean = false;
   cities: city[] = [];
   sun: boolean = false;
@@ -33,6 +35,9 @@ export class HospitalsComponent {
   fri: boolean = false;
   sat: boolean = false;
   shortDate: any;
+  hospitalId: string = '';
+  hospitalIndex: number;
+  dateErrorMessage: string = '';
   constructor(private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     let date = new Date();
     let _date = date.getMonth() + 1;
@@ -85,7 +90,7 @@ export class HospitalsComponent {
       (error) => {
         if (error.status == 401) {
           this.accountService.doLogout();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getHospital ' + error.message);
       }
@@ -97,6 +102,8 @@ export class HospitalsComponent {
   AddHospitalModal(Item: any) {
     this.hospitalImageURL = [];
     this.coverImageURL = [];
+    this.dateErrorMessage = '';
+    this.errorMessage = '';
     this.AddHospitalForm = this.formBuilder.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -128,7 +135,6 @@ export class HospitalsComponent {
     values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772Z';
 
     if (this.AddHospitalForm.valid) {
-      this.addHospitalLoading = true;
       // this.hospitalImageFormData.append('name', this.AddHospitalForm.get('name').value);
       // this.hospitalImageFormData.append('address', this.AddHospitalForm.get('address').value);
       // this.hospitalImageFormData.append('phoneNumber', this.AddHospitalForm.get('phoneNumber').value);
@@ -142,46 +148,51 @@ export class HospitalsComponent {
       // this.hospitalImageFormData.append('sat', this.AddHospitalForm.get('sat').value);
       // this.hospitalImageFormData.append('sun', this.AddHospitalForm.get('sun').value);
       // this.hospitalImageFormData.append('cityId', this.AddHospitalForm.get('cityId').value);
-      this.adminService.AddHospital(values).subscribe(
-        (dt) => {
-          let hospital: HospitalModel = {
-            image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
-            coverImage: dt.data.coverImage,
-            hospitalId: dt.data.hospitalId,
-            createdDateTime: dt.data.createdDateTime,
-            modifiedDateTime: dt.data.modifiedDateTime,
-            modifiedBy: dt.data.modifiedBy,
-            createdBy: dt.data.createdBy,
-            cityName: dt.data.cityName,
-            name: dt.data.name,
-            address: dt.data.address,
-            phoneNumber: dt.data.phoneNumber,
-            openingTime: dt.data.openingTime,
-            closingTime: dt.data.closingTime,
-            mon: dt.data.mon,
-            tus: dt.data.tus,
-            wed: dt.data.wed,
-            thur: dt.data.thur,
-            fri: dt.data.fri,
-            sat: dt.data.sat,
-            sun: dt.data.sun,
-            cityId: dt.data.cityId,
-            hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
-          };
-          this.hospitals.unshift(hospital);
-          this.dataSource = new MatTableDataSource(this.hospitals);
-          this.addHospitalLoading = false;
-          this.modalService.dismissAll();
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.accountService.doLogout();
-            this.router.navigateByUrl('/');
+      if (values.openingTime > values.closingTime) {
+        this.dateErrorMessage = 'Start time sholud be greated then End time';
+      } else {
+        this.addHospitalLoading = true;
+        this.adminService.AddHospital(values).subscribe(
+          (dt) => {
+            let hospital: HospitalModel = {
+              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
+              coverImage: dt.data.coverImage,
+              hospitalId: dt.data.hospitalId,
+              createdDateTime: dt.data.createdDateTime,
+              modifiedDateTime: dt.data.modifiedDateTime,
+              modifiedBy: dt.data.modifiedBy,
+              createdBy: dt.data.createdBy,
+              cityName: dt.data.cityName,
+              name: dt.data.name,
+              address: dt.data.address,
+              phoneNumber: dt.data.phoneNumber,
+              openingTime: dt.data.openingTime,
+              closingTime: dt.data.closingTime,
+              mon: dt.data.mon,
+              tus: dt.data.tus,
+              wed: dt.data.wed,
+              thur: dt.data.thur,
+              fri: dt.data.fri,
+              sat: dt.data.sat,
+              sun: dt.data.sun,
+              cityId: dt.data.cityId,
+              hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
+            };
+            this.hospitals.unshift(hospital);
+            this.dataSource = new MatTableDataSource(this.hospitals);
+            this.addHospitalLoading = false;
+            this.modalService.dismissAll();
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.addHospitalLoading = false;
+            this.errorMessage = error.error.errors.name;
           }
-          this.addHospitalLoading = false;
-          this.errorMessage = error.error.errors.name;
-        }
-      );
+        );
+      }
     }
   }
   onUpdateCoverImage(event: any) {
@@ -252,9 +263,42 @@ export class HospitalsComponent {
       (error) => {
         if (error.status == 401) {
           this.accountService.doLogout();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getCities: ' + error.message);
+      }
+    );
+  }
+  DeleteHospitalModel(Item: any, hospitalId: any, index: any) {
+    this.hospitalId = hospitalId;
+    this.hospitalIndex = index;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  DeleteHospital() {
+    this.dltErrorMessages = '';
+    this.deleteLoading = true;
+    this.adminService.deteleHospital(this.hospitalId).subscribe(
+      (dt) => {
+        this.hospitals.splice(this.hospitalIndex, 1);
+        this.dataSource = new MatTableDataSource(this.hospitals);
+        this.deleteLoading = false;
+        this.modalService.dismissAll();
+      },
+      (error) => {
+        this.deleteLoading = false;
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.deleteLoading = false;
+        this.dltErrorMessages = error.error.message;
       }
     );
   }

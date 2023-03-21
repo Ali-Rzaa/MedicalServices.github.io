@@ -29,32 +29,32 @@
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef style="width: 100px" class="table-header-text">Image</th>
       <td mat-cell *matCellDef="let element" class="table-body-text-order d-pointer">
-        <img src="./assets/navbar/blank-user.jpg" class="user-image" />
+        <img src="{{ element.image }}" class="user-image" />
       </td>
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">Dr. Irma</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">{{ element.name }}</td>
     </ng-container>
     <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Department</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color" style="border-right: none">Heart Surgeon</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color" style="border-right: none">{{ element.field }}</td>
     </ng-container>
     <ng-container matColumnDef="phoneNo">
       <th mat-header-cell *matHeaderCellDef style="width: 100px" class="table-header-text">Free</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">1,500</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.fee }}</td>
     </ng-container>
     <ng-container matColumnDef="opening">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Experience</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">5 year</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.experience }}</td>
     </ng-container>
     <ng-container matColumnDef="hospital">
       <th mat-header-cell *matHeaderCellDef style="width: 250px" class="table-header-text">Hospital</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">Doctors in District Headquarters Hospital</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.hospitalName }}</td>
     </ng-container>
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Status</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">Available</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.availableStatus }}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>

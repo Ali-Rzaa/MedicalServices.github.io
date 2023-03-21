@@ -17,6 +17,7 @@ export class HospitalDetailsComponent {
   cities: city[] = [];
   EditHospitalForm!: FormGroup;
   closeModal: string = '';
+  dateErrorMessage: string = '';
   errorMessage: string = '';
   editHospitalLoading: boolean = false;
   coverImageFormData: FormData = new FormData();
@@ -131,9 +132,9 @@ export class HospitalDetailsComponent {
     );
   }
   EditHospitalModal(Item: any) {
-    debugger;
     this.coverImageURL = [];
-    console.log(this.hospital.openingTime);
+    this.dateErrorMessage = '';
+    this.errorMessage = '';
     let splitOpeningTime = this.hospital.openingTime.split('-');
     let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -7);
     let openingTime = substringsplitOpeningTime;
@@ -173,7 +174,6 @@ export class HospitalDetailsComponent {
     values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772';
 
     if (this.EditHospitalForm.valid) {
-      this.editHospitalLoading = true;
       // this.hospitalImageFormData.append('name', this.AddHospitalForm.get('name').value);
       // this.hospitalImageFormData.append('address', this.AddHospitalForm.get('address').value);
       // this.hospitalImageFormData.append('phoneNumber', this.AddHospitalForm.get('phoneNumber').value);
@@ -187,44 +187,49 @@ export class HospitalDetailsComponent {
       // this.hospitalImageFormData.append('sat', this.AddHospitalForm.get('sat').value);
       // this.hospitalImageFormData.append('sun', this.AddHospitalForm.get('sun').value);
       // this.hospitalImageFormData.append('cityId', this.AddHospitalForm.get('cityId').value);
-      this.adminService.UpdateHospital(this.hospitalId, values).subscribe(
-        (dt) => {
-          this.hospital = {
-            image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
-            coverImage: dt.data.coverImage == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.coverImage,
-            hospitalId: dt.data.hospitalId,
-            createdDateTime: dt.data.createdDateTime,
-            modifiedDateTime: dt.data.modifiedDateTime,
-            modifiedBy: dt.data.modifiedBy,
-            createdBy: dt.data.createdBy,
-            cityName: dt.data.cityName,
-            name: dt.data.name,
-            address: dt.data.address,
-            phoneNumber: dt.data.phoneNumber,
-            openingTime: dt.data.openingTime,
-            closingTime: dt.data.closingTime,
-            mon: dt.data.mon,
-            tus: dt.data.tus,
-            wed: dt.data.wed,
-            thur: dt.data.thur,
-            fri: dt.data.fri,
-            sat: dt.data.sat,
-            sun: dt.data.sun,
-            cityId: dt.data.cityId,
-            hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
-          };
-          this.modalService.dismissAll();
-          this.editHospitalLoading = false;
-        },
-        (error) => {
-          if (error.status == 401) {
-            this.accountService.doLogout();
-            this.router.navigateByUrl('/');
+      if (values.openingTime > values.closingTime) {
+        this.dateErrorMessage = 'Start time sholud be greated then End time';
+      } else {
+        this.editHospitalLoading = true;
+        this.adminService.UpdateHospital(this.hospitalId, values).subscribe(
+          (dt) => {
+            this.hospital = {
+              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
+              coverImage: dt.data.coverImage == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.coverImage,
+              hospitalId: dt.data.hospitalId,
+              createdDateTime: dt.data.createdDateTime,
+              modifiedDateTime: dt.data.modifiedDateTime,
+              modifiedBy: dt.data.modifiedBy,
+              createdBy: dt.data.createdBy,
+              cityName: dt.data.cityName,
+              name: dt.data.name,
+              address: dt.data.address,
+              phoneNumber: dt.data.phoneNumber,
+              openingTime: dt.data.openingTime,
+              closingTime: dt.data.closingTime,
+              mon: dt.data.mon,
+              tus: dt.data.tus,
+              wed: dt.data.wed,
+              thur: dt.data.thur,
+              fri: dt.data.fri,
+              sat: dt.data.sat,
+              sun: dt.data.sun,
+              cityId: dt.data.cityId,
+              hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
+            };
+            this.modalService.dismissAll();
+            this.editHospitalLoading = false;
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.editHospitalLoading = false;
+            this.errorMessage = error.error.errors.name;
           }
-          this.editHospitalLoading = false;
-          this.errorMessage = error.error.errors.name;
-        }
-      );
+        );
+      }
     }
   }
   onSubmitAddDoctor() {}
@@ -283,7 +288,7 @@ export class HospitalDetailsComponent {
       (error) => {
         if (error.status == 401) {
           this.accountService.doLogout();
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getCities: ' + error.message);
       }

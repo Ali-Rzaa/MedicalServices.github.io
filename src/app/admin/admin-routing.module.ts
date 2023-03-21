@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'clinics', component: ClinicsComponent },
-      { path: 'clinics/details', component: ClinicDetailsComponent },
+      { path: 'clinics/details/:clinicId', component: ClinicDetailsComponent },
       { path: 'doctors', component: DoctorsComponent },
       { path: 'hospitals', component: HospitalsComponent },
       { path: 'labs', component: LabsComponent },

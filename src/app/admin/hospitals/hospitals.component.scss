@@ -63,7 +63,20 @@
     outline: none;
     width: 98%;
 }
-
+.input-field-small input{
+    height: 40px;
+    padding: 18px;
+    font-size: 20px;
+    border-style: none;
+    background: #FFFFFF;
+    border: 1px solid #179C8C;
+    padding-left: 20px;
+    margin-top: 4px;
+    padding-right: 20px;
+    border-radius: 40px;
+    outline: none;
+    width: 97%;
+}
 .input-field label{
     font-family: Ubuntu;
     font-size: 20px;
@@ -113,5 +126,5 @@
 .form-select{
     border: 1px solid #179C8C; 
     height: 40px;
-    width: 98%;
+    width: 96%;
 }
