@@ -34,7 +34,7 @@ const routes: Routes = [
       { path: 'appointments', component: AppointmentsComponent },
       { path: 'cities', component: CitiesComponent },
       { path: 'appointments/details', component: AppointmentDetailsComponent },
-      { path: 'hospitals/details', component: HospitalDetailsComponent },
+      { path: 'hospitals/details/:hospitalId', component: HospitalDetailsComponent },
     ],
   },
 ];

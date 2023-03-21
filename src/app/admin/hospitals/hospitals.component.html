@@ -33,11 +33,11 @@
     </ng-container>
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">{{ element.name }}</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details/', element.hospitalId]">{{ element.name }}</td>
     </ng-container>
     <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef style="width: 350px" class="table-header-text">Address</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details']">{{ element.address }}</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/hospitals/details/', element.hospitalId]">{{ element.address }}</td>
     </ng-container>
     <ng-container matColumnDef="phoneNo">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Phone No</th>
@@ -45,7 +45,7 @@
     </ng-container>
     <ng-container matColumnDef="opening">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Opening</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.hours }} hours</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.hours }}</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>

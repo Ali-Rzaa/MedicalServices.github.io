@@ -29,10 +29,17 @@ export class AdminService {
         return user;
       })
     );
-  } ///api/Hospital/get-hospital/{hospitalId}
+  } ///api/Hospital/update-hospital/{hospitalId}
   AddHospital(data: any) {
-    debugger;
     return this.repositoryService.post('Hospital/add-hospital', data, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  UpdateHospital(hospitalId: any, data: any) {
+    debugger;
+    return this.repositoryService.putWithOutFile('Hospital/update-hospital/' + hospitalId, data).pipe(
       map((user: any) => {
         return user;
       })

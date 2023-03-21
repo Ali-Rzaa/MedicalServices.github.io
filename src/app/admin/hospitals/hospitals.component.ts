@@ -35,8 +35,12 @@ export class HospitalsComponent {
   shortDate: any;
   constructor(private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     let date = new Date();
-    this.shortDate = '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    debugger;
+    let _date = date.getMonth() + 1;
+    if (_date < 10) {
+      this.shortDate = '' + date.getFullYear() + '-0' + (date.getMonth() + 1) + '-' + date.getDate();
+    } else {
+      this.shortDate = '' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
   }
 
   ngOnInit(): void {
@@ -118,11 +122,11 @@ export class HospitalsComponent {
     );
   }
   onSubmitAddHospital() {
-    debugger;
     this.errorMessage = '';
     let values = this.AddHospitalForm.value;
-    values.openingTime = this.shortDate + 'T' + values.openingTime.toString() + ':00.772Z';
-    values.closingTime = this.shortDate + 'T' + values.closingTime.toString() + ':00.772Z';
+    values.openingTime = this.shortDate + 'T' + values.openingTime + ':00.772Z';
+    values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772Z';
+
     if (this.AddHospitalForm.valid) {
       this.addHospitalLoading = true;
       // this.hospitalImageFormData.append('name', this.AddHospitalForm.get('name').value);
@@ -140,7 +144,34 @@ export class HospitalsComponent {
       // this.hospitalImageFormData.append('cityId', this.AddHospitalForm.get('cityId').value);
       this.adminService.AddHospital(values).subscribe(
         (dt) => {
+          let hospital: HospitalModel = {
+            image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
+            coverImage: dt.data.coverImage,
+            hospitalId: dt.data.hospitalId,
+            createdDateTime: dt.data.createdDateTime,
+            modifiedDateTime: dt.data.modifiedDateTime,
+            modifiedBy: dt.data.modifiedBy,
+            createdBy: dt.data.createdBy,
+            cityName: dt.data.cityName,
+            name: dt.data.name,
+            address: dt.data.address,
+            phoneNumber: dt.data.phoneNumber,
+            openingTime: dt.data.openingTime,
+            closingTime: dt.data.closingTime,
+            mon: dt.data.mon,
+            tus: dt.data.tus,
+            wed: dt.data.wed,
+            thur: dt.data.thur,
+            fri: dt.data.fri,
+            sat: dt.data.sat,
+            sun: dt.data.sun,
+            cityId: dt.data.cityId,
+            hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
+          };
+          this.hospitals.unshift(hospital);
+          this.dataSource = new MatTableDataSource(this.hospitals);
           this.addHospitalLoading = false;
+          this.modalService.dismissAll();
         },
         (error) => {
           if (error.status == 401) {
