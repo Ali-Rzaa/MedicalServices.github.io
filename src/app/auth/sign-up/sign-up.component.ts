@@ -20,7 +20,7 @@ export class SignUpComponent implements OnInit {
    console.log(localStorage.getItem('ca_access_token'))
     this.SignupForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required ,Validators.minLength(8) ,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'),]],
+      password: ['', [Validators.required ,Validators.minLength(12) ,Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'),]],
       
       confirmPassword: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
@@ -40,6 +40,7 @@ export class SignUpComponent implements OnInit {
         this.signupLoading = true;
         if(this.signupAsUser == 'true')
         {
+          console.log("User")
           this.accountService.RegisterUser(this.SignupForm.value).subscribe({
             next: (v) => {
               this.router.navigateByUrl('/signIn');
@@ -55,6 +56,7 @@ export class SignUpComponent implements OnInit {
             },
           });
         } else {
+          console.log("Admin")
           this.accountService.RegisterAdmin(this.SignupForm.value).subscribe({
             next: (v) => {
               this.router.navigateByUrl('/signIn');

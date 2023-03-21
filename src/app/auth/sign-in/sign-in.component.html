@@ -4,7 +4,7 @@
             <img width="100%" height="100%" src="../../../assets/Images/login.png" alt="" srcset="">
         </div>
     </div>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin()" novalidate class="col-lg-6 col-sm-12 col-md-12 login-form">
+    <form [formGroup]="loginForm" novalidate class="col-lg-6 col-sm-12 col-md-12 login-form">
             <img class="logo" src="../../../assets/Images/loginlogo.png" alt="" srcset="">
         <div class="tittle">
             <span>Online Booking of Medical Appointments and Services</span>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" (click)="open(mymodal)" [disabled]="!loginForm.valid" *ngIf="loginLoading==false" [ngClass]="{'login-button': loginForm.valid, 'disabled-button': !loginForm.valid}">Login</button>
+        <button type="button" (click)="onSubmitLogin(mymodal)" [disabled]="!loginForm.valid" *ngIf="loginLoading==false" [ngClass]="{'login-button': loginForm.valid, 'disabled-button': !loginForm.valid}">Login</button>
         <button type="button" class="login-button" *ngIf="loginLoading">
             Log In
             <mat-spinner class="spinner"></mat-spinner>
@@ -48,13 +48,13 @@
                     <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
                         <div (click)="showDropdown = !showDropdown" class="dropdown-field">{{selectedCity}}</div>
                         <div *ngIf="showDropdown" class="dropdown-content">
-                            <div (click)="selectCtiy(city.name)" *ngFor="let city of cities">{{city.name}}</div>
+                            <div (click)="selectCtiy(city.name,city.cityId)" *ngFor="let city of cities">{{city.name}}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" (click)="onSubmitLogin()" class="btn next-button" [ngClass]="{'disabled-next':selectedCity==='Select City...'}" [disabled]="selectedCity==='Select City...'" (click)="modal.close('Save click')">Next</button>
+                <button type="submit" (click)="saveCity()" class="btn next-button" [ngClass]="{'disabled-next':selectedCity==='Select City...'}" [disabled]="selectedCity==='Select City...'" (click)="modal.close('Save click')">Next</button>
             </div>
         </ng-template>
     </form>
