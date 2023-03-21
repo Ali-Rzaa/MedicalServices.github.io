@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit{
   constructor(private router: Router, private userService: UserService){
   }
   ngOnInit(): void {
-    this.loadDoctors()
-    this.loadHospitals()
+    // this.loadDoctors()
+    // this.loadHospitals()
   }
   loadDoctors(){
     this.userService.GetCityDoctors(localStorage.getItem('userCity')).subscribe({

@@ -21,10 +21,10 @@ export class SignInComponent {
       backdropClass:'customBackdrop'
     }
   }
-  cities:Cities[] = []
-  selectedCity = 'Select City...'
-  cityId: any
-  showDropdown = false
+  // cities:Cities[] = []
+  // selectedCity = 'Select City...'
+  // cityId: any
+  // showDropdown = false
   loginForm!: FormGroup;
   submitted = false;
   errorMessage: string = '';
@@ -37,24 +37,28 @@ color='white'
     });
   }
   _loginValues() {
-    console.log(localStorage.getItem('userCity'))
     return this.loginForm.value;
   }
-  onSubmitLogin(content:any) {
+  onSubmitLogin() {
     if (this.loginForm.valid) {
       this.errorMessage = '';
       this.loginLoading = true;
       this.accountService.login(this._loginValues()).subscribe({
         next: (v) => {
-          this.userService.GetCities().subscribe({
-            next: (vl)=>{
-              this.cities = vl.data
-            },
-            error:(er)=>{
-              console.log('cities error: '+er)
-            }
-          })
-          this.open(content);
+          // this.userService.GetCities().subscribe({
+          //   next: (vl)=>{
+          //     this.cities = vl.data
+          //   },
+          //   error:(er)=>{
+          //     console.log('cities error: '+er)
+          //   }
+          // })
+          // this.open(content);
+          if (localStorage.getItem('user_type')== 'Admin') {
+            this.router.navigateByUrl('/admin/dashboard');
+          } else {
+            this.router.navigateByUrl('/selectCity');
+          }
           this.loginLoading = false;
         },
         error: (e) => {
@@ -68,24 +72,24 @@ color='white'
       });
     }
   }
-  selectCtiy(name: string, id:any){
-    this.selectedCity = name
-    this.cityId = id
-  }
-  saveCity(){
-    if(this.selectedCity!== '')
-    {
-      localStorage.setItem('userCity', this.cityId)
-      if (localStorage.getItem('user_type')== 'Admin') {
-        this.router.navigateByUrl('/admin/dashboard');
-      } else {
-        this.router.navigateByUrl('/home');
-      }
-    }
-  }
-  mouseleave(){
-    this.showDropdown = false
-  }
+  // selectCtiy(name: string, id:any){
+  //   this.selectedCity = name
+  //   this.cityId = id
+  // }
+  // saveCity(){
+  //   if(this.selectedCity!== '')
+  //   {
+  //     localStorage.setItem('userCity', this.cityId)
+  //     if (localStorage.getItem('user_type')== 'Admin') {
+  //       this.router.navigateByUrl('/admin/dashboard');
+  //     } else {
+  //       this.router.navigateByUrl('/home');
+  //     }
+  //   }
+  // }
+  // mouseleave(){
+  //   this.showDropdown = false
+  // }
   title = 'Hi! Hiram Khan';
   closeResult: string='';
   modalOptions:NgbModalOptions;

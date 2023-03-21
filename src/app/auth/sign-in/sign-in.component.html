@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <button type="button" (click)="onSubmitLogin(mymodal)" [disabled]="!loginForm.valid" *ngIf="loginLoading==false" [ngClass]="{'login-button': loginForm.valid, 'disabled-button': !loginForm.valid}">Login</button>
+        <button type="button" (click)="onSubmitLogin()" [disabled]="!loginForm.valid" *ngIf="loginLoading==false" [ngClass]="{'login-button': loginForm.valid, 'disabled-button': !loginForm.valid}">Login</button>
         <button type="button" class="login-button" *ngIf="loginLoading">
             Log In
             <mat-spinner class="spinner"></mat-spinner>
@@ -42,7 +42,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <!-- <div class="modal-body">
                 <div class="content-modal">
                     <span class="heading">Please! select your city <span style="font-size: 12px;">(Required)</span></span>
                     <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
@@ -52,10 +52,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
+            </div> -->
+            <!-- <div class="modal-footer">
                 <button type="submit" (click)="saveCity()" class="btn next-button" [ngClass]="{'disabled-next':selectedCity==='Select City...'}" [disabled]="selectedCity==='Select City...'" (click)="modal.close('Save click')">Next</button>
-            </div>
+            </div> -->
         </ng-template>
     </form>
 </div>

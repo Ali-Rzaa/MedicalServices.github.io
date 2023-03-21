@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="select-content">
+        <span class="heading">Hi! {{userName}}</span>
+        <div class="content-modal">
+            <span class="heading">Please! select your city <span style="font-size: 12px;">(Required)</span></span>
+            <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
+                <div (click)="showDropdown = !showDropdown" [ngStyle]="{'color':selectedCity==='Select City...'?'#dadada':'black'}" class="dropdown-field">{{selectedCity}}</div>
+                <div class="dropdown-list">
+                    <div *ngIf="showDropdown" class="dropdown-content">
+                        <div (click)="selectCtiy(city.name,city.cityId)" *ngFor="let city of cities">{{city.name}}</div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn next-button" [ngClass]="{'disabled-next':selectedCity==='Select City...'}" [disabled]="selectedCity==='Select City...'" (click)="submitCity()">Next</button>
+        </div>
+    </div>
+</div>
