@@ -48,11 +48,11 @@ export class AccountService {
     return authToken !== null ? true : false;
   }
   doLogout() {
-    debugger;
     let removeToken = localStorage.removeItem('ca_access_token');
     let removeUserID = localStorage.removeItem('user_id');
     let removeUserType = localStorage.removeItem('user_type');
-    if (removeToken == null && removeUserID == null && removeUserType == null) {
+    let removeUserCity = localStorage.removeItem('userCity');
+    if (removeToken == null && removeUserID == null && removeUserType == null && removeUserCity == null) {
       this.router.navigate(['/signIn']);
     }
   }

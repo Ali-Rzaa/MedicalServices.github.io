@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
+import { Cities } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/Account/account.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,23 +14,17 @@ import { AccountService } from 'src/app/services/Account/account.service';
 export class SignInComponent {
 
   constructor(
-    private modalService: NgbModal, private formBuilder: FormBuilder,private router: Router,private accountService: AccountService
+    private modalService: NgbModal, private formBuilder: FormBuilder,private router: Router,private accountService: AccountService, private userService: UserService
   ){
     this.modalOptions = {
       backdrop:'static',
       backdropClass:'customBackdrop'
     }
   }
-  
+  cities:Cities[] = []
   selectedCity = 'Select City...'
+  cityId: any
   showDropdown = false
-  cities = [
-    {name: 'Lahore'},
-    {name: 'Karachi'},
-    {name: 'Faisalabad'},
-    {name: 'Toba Tek Singh'},
-    {name: 'Kamalia'},
-  ];
   loginForm!: FormGroup;
   submitted = false;
   errorMessage: string = '';
@@ -44,18 +40,22 @@ color='white'
     console.log(localStorage.getItem('userCity'))
     return this.loginForm.value;
   }
-  onSubmitLogin() {
-    if (this.loginForm.valid && this.selectedCity !== 'Select City...') {
+  onSubmitLogin(content:any) {
+    if (this.loginForm.valid) {
       this.errorMessage = '';
       this.loginLoading = true;
       this.accountService.login(this._loginValues()).subscribe({
         next: (v) => {
-          if (v.role == 'Admin') {
-                  this.router.navigateByUrl('/admin/dashboard');
-                } else {
-                  this.router.navigateByUrl('/home');
-                }
-                this.loginLoading = false;
+          this.userService.GetCities().subscribe({
+            next: (vl)=>{
+              this.cities = vl.data
+            },
+            error:(er)=>{
+              console.log('cities error: '+er)
+            }
+          })
+          this.open(content);
+          this.loginLoading = false;
         },
         error: (e) => {
           this.loginLoading = false;
@@ -66,23 +66,22 @@ color='white'
           this.loginLoading = false;
         },
       });
-      // this.accountService.login(this.loginForm.value).subscribe(
-      //   (dt) => {
-      //     if (dt.Role == 'Admin') {
-      //       this.router.navigateByUrl('/admin');
-      //     } else {
-      //       this.router.navigateByUrl('/');
-      //     }
-      //   },
-      //   (error) => {
-      //     this.loginLoading = false;
-      //     this.errorMessage = 'Error: Invalid Email or Password.';
-      //   }
-      // );
     }
   }
-  selectCtiy(val: string){
-    this.selectedCity = val
+  selectCtiy(name: string, id:any){
+    this.selectedCity = name
+    this.cityId = id
+  }
+  saveCity(){
+    if(this.selectedCity!== '')
+    {
+      localStorage.setItem('userCity', this.cityId)
+      if (localStorage.getItem('user_type')== 'Admin') {
+        this.router.navigateByUrl('/admin/dashboard');
+      } else {
+        this.router.navigateByUrl('/home');
+      }
+    }
   }
   mouseleave(){
     this.showDropdown = false
@@ -95,6 +94,7 @@ color='white'
   open(content:any) {
     this.modalService.open(content, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      console.log(this.closeResult)
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
