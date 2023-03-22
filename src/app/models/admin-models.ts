@@ -64,6 +64,10 @@ export interface DoctorModel {
   hospitalName: string;
   availableStatus: string;
 }
+export interface Type {
+  id: string;
+  type: string;
+}
 export interface ClinicModel {
   image: string;
   coverImage: string;

@@ -67,7 +67,15 @@ export class AdminService {
     );
   }
   AddDoctor(data: any) {
-    return this.repositoryService.post('Doctor/add-doctor', data, true).pipe(
+    return this.repositoryService.postWithFile('Doctor/add-doctor', data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  ///api/Doctor/delete-doctor/{doctorId}
+  UpdateDoctor(doctorId: any, data: any) {
+    return this.repositoryService.put('Doctor/update-doctor/' + doctorId, data).pipe(
       map((user: any) => {
         return user;
       })
@@ -79,8 +87,16 @@ export class AdminService {
         return user;
       })
     );
-  } //api​/Clinic​/add-clinic/api/Clinic/get-clinics
-
+  }
+  deteleDoctor(doctorId: any) {
+    debugger;
+    return this.repositoryService.delete('Doctor/delete-doctor/' + doctorId).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  //clinic
   getClinic() {
     return this.repositoryService.get('Clinic/get-clinics', true).pipe(
       map((user: any) => {

@@ -17,7 +17,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="EditDoctorModal(EditDoctorTriggerModel, element)">
             <span>Edit</span>
           </button>
           <button mat-menu-item>
@@ -67,35 +67,49 @@
     <form [formGroup]="AddDoctorForm" style="padding: 30px; margin-top: -67px" (ngSubmit)="onSubmitAddDoctor()" novalidate autocomplete="off">
       <div class="modal-body">
         <div class="row">
+          <div class="errorValdation text-center" *ngIf="errorMessage != ''">
+            {{ errorMessage }}
+          </div>
           <div class="col-9">
             <div class="row">
               <div class="col-6 input-field">
                 <label class="label" for="text">Name</label>
                 <br />
-                <input placeholder="Enter name" id="name" formControlName="Name" type="text" />
+                <input placeholder="Enter name" id="name" formControlName="name" type="text" />
               </div>
               <div class="col-6 input-field">
                 <label class="label" for="text">Field</label>
                 <br />
-                <input placeholder="Enter field" id="name" formControlName="Name" type="text" />
+                <input placeholder="Enter field" id="name" formControlName="field" type="text" />
               </div>
               <div class="col-6 input-field mt-4">
                 <label class="label" for="text">Fee</label>
                 <br />
-                <input placeholder="Enter fee" id="name" formControlName="Name" type="text" />
+                <input placeholder="Enter fee" id="name" formControlName="fee" type="number" />
               </div>
               <div class="col-6 input-field mt-4">
                 <label class="label" for="text">Experience</label>
                 <br />
-                <input placeholder="Enter experience" id="name" formControlName="Name" type="text" />
+                <input placeholder="Enter experience" id="name" formControlName="experience" type="text" />
               </div>
               <div class="col-6 input-field mt-4">
                 <label class="label" for="text">Type</label>
                 <br />
-                <select class="form-select rounded-pill mt-1" aria-label="Disabled select example">
-                  <option selected class="dropdown-option">Heart Surgeon</option>
-                  <option class="dropdown-option">Surgeon</option>
-                  <option class="dropdown-option">Heart</option>
+                <select class="form-select rounded-pill" aria-label="Disabled select example" formControlName="typeId">
+                  <option [value]="type.id" selected class="dropdown-option" *ngFor="let type of types">{{ type.type }}</option>
+                </select>
+              </div>
+              <div class="col-6 input-field mt-3">
+                <mat-radio-group aria-label="Select an option" style="margin-top: -10px" (change)="HospiatlOrClinic($event)">
+                  <mat-radio-button value="1" [checked]="true"><span class="radio-label">Hospital</span></mat-radio-button>
+                  <mat-radio-button value="2"><span class="radio-label">Clinic</span></mat-radio-button>
+                </mat-radio-group>
+                <br />
+                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '1'" formControlName="hospitalId">
+                  <option [value]="hospital.hospitalId" selected class="dropdown-option" *ngFor="let hospital of hospitals">{{ hospital.name }}</option>
+                </select>
+                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '2'" formControlName="clinicId">
+                  <option [value]="clinic.clinicId" selected class="dropdown-option" *ngFor="let clinic of clinics">{{ clinic.name }}</option>
                 </select>
               </div>
             </div>
@@ -110,16 +124,16 @@
                   <span class="day-name">Wed</span>
                   <span class="day-name">Thu</span>
                   <span class="day-name" style="margin-left: 13px">Fri</span>
-                  <span class="day-name" style="margin-left: 15px">Dat</span>
+                  <span class="day-name" style="margin-left: 15px">Sat</span>
                 </div>
                 <section class="example-section">
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
-                  <mat-checkbox class="example-margin"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="sun"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="mon"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="tus"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="wed"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="thur"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="fri"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="sat"></mat-checkbox>
                 </section>
               </div>
               <div class="col-6 input-field mt-4">
@@ -128,12 +142,15 @@
                 <div class="row mt-3">
                   <div class="col">
                     <div class="label-time">Start Time</div>
-                    <input type="time" id="appt" name="appt" />
+                    <input type="time" id="appt" name="appt" formControlName="openingTime" />
                   </div>
                   <div class="col">
                     <div class="label-time">End Time</div>
-                    <input type="time" id="appt" name="appt" />
+                    <input type="time" id="appt" name="appt" formControlName="closingTime" />
                   </div>
+                </div>
+                <div class="errorValdation" *ngIf="dateErrorMessage != ''">
+                  {{ dateErrorMessage }}
                 </div>
               </div>
             </div>
@@ -155,12 +172,155 @@
         <div class="input-field mt-4">
           <label class="label" for="text">About Doctor</label>
         </div>
-        <textarea rows="10" class="about-textarea"></textarea>
+        <textarea rows="10" class="about-textarea" formControlName="description"></textarea>
       </div>
       <div class="d-flex" style="float: right; margin-bottom: 10px">
         <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
-        <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px">Save</button>
+        <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!AddDoctorForm.valid">Save</button>
+        <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="AddDoctorForm.valid && !addLoading">Save</button>
       </div>
     </form>
+  </div>
+</ng-template>
+<ng-template #EditDoctorTriggerModel let-modal>
+  <div class="admin-modal" style="min-height: 410px">
+    <br /><br /><br />
+    <form [formGroup]="EditDoctorForm" style="padding: 30px; margin-top: -67px" (ngSubmit)="onSubmitEditDoctor()" novalidate autocomplete="off">
+      <div class="modal-body">
+        <div class="row">
+          <div class="errorValdation text-center" *ngIf="errorMessage != ''">
+            {{ errorMessage }}
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-6 input-field">
+                <label class="label" for="text">Name</label>
+                <br />
+                <input placeholder="Enter name" id="name" formControlName="name" type="text" />
+              </div>
+              <div class="col-6 input-field">
+                <label class="label" for="text">Field</label>
+                <br />
+                <input placeholder="Enter field" id="name" formControlName="field" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Fee</label>
+                <br />
+                <input placeholder="Enter fee" id="name" formControlName="fee" type="number" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Experience</label>
+                <br />
+                <input placeholder="Enter experience" id="name" formControlName="experience" type="text" />
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Type</label>
+                <br />
+                <select class="form-select rounded-pill" aria-label="Disabled select example" formControlName="typeId">
+                  <option [value]="type.id" selected class="dropdown-option" *ngFor="let type of types">{{ type.type }}</option>
+                </select>
+              </div>
+              <!-- <div class="col-6 input-field mt-3">
+                <mat-radio-group aria-label="Select an option" style="margin-top: -10px" (change)="HospiatlOrClinic($event)">
+                  <mat-radio-button value="1" [checked]="true"><span class="radio-label">Hospital</span></mat-radio-button>
+                  <mat-radio-button value="2"><span class="radio-label">Clinic</span></mat-radio-button>
+                </mat-radio-group>
+                <br />
+                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '1'" formControlName="hospitalId">
+                  <option [value]="hospital.hospitalId" selected class="dropdown-option" *ngFor="let hospital of hospitals">{{ hospital.name }}</option>
+                </select>
+                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '2'" formControlName="clinicId">
+                  <option [value]="clinic.clinicId" selected class="dropdown-option" *ngFor="let clinic of clinics">{{ clinic.name }}</option>
+                </select>
+              </div> -->
+            </div>
+            <div class="row">
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Day</label>
+                <br />
+                <div class="mt-3">
+                  <span class="day-name">Sun</span>
+                  <span class="day-name">Mon</span>
+                  <span class="day-name">Tue</span>
+                  <span class="day-name">Wed</span>
+                  <span class="day-name">Thu</span>
+                  <span class="day-name" style="margin-left: 13px">Fri</span>
+                  <span class="day-name" style="margin-left: 15px">Sat</span>
+                </div>
+                <section class="example-section">
+                  <mat-checkbox class="example-margin" formControlName="sun"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="mon"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="tus"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="wed"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="thur"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="fri"></mat-checkbox>
+                  <mat-checkbox class="example-margin" formControlName="sat"></mat-checkbox>
+                </section>
+              </div>
+              <div class="col-6 input-field mt-4">
+                <label class="label" for="text">Opening Time</label>
+                <br />
+                <div class="row mt-3">
+                  <div class="col">
+                    <div class="label-time">Start Time</div>
+                    <input type="time" id="appt" name="appt" formControlName="openingTime" />
+                  </div>
+                  <div class="col">
+                    <div class="label-time">End Time</div>
+                    <input type="time" id="appt" name="appt" formControlName="closingTime" />
+                  </div>
+                </div>
+                <div class="errorValdation" *ngIf="dateErrorMessage != ''">
+                  {{ dateErrorMessage }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="col-6 input-field" style="float: right; margin-right: 20px">
+              <label class="label" for="text">Image</label>
+              <br />
+              <input style="display: none" name="profile" type="file" (change)="onUpdateImage($event)" #image />
+              <div class="d-pointer" style="position: relative"></div>
+              <img src="{{ drImage }}" style="position: relative" class="model-image mt-1" height="150px" width="150px" *ngIf="imageURL.length == 0" />
+              <span *ngFor="let image of imageURL"><img src="{{ image }}" style="position: relative" class="model-image mt-1" height="150px" width="150px" *ngIf="imageURL.length != 0" /></span>
+              <div class="camera-icon" (click)="image.click()">
+                <span class="material-icons" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-field mt-4">
+          <label class="label" for="text">About Doctor</label>
+        </div>
+        <textarea rows="10" class="about-textarea" formControlName="description"></textarea>
+      </div>
+      <div class="d-flex" style="float: right; margin-bottom: 10px">
+        <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!EditDoctorForm.valid">Save</button>
+        <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="EditDoctorForm.valid && !addLoading">Save</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<ng-template #DeleteHospitalTriggerModel let-modal>
+  <div class="modal-body" style="min-height: 200px; background: #fff">
+    <h1 class="modal-title">Please confirm..</h1>
+    <h5>Are you sure that you want to remove this city ?</h5>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages != ''">
+      {{ dltErrorMessages }}
+    </div>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages == ''">
+      <span style="color: white">.</span>
+    </div>
+    <div class="d-flex justify-content-end mt-5">
+      <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
+      <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteHospital()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
+        Wait
+        <i class="fa fa-spinner fa-spin"></i>
+      </button>
+    </div>
   </div>
 </ng-template>

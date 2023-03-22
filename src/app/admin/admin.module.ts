@@ -24,10 +24,10 @@ import { AppointmentDetailsComponent } from './appointments/appointment-details/
 import { HospitalDetailsComponent } from './hospitals/hospital-details/hospital-details.component';
 import { ClinicDetailsComponent } from './clinics/clinic-details/clinic-details.component';
 import { LabDetailsComponent } from './labs/lab-details/lab-details.component';
-
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   declarations: [AdminComponent, DashboardComponent, DoctorsComponent, PatientsComponent, HospitalsComponent, ClinicsComponent, LabsComponent, AppointmentsComponent, CitiesComponent, AppointmentDetailsComponent, HospitalDetailsComponent, ClinicDetailsComponent, LabDetailsComponent],
-  imports: [NgbModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
+  imports: [NgbModule, MatRadioModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
 })
 export class AdminModule {
   constructor() {
