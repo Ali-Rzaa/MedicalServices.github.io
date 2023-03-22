@@ -60,7 +60,7 @@ export class HospitalsComponent {
         let data = dt.data;
         for (let a = 0; a < data.length; a++) {
           let hospital: HospitalModel = {
-            image: data[a].image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt[a].productImage,
+            image: data[a].image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : data[a].image,
             coverImage: data[a].coverImage,
             hospitalId: data[a].hospitalId,
             createdDateTime: data[a].createdDateTime,
@@ -135,27 +135,27 @@ export class HospitalsComponent {
     values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772Z';
 
     if (this.AddHospitalForm.valid) {
-      // this.hospitalImageFormData.append('name', this.AddHospitalForm.get('name').value);
-      // this.hospitalImageFormData.append('address', this.AddHospitalForm.get('address').value);
-      // this.hospitalImageFormData.append('phoneNumber', this.AddHospitalForm.get('phoneNumber').value);
-      // this.hospitalImageFormData.append('openingTime', this.AddHospitalForm.get('openingTime').value);
-      // this.hospitalImageFormData.append('closingTime', this.AddHospitalForm.get('closingTime').value);
-      // this.hospitalImageFormData.append('mon', this.AddHospitalForm.get('mon').value);
-      // this.hospitalImageFormData.append('tus', this.AddHospitalForm.get('tus').value);
-      // this.hospitalImageFormData.append('wed', this.AddHospitalForm.get('wed').value);
-      // this.hospitalImageFormData.append('thur', this.AddHospitalForm.get('thur').value);
-      // this.hospitalImageFormData.append('fri', this.AddHospitalForm.get('fri').value);
-      // this.hospitalImageFormData.append('sat', this.AddHospitalForm.get('sat').value);
-      // this.hospitalImageFormData.append('sun', this.AddHospitalForm.get('sun').value);
-      // this.hospitalImageFormData.append('cityId', this.AddHospitalForm.get('cityId').value);
+      this.hospitalImageFormData.append('Name', this.AddHospitalForm.get('name').value);
+      this.hospitalImageFormData.append('Address', this.AddHospitalForm.get('address').value);
+      this.hospitalImageFormData.append('PhoneNumber', this.AddHospitalForm.get('phoneNumber').value);
+      this.hospitalImageFormData.append('OpeningTime', values.openingTime);
+      this.hospitalImageFormData.append('ClosingTime', values.closingTime);
+      this.hospitalImageFormData.append('Mon', this.AddHospitalForm.get('mon').value);
+      this.hospitalImageFormData.append('Tus', this.AddHospitalForm.get('tus').value);
+      this.hospitalImageFormData.append('Wed', this.AddHospitalForm.get('wed').value);
+      this.hospitalImageFormData.append('Thur', this.AddHospitalForm.get('thur').value);
+      this.hospitalImageFormData.append('Fri', this.AddHospitalForm.get('fri').value);
+      this.hospitalImageFormData.append('Sat', this.AddHospitalForm.get('sat').value);
+      this.hospitalImageFormData.append('Sun', this.AddHospitalForm.get('sun').value);
+      this.hospitalImageFormData.append('CityId', this.AddHospitalForm.get('cityId').value);
       if (values.openingTime > values.closingTime) {
         this.dateErrorMessage = 'Start time sholud be greated then End time';
       } else {
         this.addHospitalLoading = true;
-        this.adminService.AddHospital(values).subscribe(
+        this.adminService.AddHospital(this.hospitalImageFormData).subscribe(
           (dt) => {
             let hospital: HospitalModel = {
-              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
+              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.image,
               coverImage: dt.data.coverImage,
               hospitalId: dt.data.hospitalId,
               createdDateTime: dt.data.createdDateTime,
@@ -180,6 +180,7 @@ export class HospitalsComponent {
             };
             this.hospitals.unshift(hospital);
             this.dataSource = new MatTableDataSource(this.hospitals);
+            this.hospitalImageFormData = new FormData();
             this.addHospitalLoading = false;
             this.modalService.dismissAll();
           },
@@ -212,7 +213,7 @@ export class HospitalsComponent {
     this.hospitalImageURL = [];
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.hospitalImageFormData.append('Image', file, file.name);
+      this.hospitalImageFormData.append('UploadImage', file, file.name);
       var reader = new FileReader();
       //this.imagePath = files;
       reader.readAsDataURL(file);
@@ -270,6 +271,8 @@ export class HospitalsComponent {
     );
   }
   DeleteHospitalModel(Item: any, hospitalId: any, index: any) {
+    this.dltErrorMessages = '';
+    this.deleteLoading = false;
     this.hospitalId = hospitalId;
     this.hospitalIndex = index;
     this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(

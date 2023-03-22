@@ -32,14 +32,22 @@ export class AdminService {
   }
   //hospitals
   AddHospital(data: any) {
-    return this.repositoryService.post('Hospital/add-hospital', data, true).pipe(
+    return this.repositoryService.postWithFile('Hospital/add-hospital', data).pipe(
       map((user: any) => {
         return user;
       })
     );
   }
   UpdateHospital(hospitalId: any, data: any) {
-    return this.repositoryService.putWithOutFile('Hospital/update-hospital/' + hospitalId, data).pipe(
+    return this.repositoryService.put('Hospital/update-hospital/' + hospitalId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  ///api/Facility/get-hospital-facility-by-type/{typeId}/{hospitalId}
+  getHospitalFacilitiesbyId(typeId: any, hospitalId: any) {
+    return this.repositoryService.get('Facility/get-hospital-facility-by-type/' + typeId + '/' + hospitalId, true).pipe(
       map((user: any) => {
         return user;
       })
@@ -73,7 +81,7 @@ export class AdminService {
       })
     );
   }
-  ///api/Doctor/delete-doctor/{doctorId}
+
   UpdateDoctor(doctorId: any, data: any) {
     return this.repositoryService.put('Doctor/update-doctor/' + doctorId, data).pipe(
       map((user: any) => {
@@ -89,8 +97,14 @@ export class AdminService {
     );
   }
   deteleDoctor(doctorId: any) {
-    debugger;
     return this.repositoryService.delete('Doctor/delete-doctor/' + doctorId).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  getDoctorbyHospital(hospitalId: any) {
+    return this.repositoryService.get('Doctor/get-doctors-by-hospatial/' + hospitalId, true).pipe(
       map((user: any) => {
         return user;
       })
@@ -111,7 +125,6 @@ export class AdminService {
       })
     );
   }
-  ////api/Clinic/update-clinic/{clinicId}
   deteleClinic(clinicId: any) {
     return this.repositoryService.delete('Clinic/delete-clinic/' + clinicId).pipe(
       map((user: any) => {
@@ -128,6 +141,31 @@ export class AdminService {
   }
   UpdateClinic(clinicId: any, data: any) {
     return this.repositoryService.putWithOutFile('Clinic/update-clinic/' + clinicId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  //Facilities
+  deteleFacility(facilityId: any) {
+    return this.repositoryService.delete('Facility/delete-facility/' + facilityId).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  AddFacility(data: any) {
+    debugger;
+    return this.repositoryService.post('Facility/add-facility', data, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  //Appointment
+
+  getAppointments() {
+    return this.repositoryService.get('Appointment/get-appointment-list', true).pipe(
       map((user: any) => {
         return user;
       })

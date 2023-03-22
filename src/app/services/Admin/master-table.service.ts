@@ -16,4 +16,11 @@ export class MasterTableService {
       })
     );
   }
+  getUsers() {
+    return this.repositoryService.get('User/get-user-list', true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
 }
