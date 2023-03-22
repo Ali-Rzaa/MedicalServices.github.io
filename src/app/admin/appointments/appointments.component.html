@@ -9,31 +9,31 @@
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 mt-5" style="margin-bottom: 20px">
     <ng-container matColumnDef="Pname">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Patient’s Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/appointments/details']">Lorem Ipsum</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/appointments/details']">{{ element.patientName }}</td>
     </ng-container>
     <ng-container matColumnDef="gender">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Gender</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">Female</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text" style="border-right: none">{{ element.gender }}</td>
     </ng-container>
     <ng-container matColumnDef="dateOfBirth">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Date of birth</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">01-02-1972</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.dob | date : 'dd/M/YYYY' }}</td>
     </ng-container>
     <ng-container matColumnDef="phoneNo">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Phone No</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color">(046) 2200083</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.phoneNo }}</td>
     </ng-container>
     <ng-container matColumnDef="disease">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Disease</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">Coronary Artery</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.disease }}</td>
     </ng-container>
     <ng-container matColumnDef="doctorName">
-      <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Doctor Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">Dr.ALina</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Doctor Name</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.doctorName }}</td>
     </ng-container>
     <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Weight</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">24 KG</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 100px" class="table-header-text">Weight</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.weight }} KG</td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>

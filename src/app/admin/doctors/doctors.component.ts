@@ -61,7 +61,6 @@ export class DoctorsComponent {
     this.isClinic = value.value;
   }
   getDoctors() {
-    debugger;
     this.adminService.getDoctor().subscribe(
       (dt) => {
         this.doctors = [];
@@ -416,9 +415,11 @@ export class DoctorsComponent {
       }
     }
   }
-  DeleteHospitalModel(Item: any, hospitalId: any, index: any) {
-    this._doctorId = hospitalId;
+  DeleteDoctorModel(Item: any, doctorId: any, index: any) {
+    this._doctorId = doctorId;
     this.doctorIndex = index;
+    this.dltErrorMessages = '';
+    this.deleteLoading = false;
     this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
       (res) => {
         this.closeModal = `Closed with: ${res}`;
@@ -428,13 +429,12 @@ export class DoctorsComponent {
       }
     );
   }
-  DeleteHospital() {
+  DeleteDoctor() {
     this.dltErrorMessages = '';
     this.deleteLoading = true;
-    this.adminService.deteleHospital(this._doctorId).subscribe(
+    this.adminService.deteleDoctor(this._doctorId).subscribe(
       (dt) => {
-        this.hospitals.splice(this.doctorIndex, 1);
-        this.dataSource = new MatTableDataSource(this.hospitals);
+        this.getDoctors();
         this.deleteLoading = false;
         this.modalService.dismissAll();
       },

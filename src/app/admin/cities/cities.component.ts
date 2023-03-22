@@ -114,24 +114,29 @@ export class CitiesComponent {
   }
   DeleteCity() {
     this.dltErrorMessages = '';
-    this.deleteLoading = true;
-    this.adminService.deteleCity(this.cityId).subscribe(
-      (dt) => {
-        this.DeletRow(this.cityIndex);
-        this.showAddCancelBtn = 0;
-        this.deleteLoading = false;
-        this.modalService.dismissAll();
-      },
-      (error) => {
-        this.deleteLoading = false;
-        if (error.status == 401) {
-          this.accountService.doLogout();
-          this.router.navigateByUrl('/signIn');
+    if (this.cityId == '') {
+      this.DeletRow(this.cityIndex);
+      this.modalService.dismissAll();
+    } else {
+      this.deleteLoading = true;
+      this.adminService.deteleCity(this.cityId).subscribe(
+        (dt) => {
+          this.DeletRow(this.cityIndex);
+          this.showAddCancelBtn = 0;
+          this.deleteLoading = false;
+          this.modalService.dismissAll();
+        },
+        (error) => {
+          this.deleteLoading = false;
+          if (error.status == 401) {
+            this.accountService.doLogout();
+            this.router.navigateByUrl('/signIn');
+          }
+          this.deleteLoading = false;
+          this.errorMessage = error.error.message;
         }
-        this.deleteLoading = false;
-        this.errorMessage = error.error.message;
-      }
-    );
+      );
+    }
   }
   cancelBtn() {
     this.getCities();

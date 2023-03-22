@@ -20,7 +20,7 @@
           <button mat-menu-item (click)="EditDoctorModal(EditDoctorTriggerModel, element)">
             <span>Edit</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="DeleteDoctorModel(DeleteDoctorTriggerModel, element.doctorId, i)">
             <span>Delete</span>
           </button>
         </mat-menu>
@@ -303,10 +303,10 @@
     </form>
   </div>
 </ng-template>
-<ng-template #DeleteHospitalTriggerModel let-modal>
+<ng-template #DeleteDoctorTriggerModel let-modal>
   <div class="modal-body" style="min-height: 200px; background: #fff">
     <h1 class="modal-title">Please confirm..</h1>
-    <h5>Are you sure that you want to remove this city ?</h5>
+    <h5>Are you sure that you want to remove this Doctor ?</h5>
     <div class="errorValdation text-center" *ngIf="dltErrorMessages != ''">
       {{ dltErrorMessages }}
     </div>
@@ -316,7 +316,7 @@
     <div class="d-flex justify-content-end mt-5">
       <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
       <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
-      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteHospital()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteDoctor()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
       <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
         Wait
         <i class="fa fa-spinner fa-spin"></i>

@@ -92,3 +92,41 @@ export interface ClinicModel {
   cityId: string;
   hours: string;
 }
+export interface FacilitiesModel {
+  type: string;
+  facilityId: string;
+  createdDateTime: string;
+  modifiedDateTime: string;
+  modifiedBy: string;
+  createdBy: string;
+  name: string;
+  fee: string;
+  typeId: number;
+  labId: string;
+  hospitalId: string;
+  isAdded?: boolean;
+}
+export interface AppointmentModel {
+  appoinmentId: string;
+  fee: number;
+  userId: string;
+  doctorId: string;
+  status: boolean;
+  doctorName: string;
+  disease: string;
+  diseaseInPast: string;
+  email: string;
+  phoneNo: string;
+  gender: string;
+  dob: string;
+  timming: string;
+  patientName: string;
+  weight: number;
+}
+export interface UserModel {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  image: string;
+}
