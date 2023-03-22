@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { clinics} from 'src/app/data';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LabModel } from 'src/app/models/user-model';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-lab-visit',
@@ -8,11 +9,19 @@ import { clinics} from 'src/app/data';
   styleUrls: ['./lab-visit.component.scss']
 })
 export class LabVisitComponent implements OnInit {
-  clinic = clinics[0];
-  paramId = null
-  constructor(private route:ActivatedRoute){}
+  lab :LabModel
+  constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
-    this.paramId = this.route.snapshot.params['id'];
-    this.clinic = clinics.filter(p=>p.id==this.paramId)[0];
+    this.loadLab(this.route.snapshot.params['id']);
+  }
+  loadLab(id:any){
+    this.userService.GetLab(id).subscribe({
+      next:(v) => {
+        this.lab = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadLab: ' + error.message);
+      }
+    });
   }
 }

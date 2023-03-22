@@ -11,13 +11,13 @@
         </div>
         <mat-radio-group class="row radio-row mt-4" [(ngModel)]="signupAsUser">
             <mat-radio-button class="col-lg-6 col-md-6 col-sm-12" value="true">
-              As Customer
+              As User
             </mat-radio-button>
             <mat-radio-button class="right-radio col-lg-6 col-md-6 col-sm-12" value="false">
               As Service Provider
             </mat-radio-button>
           </mat-radio-group>
-        <span style="color: red;" *ngIf=" errorMessage !== '' ">{{errorMessage}}</span>
+        <span style="color: red; margin-top: 20px;" *ngIf="errorMessage !== '' ">{{errorMessage}}</span>
         <form [formGroup]="SignupForm" (ngSubmit)="onSubmit()" class="input-fields" novalidate >
         <div class=" name-fields row">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -39,7 +39,8 @@
             <div class="input-field-container">
                 <label class="label" for="email">E-mail</label>
                 <div class="input-field">
-                    <input formControlName="email" placeholder="Enter your email" id="email" type="text">
+                    <input formControlName="email" [(ngModel)]="email" (input)="setEmail($event)" (blur)="onBlur()" placeholder="Enter your email" id="email" type="text">
+                    <span style="color: red; margin-top: 20px;" *ngIf=" emailCheckMessage !== '' ">{{emailCheckMessage}}</span>
                 </div>
             </div>
             <div class="input-field-container">
@@ -58,7 +59,7 @@
             </div>
         </div>
         <div class="button-wrapper">
-            <button type="submit" [disabled]="!SignupForm.valid" [ngClass]="{'login-button': SignupForm.valid, 'disabled-button': !SignupForm.valid}">
+            <button type="submit" [disabled]="!SignupForm.valid " [ngClass]="getClassOfDisable()">
                 Sign Up 
                 <mat-spinner *ngIf="signupLoading" class="spinner"></mat-spinner>
             </button>

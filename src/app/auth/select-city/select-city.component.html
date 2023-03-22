@@ -1,13 +1,13 @@
-<div class="container">
+<div class="containerScreen">
     <div class="select-content">
         <span class="heading">Hi! {{userName}}</span>
         <div class="content-modal">
-            <span class="heading">Please! select your city <span style="font-size: 12px;">(Required)</span></span>
+            <span class="heading heading2">Please! select your city <span style="font-size: 12px;">(Required)</span></span>
             <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
-                <div (click)="showDropdown = !showDropdown" [ngStyle]="{'color':selectedCity==='Select City...'?'#dadada':'black'}" class="dropdown-field">{{selectedCity}}</div>
-                <div class="dropdown-list">
-                    <div *ngIf="showDropdown" class="dropdown-content">
-                        <div (click)="selectCtiy(city.name,city.cityId)" *ngFor="let city of cities">{{city.name}}</div>
+                <div (click)="showDropdown = !showDropdown" [ngStyle]="{'color':selectedCity==='Select City...'?'#dccccc':'black'}" class="dropdown-field">{{selectedCity}}</div>
+                <div *ngIf="showDropdown" class="dropdown-list">
+                    <div class="dropdown-content">
+                        <div class="list-item" (click)="selectCtiy(city.name,city.cityId)" *ngFor="let city of cities">{{city.name}}</div>
                     </div>
                 </div>
             </div>

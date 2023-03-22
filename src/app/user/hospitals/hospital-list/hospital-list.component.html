@@ -11,7 +11,7 @@
                 <div class="row">
                 <div class="info-card">
                     <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                        <img  class="card-img" src="{{hospital.imgUrl?hospital.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                        <img  class="card-img" src="{{hospital.image?hospital.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                     </div>
                     <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                         <div class="row">
@@ -21,7 +21,7 @@
                                     <br>
                                     <span class="card-text">
                                         Opening hours:
-                                        <span style="color: #179C8C;"> {{hospital.opening}}</span>
+                                        <span style="color: #179C8C;"> {{ hospital.openingTime | date : 'shortTime' }} to {{ hospital.closingTime | date : 'shortTime' }}</span>
                                     </span>
                                     <br>
                                     <span class="card-text">
@@ -31,23 +31,23 @@
                                 </div>
                                 <br>
                                 <div class="hospital-card-button">
-                                    <button routerLink="/hospitals/hospitalVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                                    <button routerLink="/hospitals/hospitalVisit/{{hospital.hospitalId}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
                                 </div>
                             </div>
                             <div class="last-content col-lg-4 col-md-4 col-sm-12">
                                 <div class="contact-container">
                                     <div>
-                                        <span class="card-text">
+                                        <!-- <span class="card-text">
                                             Panel Doctors:
                                             <span style="color: #179C8C;">{{hospital.panel}}</span> 
                                         </span>
-                                        <br>
+                                        <br> -->
                                         <span class="card-text">
                                             Contact:
-                                            <span style="color: #179C8C;">{{hospital.contact?hospital.contact:'No contact'}}</span> 
+                                            <span style="color: #179C8C;">{{hospital.phoneNumber?hospital.phoneNumber:'No contact'}}</span> 
                                         </span>
                                         <div class="hospital-card-button2">
-                                            <button routerLink="/hospitals/hospitalVisit/{{hospital.id}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
+                                            <button routerLink="/hospitals/hospitalVisit/{{hospital.hospitalId}}" class="visit-button" mat-stroked-button color="primary">Visit</button>
                                         </div>
                                     </div>
                                 </div>

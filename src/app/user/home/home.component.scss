@@ -50,7 +50,7 @@
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-    height: 220px;
+    height: 180px;
     margin-right: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -64,7 +64,7 @@
     display: inline-block;
     position: absolute;
     height: 100%;
-    width: 40%;
+    width: 45%;
     left: 0;
 }
 .card-img{
@@ -73,7 +73,7 @@
 }
 .card-info-container{
     right: 0; 
-    width: 60%;
+    width: 55%;
     height: 100%;
     font-size: 12px;
     line-height: 30px;
@@ -122,5 +122,8 @@
 @media (max-width: 768px){
     .image-container{
         display: none !important;
+    }
+    .card-info-container{
+        line-height: 20px;
     }
 }

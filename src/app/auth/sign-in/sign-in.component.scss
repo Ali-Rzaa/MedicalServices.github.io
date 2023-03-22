@@ -22,34 +22,35 @@
 }
 .tittle{
     font-weight: 400;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 28px;
     color: #179C8C;
     margin-top: 15px;
+    text-align: center;
 }
 .welcome-text{
-    font-weight: 400;
-    font-size: 36px;
+    font-weight: 500;
+    font-size: 20px;
     line-height: 41px;
     color: #179C8C;
-    margin-top: 25px;
+    margin-top: 15px;
 }
 .input-fields{
     width: 70%;
-    max-width: 400px;
+    max-width: 300px;
     margin-top: 30px;
 }
 .label{
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 28px;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
     margin-left: 20px;
 }
 .input-field input{
     width: 100%;
-    height: 50px;
+    height: 35px;
     padding: 18px;
-    font-size: 20px;
+    font-size: 13px;
     border-style: none;
     background: #EFFCFA;
     border: 1px solid #179C8C;
@@ -68,11 +69,12 @@
 }
 .login-button{
     margin-top: 30px;
-    font-size: 24px;
+    font-size: 18px;
     transition: all 0.5s ease-out;
     width: 50%;
-    max-width: 328px;
-    height: 50px;
+    max-width: 100px;
+    min-width: 100px;
+    height: 35px;
     border-style: none;
     border-radius: 50px; 
     background-color: #179C8C;
@@ -80,11 +82,12 @@
 }
 .disabled-button{
     margin-top: 30px;
-    font-size: 24px;
+    font-size: 18px;
     transition: all 0.5s ease-out;
     width: 50%;
-    max-width: 328px;
-    height: 50px;
+    max-width: 100px;
+    min-width: 100px;
+    height: 35px;
     border-style: none;
     border-radius: 50px; 
     cursor: not-allowed;
@@ -107,6 +110,7 @@
   }
 .create-account{
     margin-top: 18px;
+    font-size: 12px;
 }
 .sign-up{
     color: #179C8C;
