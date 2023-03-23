@@ -11,11 +11,15 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HospitalVisitComponent implements OnInit{
   hospital :HospitalModel;
-  doctors :DoctorModel[];
+  doctors :DoctorModel[]
+  radiology :DoctorModel
+  paramedical = ''
+  option = ''
   constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
     this.loadHospital(this.route.snapshot.params['id']);
     this.loadDoctors(this.route.snapshot.params['id']);
+    this.loadRadiology(this.route.snapshot.params['id']);
   }
   loadHospital(id:any){
     this.userService.GetHospital(id).subscribe({
@@ -34,6 +38,26 @@ export class HospitalVisitComponent implements OnInit{
       },
       error:(error) => {
         console.log('Error in loadDoctors: ' + error.message);
+      }
+    });
+  }
+  loadParamedical(id:any){
+    this.userService.GetFacilitiesByCategory(id).subscribe({
+      next:(v) => {
+        this.paramedical = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadParamedical: ' + error.message);
+      }
+    });
+  }
+  loadRadiology(id:any){
+    this.userService.GetRadiologyFacilities(id).subscribe({
+      next:(v) => {
+        this.radiology = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadHospital: ' + error.message);
       }
     });
   }

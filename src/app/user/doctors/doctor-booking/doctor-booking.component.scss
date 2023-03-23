@@ -60,6 +60,20 @@
     white-space: nowrap;
     overflow: hidden;
 }
+.selectedDayTime{
+    width: 100%;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+}
+.selectedDayTime > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .card-text{
     width: 100%;
     font-size: 12px;
@@ -74,6 +88,10 @@
     color: #179C8C;
     font-weight: 500;
 }
+.button-wrapper{
+    height:100px; 
+    position: relative;
+}
 .visit-button{
     font-size: 15px;
     transition: all 0.5s ease-out;
@@ -87,6 +105,9 @@
     border-radius: 50px; 
     background-color: #179C8C;
     color: rgb(253, 247, 247);
+    right: 0;
+    bottom: 0;
+    position: absolute;
 }
 .visit-button:hover, .visit-button:active{
     background-color: #f6fcfb;
@@ -103,6 +124,8 @@
     display: flex;
     padding-left: 20px;
     flex-direction: column;
+    max-width: 220px;
+    float: right;
     justify-content: center;
 }
 //third row
@@ -149,11 +172,14 @@
     border: 2px solid #179C8C;
     border-radius: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100px;
     height: 40px;
     padding: 5px;
     font-size: 12px;
+}
+.timeblock>i{
+    margin-right: 10px;
 }
 @media (max-width: 768px){
     .info-card{
@@ -187,9 +213,14 @@
         flex-direction: column;
         justify-content: center;
         border-left:none;
+        float: left;
     }
     .last-content {
         height: inherit;
         display: inline-block;
+    }
+    .visit-button{
+        left: auto;
+        right: auto;
     }
 }

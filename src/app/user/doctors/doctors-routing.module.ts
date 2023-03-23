@@ -6,7 +6,7 @@ import { DoctorProfileComponent } from './doctor-profile/doctor-profile.componen
 
 const routes: Routes = [
     {path:'', component:DoctorListComponent},
-    {path:'doctorBooking/:id', component:DoctorBookingComponent},
+    {path:'doctorBooking/:id/:selectedDate/:selectedTime', component:DoctorBookingComponent},
     {path:'doctorProfile/:id', component:DoctorProfileComponent}
 ];
 

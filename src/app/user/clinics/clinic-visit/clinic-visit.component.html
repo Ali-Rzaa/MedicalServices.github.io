@@ -28,11 +28,6 @@
                                             Address: 
                                             <span style="color: #179C8C;">{{clinic.address}}</span>
                                         </span>
-                                        <br>
-                                        <br>
-                                        <div class="hospital-card-button">
-                                            <button routerLink="/clinics/clinicAppointment/{{clinic.clinicId}}" class="visit-button" >Book Appointment</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="last-content col-lg-4 col-md-4 col-sm-12">
@@ -52,44 +47,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="info-card p-3">
-                        <div>
-                            <span class="doctors-heading">Facilities at {{clinic.name}}</span>
-                            <br><br>
-                            <ul class="row">
-                                <li class="col-xl-2 col-lg-3 col-md-4 col-sm-6 facility-container" *ngFor="let facility of clinic.facilities">
-                                    {{facility}}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- <div class="row mt-2">
-                    <div class="third-row col-12">
-                        <div class="row p-3">
-                            <div class="col-lg-10 col-md-8 col-sm-12">
-                                <span class="doctors-heading">Available day&time</span>
-                                <br>
-                                <br>
-                                <div class="card-text">
-                                    <span style="color:#179C8C">Morning Time</span>
-                                    <div class="activeHours" >
-                                        <button class="timeblock" mat-stroked-button *ngFor="let morningT of clinic.morningActiveHours"><i class='bi bi-clock'></i><span> {{morningT}}</span></button>
-                                    </div>
-                                    <br><br>
-                                    <span style="color:#179C8C">Evening Time</span>
-                                    <div class="activeHours" >
-                                        <button class="timeblock" mat-stroked-button *ngFor="let morningT of clinic.eveningActiveHours"><i class='bi bi-clock'></i><span> {{morningT}}</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-md-4 col-sm-12">
-                                hi
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="doctor-row mt-4">
                     <span class="doctors-heading">Doctors in {{clinic.name}}</span>
                     <div *ngIf="doctors" class="second-row row mt-4">

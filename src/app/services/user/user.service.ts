@@ -68,6 +68,20 @@ export class UserService {
       })
     );
   }
+  GetHospitalParamedicalAvailableTime(hospitalId: any) {
+    return this.repositoryService.get('Hospital/get-paramedical-department-available-time/' + hospitalId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  GetHospitalFacilityAvailableTime(facilityCategoryId: any) {
+    return this.repositoryService.get('Hospital/get-radiology-department-available-time/' + facilityCategoryId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   //Clinics
   GetCityClinics(cityId: any) {
     return this.repositoryService.get('Clinic/get-clinics/' + cityId, true).pipe(
@@ -93,6 +107,29 @@ export class UserService {
   }
   GetLab(labId: any) {
     return this.repositoryService.get('Lab/get-lab/' + labId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  //Appointments
+  AppointmentByDoctor(doctorId: any,data: any) {
+    return this.repositoryService.post('Appointment/book-appointment-by-doctor/' + doctorId, data,true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  //Facilities
+  GetRadiologyFacilities(hospitalId: any) {
+    return this.repositoryService.get('Facility/get-hospital-radiology-facilities/' + hospitalId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  GetFacilitiesByCategory(facilityCategoryId: any) {
+    return this.repositoryService.get('Facility/get-facilities-by-facilityCategory/' + facilityCategoryId, true).pipe(
       map((response: any) => {
         return response;
       })

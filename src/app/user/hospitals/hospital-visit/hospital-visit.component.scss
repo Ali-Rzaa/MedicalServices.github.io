@@ -2,16 +2,17 @@
 *::-webkit-scrollbar { width: 0 !important }
 .image-container{
     width: 100%;
-    height: 600px;
+    height: 300px;
     overflow: hidden;
 }
 .slider-img{
  width: 100%;
- height: 600px;
+ height: 300px;
 }
 .hospital-container{
     margin-left: 10%;
     margin-right: 10%;
+    padding-bottom: 50px;
 }
 .first-row{
     position: relative;
@@ -131,6 +132,9 @@
     color: #179C8C;
     font-weight: 500;
 }
+.hospital-card-button{
+    height: max-content;
+}
 .hospital-card-button2{
     display:none;
 }
@@ -148,6 +152,25 @@
     flex-direction: column;
     justify-content: center;
     border-left: 1.5px solid #179C8C;
+}
+.visit-button{
+    border: none;
+    font-size: 15px;
+    transition: all 0.5s ease-out;
+    width: 170px;
+    height: 35px;
+    left: 10px;
+    border-radius: 50px;
+    background-color: #179C8C;
+    color: white; 
+}
+.visit-button:hover, .visit-button:active{
+    color: #179C8C;
+    background-color: white;
+}
+.visit-button:hover{
+    box-shadow: 0 4px 6px -1px gray;
+    transform: scale(1.05);
 }
 .facility-container{
     padding-right: 17px;
@@ -176,6 +199,20 @@
 .service:hover, .service:active{
     background-color: #179C8C;
     color: white;
+}
+.actve-option{
+    background-color: #179C8C;
+    color: white;
+}
+.services-content{
+    border: 0.5px solid #179C8C;
+    border-radius: 20px;
+    padding-top: 20px;
+}
+.service-booking-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 .doctors-heading{
     font-size: 18px;
@@ -232,5 +269,8 @@
     .hospital-card-button2{
         display:flex;
         align-items: center;
+    }
+    .hospital-card-button{
+        display:none;
     }
 }
