@@ -43,6 +43,12 @@ export class AppointmentsComponent {
             timming: dt.data[a].timming,
             patientName: dt.data[a].patientName,
             weight: dt.data[a].weight,
+            day: '',
+            onlyTime: '',
+            onlyDate: '',
+            hospitalName: '',
+            clinicName: '',
+            labName: '',
           };
           this.appointments.push(hospital);
         }

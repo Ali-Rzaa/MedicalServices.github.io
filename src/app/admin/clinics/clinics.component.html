@@ -77,7 +77,7 @@
               <div class="col-6 input-field mt-4">
                 <label class="label" for="text">Phone No</label>
                 <br />
-                <input placeholder="Enter phone No" id="name" formControlName="phoneNumber" type="text" />
+                <input placeholder="Enter phone No" id="name" formControlName="phoneNumber" type="number" />
               </div>
               <div class="col-6 input-field mt-4">
                 <label class="label" for="text">City</label>
@@ -111,12 +111,8 @@
                 </section>
               </div>
               <div class="col-6 input-field mt-4">
-                <div class="d-flex justify-content-between">
-                  <label class="label" for="text">Opening Time</label>
-                  <div class="errorValdation text-center" *ngIf="dateErrorMessage != ''">
-                    {{ dateErrorMessage }}
-                  </div>
-                </div>
+                <label class="label" for="text">Opening Time</label>
+                <br />
                 <div class="row mt-3">
                   <div class="col">
                     <div class="label-time">Start Time</div>
@@ -126,6 +122,9 @@
                     <div class="label-time">End Time</div>
                     <input type="time" id="appt" name="appt" formControlName="closingTime" />
                   </div>
+                </div>
+                <div class="errorValdation" *ngIf="dateErrorMessage != ''">
+                  {{ dateErrorMessage }}
                 </div>
               </div>
             </div>
@@ -148,6 +147,7 @@
       <div class="d-flex" style="float: right; margin-bottom: 10px">
         <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
         <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!AddClinicForm.valid">Save</button>
+        <button type="button" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="addClinicLoading">Save <i class="fa fa-spinner fa-spin"></i></button>
         <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="AddClinicForm.valid && !addClinicLoading">Save</button>
       </div>
     </form>

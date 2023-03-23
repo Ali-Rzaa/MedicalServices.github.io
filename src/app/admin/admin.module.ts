@@ -25,9 +25,11 @@ import { HospitalDetailsComponent } from './hospitals/hospital-details/hospital-
 import { ClinicDetailsComponent } from './clinics/clinic-details/clinic-details.component';
 import { LabDetailsComponent } from './labs/lab-details/lab-details.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [AdminComponent, DashboardComponent, DoctorsComponent, PatientsComponent, HospitalsComponent, ClinicsComponent, LabsComponent, AppointmentsComponent, CitiesComponent, AppointmentDetailsComponent, HospitalDetailsComponent, ClinicDetailsComponent, LabDetailsComponent],
-  imports: [NgbModule, MatRadioModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
+  imports: [MatProgressSpinnerModule, NgbModule, MatRadioModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
 })
 export class AdminModule {
   constructor() {

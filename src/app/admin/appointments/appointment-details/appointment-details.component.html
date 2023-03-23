@@ -9,75 +9,85 @@
       <div class="col-4 input-field">
         <label class="label" for="text">Patient Full Name</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.patientName }}" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Patient Date of Birth</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.dob }}" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Gender</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.gender }}" />
       </div>
     </div>
     <div class="row" style="padding: 15px">
       <div class="col-4 input-field">
         <label class="label" for="text">Patient Weight</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.weight }} KG" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Patient E-mail</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.email }}" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Patient Phone No</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.phoneNo }}" />
       </div>
     </div>
     <div class="row" style="padding: 15px">
       <div class="col-4 input-field">
         <label class="label" for="text">Doctor name</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.doctorName }}" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Appointment day</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.day }}" />
       </div>
       <div class="col-4 input-field">
         <label class="label" for="text">Appointment time </label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.onlyTime }}" />
       </div>
     </div>
     <div class="row" style="padding: 15px">
       <div class="col-4 input-field">
         <label class="label" for="text">City name</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.patientName }}" />
       </div>
-      <div class="col-8 input-field">
+      <div class="col-8 input-field" *ngIf="appointmentDetails.hospitalName != null">
         <label class="label" for="text">Hospital name</label>
         <br />
-        <input id="name" type="text" readonly />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.hospitalName }}" />
+      </div>
+      <div class="col-8 input-field" *ngIf="appointmentDetails.clinicName != null">
+        <label class="label" for="text">Clinic name</label>
+        <br />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.clinicName }}" />
+      </div>
+      <div class="col-8 input-field" *ngIf="appointmentDetails.labName != null">
+        <label class="label" for="text">Lab name</label>
+        <br />
+        <input id="name" type="text" readonly value="{{ appointmentDetails.labName }}" />
       </div>
     </div>
     <div class="row" style="padding: 15px">
       <div class="col-6 input-field">
         <label class="label" for="text">Disease</label>
         <br />
-        <textarea rows="10" class="about-textarea" readonly></textarea>
+        <textarea rows="10" class="about-textarea" readonly value="{{ appointmentDetails.disease }}"></textarea>
       </div>
       <div class="col-6 input-field">
         <label class="label" for="text">Disease in History</label>
         <br />
-        <textarea rows="10" class="about-textarea" readonly></textarea>
+        <textarea rows="10" class="about-textarea" readonly value="{{ appointmentDetails.diseaseInPast }}"></textarea>
       </div>
     </div>
     <div class="row" style="padding: 15px">

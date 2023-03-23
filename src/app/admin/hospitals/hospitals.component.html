@@ -132,12 +132,8 @@
                 </section>
               </div>
               <div class="col-6 input-field-small mt-4">
-                <div class="d-flex justify-content-between">
-                  <label class="label" for="text">Opening Time</label>
-                  <div class="errorValdation text-center" *ngIf="dateErrorMessage != ''">
-                    {{ dateErrorMessage }}
-                  </div>
-                </div>
+                <label class="label" for="text">Opening Time</label>
+                <br />
                 <div class="row mt-3">
                   <div class="col-6">
                     <div class="label-time">Start Time</div>
@@ -147,6 +143,9 @@
                     <div class="label-time">End Time</div>
                     <input type="time" id="appt" name="appt" formControlName="closingTime" />
                   </div>
+                </div>
+                <div class="errorValdation text-center" *ngIf="dateErrorMessage != ''">
+                  {{ dateErrorMessage }}
                 </div>
               </div>
             </div>

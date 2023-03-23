@@ -112,11 +112,10 @@ export class CitiesComponent {
       }
     );
   }
-  DeleteCity() {
+  DeleteCity(index: any) {
     this.dltErrorMessages = '';
     if (this.cityId == '') {
-      this.DeletRow(this.cityIndex);
-      this.modalService.dismissAll();
+      this.DeletRow(index);
     } else {
       this.deleteLoading = true;
       this.adminService.deteleCity(this.cityId).subscribe(
@@ -133,7 +132,7 @@ export class CitiesComponent {
             this.router.navigateByUrl('/signIn');
           }
           this.deleteLoading = false;
-          this.errorMessage = error.error.message;
+          this.dltErrorMessages = error.error.message;
         }
       );
     }
