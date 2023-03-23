@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { city, DoctorModel, FacilitiesModel, HospitalModel, Type } from 'src/app/models/admin-models';
+import { city, DoctorModel, FacilitiesCategory, FacilitiesModel, HospitalModel, Type } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 import { MasterTableService } from 'src/app/services/Admin/master-table.service';
@@ -20,6 +20,7 @@ export class HospitalDetailsComponent {
   EditHospitalForm!: FormGroup;
   EditDoctorForm!: FormGroup;
   AddDoctorForm!: FormGroup;
+  AddRadiologyForm!: FormGroup;
   closeModal: string = '';
   dateErrorMessage: string = '';
   errorMessage: string = '';
@@ -32,8 +33,8 @@ export class HospitalDetailsComponent {
   hospitalImageURL: any[] = [];
   hospitaiImage: string = '';
   doctors: DoctorModel[] = [];
-  facilities: FacilitiesModel[] = [];
   _facilities: FacilitiesModel[] = [];
+  radiologyFacilities = [];
   hospital: HospitalModel = {
     image: '',
     coverImage: '',
@@ -66,10 +67,15 @@ export class HospitalDetailsComponent {
   drImage: string = '';
   doctorId: string = '';
   dataSource: any;
+  dataSourceRadiology: any;
   showAddCancelBtn: number = 0;
+  showAddRadiologyCancelBtn: number = 0;
   facilityId: string = '';
   facilityIndex: number;
   columnsToDisplay: string[] = ['name', 'fee'];
+  columnsToDisplayRadiology: string[] = ['name', 'fee'];
+  facilityCategories: FacilitiesCategory[] = [];
+  facilityCategoryName: string = '';
   constructor(private masterTableService: MasterTableService, private route: ActivatedRoute, private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     const routeParams = this.route.snapshot.paramMap;
     this.hospitalId = routeParams.get('hospitalId');
@@ -86,8 +92,8 @@ export class HospitalDetailsComponent {
     this.getCities();
     this.getDoctorsByHospitalId();
     this.getDoctortypes();
-    this.getFacilitiesByTypeOne();
-    this.getFacilitiesByTypeTwo();
+    this.getRadiologyFacilities();
+    this.getFacilitiesByParamedical();
   }
   GatHospitalDetails() {
     this.adminService.getHospitalbyId(this.hospitalId).subscribe(
@@ -477,26 +483,38 @@ export class HospitalDetailsComponent {
     }
   }
   // facilities
-  getFacilitiesByTypeOne() {
-    this.adminService.getHospitalFacilitiesbyId(1, this.hospitalId).subscribe(
+  getRadiologyFacilities() {
+    this.adminService.getRadiologyFacilities(this.hospitalId).subscribe(
       (dt) => {
-        this.facilities = [];
+        this.facilityCategories = [];
         let data = dt.data;
-        for (let a = 0; a < data.length; a++) {
-          let facility: FacilitiesModel = {
-            type: dt.data[a].type,
-            facilityId: dt.data[a].facilityId,
-            createdDateTime: dt.data[a].createdDateTime,
-            modifiedDateTime: dt.data[a].modifiedDateTime,
-            modifiedBy: dt.data[a].modifiedBy,
-            createdBy: dt.data[a].createdBy,
-            name: dt.data[a].name,
-            fee: dt.data[a].fee,
-            typeId: dt.data[a].typeId,
-            labId: dt.data[a].labId,
-            hospitalId: dt.data[a].hospitalId,
+        for (let b = 0; b < data.length; b++) {
+          var facilities: FacilitiesModel[] = [];
+          for (let c = 0; c < dt.data[b].radiologyFacilities.length; c++) {
+            let facility: FacilitiesModel = {
+              type: '',
+              facilityId: dt.data[b].radiologyFacilities[c].facilityId,
+              createdDateTime: dt.data[b].radiologyFacilities[c].createdDateTime,
+              modifiedDateTime: dt.data[b].radiologyFacilities[c].modifiedDateTime,
+              modifiedBy: dt.data[b].radiologyFacilities[c].modifiedBy,
+              createdBy: dt.data[b].radiologyFacilities[c].createdBy,
+              name: dt.data[b].radiologyFacilities[c].name,
+              fee: dt.data[b].radiologyFacilities[c].fee,
+              typeId: dt.data[b].radiologyFacilities[c].typeId,
+              labId: dt.data[b].radiologyFacilities[c].labId,
+              hospitalId: dt.data[b].radiologyFacilities[c].hospitalId,
+              facilityCategoryId: dt.data[b].radiologyFacilities[c].hospitalId,
+              isAdded: false,
+            };
+            facilities.push(facility);
+          }
+          var category: FacilitiesCategory = {
+            facilityCategoryId: dt.data[b].facilityCategoryId,
+            facilityCategoryName: dt.data[b].facilityCategoryName,
+            hospitalId: dt.data[b].hospitalId,
+            FacilitiesModel: facilities,
           };
-          this.facilities.push(facility);
+          this.facilityCategories.push(category);
         }
       },
       (error) => {
@@ -508,7 +526,7 @@ export class HospitalDetailsComponent {
       }
     );
   }
-  getFacilitiesByTypeTwo() {
+  getFacilitiesByParamedical() {
     this.adminService.getHospitalFacilitiesbyId(2, this.hospitalId).subscribe(
       (dt) => {
         this._facilities = [];
@@ -526,6 +544,7 @@ export class HospitalDetailsComponent {
             typeId: dt.data[a].typeId,
             labId: dt.data[a].labId,
             hospitalId: dt.data[a].hospitalId,
+            facilityCategoryId: dt.data[a].hospitalId,
             isAdded: true,
           };
           this._facilities.push(facility);
@@ -550,11 +569,12 @@ export class HospitalDetailsComponent {
       modifiedBy: '',
       createdBy: '',
       name: '',
-      fee: '',
+      fee: '0',
       typeId: 2,
       labId: null,
       hospitalId: this.hospitalId,
       isAdded: false,
+      facilityCategoryId: null,
     };
     this._facilities.splice(this._facilities.length + 1, 0, facility);
     this.dataSource = new MatTableDataSource(this._facilities);
@@ -611,19 +631,17 @@ export class HospitalDetailsComponent {
     }
   }
   cancelBtn() {
-    this.getFacilitiesByTypeTwo();
+    this.getFacilitiesByParamedical();
     this.showAddCancelBtn = 0;
   }
   onSubmitAddFacility() {
-    debugger;
     this.errorMessage = '';
     this.addLoading = true;
     for (let c = 0; c < this._facilities.length; c++) {
       if (this._facilities[c].isAdded == false) {
-        debugger;
         this.adminService.AddFacility(this._facilities[c]).subscribe(
           (dt) => {
-            this.getFacilitiesByTypeTwo();
+            this.getFacilitiesByParamedical();
             this.showAddCancelBtn = 0;
             this.addLoading = false;
           },
@@ -638,6 +656,75 @@ export class HospitalDetailsComponent {
         );
       }
     }
+  }
+  //add radiology
+  AddRadiologyModel(Item: any) {
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  EditRadiologyModel(Item: any, date: any) {
+    debugger;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  InsertRadiologyRow() {
+    let facility = {
+      name: '',
+      fee: 0,
+      isAdded: false,
+    };
+    this.radiologyFacilities.splice(this.radiologyFacilities.length + 1, 0, facility);
+    this.dataSourceRadiology = new MatTableDataSource(this.radiologyFacilities);
+    this.addCancelRadiologyBtn('add');
+  }
+  DeletRadiologyRow(date: any) {
+    this.dataSourceRadiology.data.splice(date, 1);
+    this.dataSourceRadiology._updateChangeSubscription();
+    this.addCancelRadiologyBtn('remove');
+  }
+  addCancelRadiologyBtn(type: any) {
+    if (type == 'add') {
+      this.showAddRadiologyCancelBtn++;
+    } else {
+      this.showAddRadiologyCancelBtn--;
+    }
+  }
+  onSubmitAddRadiologyFacility() {
+    debugger;
+    this.errorMessage = '';
+    this.addLoading = true;
+    let radiologyfacility = {
+      facilityCategoryName: this.facilityCategoryName,
+      radiologyFacilities: this.radiologyFacilities,
+    };
+    this.adminService.AddRadiologyFacility(this.hospitalId, radiologyfacility).subscribe(
+      (dt) => {
+        this.getRadiologyFacilities();
+        this.modalService.dismissAll();
+        this.showAddRadiologyCancelBtn = 0;
+        this.addLoading = false;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.addLoading = false;
+        this.errorMessage = error.error.errors.name;
+      }
+    );
   }
   ///image upload
   onUpdateDoctorImage(event: any) {
@@ -654,16 +741,23 @@ export class HospitalDetailsComponent {
     }
   }
   onUpdateCoverImage(event: any) {
-    this.coverImageURL = [];
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.coverImageFormData.append('UploadImage', file, file.name);
-      var reader = new FileReader();
-      //this.imagePath = files;
-      reader.readAsDataURL(file);
-      reader.onload = (_event) => {
-        this.coverImageURL.push(reader.result);
-      };
+      this.coverImageFormData.append('image', file, file.name);
+      this.addLoading = true;
+      this.adminService.AddHospitalCoverImage(this.hospitalId, this.coverImageFormData).subscribe(
+        (data) => {
+          this.GatHospitalDetails();
+          this.addLoading = false;
+        },
+        (error) => {
+          if (error.status == 401) {
+            this.accountService.doLogout();
+            this.router.navigateByUrl('/');
+          }
+          console.log('Error in onUpdateCoverImage: ' + error.message);
+        }
+      );
     }
   }
   onUpdateHospitalImage(event: any) {

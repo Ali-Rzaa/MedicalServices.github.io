@@ -45,9 +45,18 @@ export class AdminService {
       })
     );
   }
-  ///api/Facility/get-hospital-facility-by-type/{typeId}/{hospitalId}
+
   getHospitalFacilitiesbyId(typeId: any, hospitalId: any) {
     return this.repositoryService.get('Facility/get-hospital-facility-by-type/' + typeId + '/' + hospitalId, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  ///api/Facility/get-hospital-radiology-facilities/{hospitalId}
+  getRadiologyFacilities(hospitalId: any) {
+    debugger;
+    return this.repositoryService.get('Facility/get-hospital-radiology-facilities/' + hospitalId, true).pipe(
       map((user: any) => {
         return user;
       })
@@ -111,6 +120,13 @@ export class AdminService {
     );
   }
   //clinic
+  getDoctorbyClinicId(clinicId: any) {
+    return this.repositoryService.get('Doctor/get-doctors-by-clinic/' + clinicId, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
   getClinic() {
     return this.repositoryService.get('Clinic/get-clinics', true).pipe(
       map((user: any) => {
@@ -119,7 +135,7 @@ export class AdminService {
     );
   }
   AddClinic(data: any) {
-    return this.repositoryService.post('Clinic/add-clinic', data, true).pipe(
+    return this.repositoryService.postWithFile('Clinic/add-clinic', data).pipe(
       map((user: any) => {
         return user;
       })
@@ -140,7 +156,22 @@ export class AdminService {
     );
   }
   UpdateClinic(clinicId: any, data: any) {
-    return this.repositoryService.putWithOutFile('Clinic/update-clinic/' + clinicId, data).pipe(
+    return this.repositoryService.put('Clinic/update-clinic/' + clinicId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  AddClinicImage(clinicId: any, data: any) {
+    return this.repositoryService.put('Image/update-clinic-cover-image/' + clinicId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  AddHospitalCoverImage(hospitalId: any, data: any) {
+    return this.repositoryService.put('Image/update-hospital-cover-image/' + hospitalId, data).pipe(
       map((user: any) => {
         return user;
       })
@@ -155,17 +186,75 @@ export class AdminService {
     );
   }
   AddFacility(data: any) {
-    debugger;
     return this.repositoryService.post('Facility/add-facility', data, true).pipe(
       map((user: any) => {
         return user;
       })
     );
   }
-  //Appointment
-
+  AddRadiologyFacility(hospitalId: any, data: any) {
+    debugger;
+    return this.repositoryService.post('Facility/add-radiology-facilities-of-hospital/' + hospitalId, data, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
   getAppointments() {
     return this.repositoryService.get('Appointment/get-appointment-list', true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  getAppointmentbyId(appointmentId: any) {
+    return this.repositoryService.get('Appointment/get-appointment/' + appointmentId, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  getLabbyId(labId: any) {
+    return this.repositoryService.get('Lab/get-lab/' + labId, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  AddLab(data: any) {
+    return this.repositoryService.postWithFile('Lab/add-lab', data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  getLabs() {
+    return this.repositoryService.get('Lab/get-labs', true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  deteleLab(labId: any) {
+    return this.repositoryService.delete('Lab/delete-lab/' + labId).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  AddLabCoverImage(labId: any, data: any) {
+    return this.repositoryService.put('Image/update-lab-cover-image/' + labId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+
+  UpdateLab(labId: any, data: any) {
+    return this.repositoryService.put('Lab/update-lab/' + labId, data).pipe(
       map((user: any) => {
         return user;
       })

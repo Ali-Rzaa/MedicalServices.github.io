@@ -17,8 +17,8 @@
       <div class="d-flex justify-content-between">
         <input placeholder="Enter city name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded != true" (keyup.enter)="onSubmitAddCity()" />
         <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.name }}</div>
-
-        <span class="material-icons mt-1" (click)="DeleteCityModel(DeleteCityTriggerModel, element, i)"> close </span>
+        <span class="material-icons mt-1" (click)="DeleteCity(i)" *ngIf="element.isAdded != true"> close </span>
+        <span class="material-icons mt-1" (click)="DeleteCityModel(DeleteCityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
       </div>
     </td>
   </ng-container>
@@ -43,7 +43,7 @@
     <div class="d-flex justify-content-end mt-5">
       <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
       <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
-      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteCity()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteCity($event)" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
       <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
         Wait
         <i class="fa fa-spinner fa-spin"></i>

@@ -54,7 +54,7 @@ export class ClinicsComponent {
         let data = dt.data;
         for (let a = 0; a < data.length; a++) {
           let clinic: ClinicModel = {
-            image: data[a].image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt[a].productImage,
+            image: data[a].image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : data[a].image,
             coverImage: data[a].coverImage,
             clinicId: data[a].clinicId,
             createdDateTime: data[a].createdDateTime,
@@ -128,27 +128,27 @@ export class ClinicsComponent {
     values.openingTime = this.shortDate + 'T' + values.openingTime + ':00.772Z';
     values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772Z';
     if (this.AddClinicForm.valid) {
-      // this.hospitalImageFormData.append('name', this.AddHospitalForm.get('name').value);
-      // this.hospitalImageFormData.append('address', this.AddHospitalForm.get('address').value);
-      // this.hospitalImageFormData.append('phoneNumber', this.AddHospitalForm.get('phoneNumber').value);
-      // this.hospitalImageFormData.append('openingTime', this.AddHospitalForm.get('openingTime').value);
-      // this.hospitalImageFormData.append('closingTime', this.AddHospitalForm.get('closingTime').value);
-      // this.hospitalImageFormData.append('mon', this.AddHospitalForm.get('mon').value);
-      // this.hospitalImageFormData.append('tus', this.AddHospitalForm.get('tus').value);
-      // this.hospitalImageFormData.append('wed', this.AddHospitalForm.get('wed').value);
-      // this.hospitalImageFormData.append('thur', this.AddHospitalForm.get('thur').value);
-      // this.hospitalImageFormData.append('fri', this.AddHospitalForm.get('fri').value);
-      // this.hospitalImageFormData.append('sat', this.AddHospitalForm.get('sat').value);
-      // this.hospitalImageFormData.append('sun', this.AddHospitalForm.get('sun').value);
-      // this.hospitalImageFormData.append('cityId', this.AddHospitalForm.get('cityId').value);
+      this.ImageFormData.append('Name', this.AddClinicForm.get('name').value);
+      this.ImageFormData.append('Address', this.AddClinicForm.get('address').value);
+      this.ImageFormData.append('PhoneNumber', this.AddClinicForm.get('phoneNumber').value);
+      this.ImageFormData.append('OpeningTime', values.openingTime);
+      this.ImageFormData.append('ClosingTime', values.closingTime);
+      this.ImageFormData.append('Mon', this.AddClinicForm.get('mon').value);
+      this.ImageFormData.append('Tus', this.AddClinicForm.get('tus').value);
+      this.ImageFormData.append('Wed', this.AddClinicForm.get('wed').value);
+      this.ImageFormData.append('Thur', this.AddClinicForm.get('thur').value);
+      this.ImageFormData.append('Fri', this.AddClinicForm.get('fri').value);
+      this.ImageFormData.append('Sat', this.AddClinicForm.get('sat').value);
+      this.ImageFormData.append('Sun', this.AddClinicForm.get('sun').value);
+      this.ImageFormData.append('CityId', this.AddClinicForm.get('cityId').value);
       if (values.openingTime > values.closingTime) {
         this.dateErrorMessage = 'Start time sholud be greated then End time';
       } else {
         this.addClinicLoading = true;
-        this.adminService.AddClinic(values).subscribe(
+        this.adminService.AddClinic(this.ImageFormData).subscribe(
           (dt) => {
             let clinic: ClinicModel = {
-              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.productImage,
+              image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.image,
               coverImage: dt.data.coverImage,
               clinicId: dt.data.clinicId,
               createdDateTime: dt.data.createdDateTime,
@@ -173,6 +173,7 @@ export class ClinicsComponent {
             };
             this.clinics.unshift(clinic);
             this.dataSource = new MatTableDataSource(this.clinics);
+            this.ImageFormData = new FormData();
             this.addClinicLoading = false;
             this.modalService.dismissAll();
           },
@@ -192,7 +193,7 @@ export class ClinicsComponent {
     this.imageURL = [];
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.ImageFormData.append('Image', file, file.name);
+      this.ImageFormData.append('UploadImage', file, file.name);
       var reader = new FileReader();
       //this.imagePath = files;
       reader.readAsDataURL(file);

@@ -105,6 +105,13 @@ export interface FacilitiesModel {
   labId: string;
   hospitalId: string;
   isAdded?: boolean;
+  facilityCategoryId: string;
+}
+export interface FacilitiesCategory {
+  facilityCategoryId: string;
+  facilityCategoryName: string;
+  hospitalId: string;
+  FacilitiesModel: FacilitiesModel[];
 }
 export interface AppointmentModel {
   appoinmentId: string;
@@ -122,6 +129,12 @@ export interface AppointmentModel {
   timming: string;
   patientName: string;
   weight: number;
+  day: string;
+  onlyTime: string;
+  onlyDate: string;
+  hospitalName: string;
+  clinicName: string;
+  labName: string;
 }
 export interface UserModel {
   userId: string;
@@ -129,4 +142,29 @@ export interface UserModel {
   lastName: string;
   email: string;
   image: string;
+}
+export interface LabModel {
+  image: string;
+  coverImage: string;
+  labId: string;
+  createdDateTime: string;
+  modifiedDateTime: string;
+  modifiedBy: string;
+  createdBy: string;
+  cityName: string;
+  name: string;
+  address: string;
+  phoneNumber: string;
+  openingTime: string;
+  closingTime: string;
+  mon: boolean;
+  tus: boolean;
+  wed: boolean;
+  thur: boolean;
+  fri: boolean;
+  sat: boolean;
+  sun: boolean;
+  cityId: string;
+  uploadImage: string;
+  hours: string;
 }

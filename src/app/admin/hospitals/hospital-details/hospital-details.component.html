@@ -2,7 +2,7 @@
   <div class="cover-image-container">
     <input style="display: none" name="profile" type="file" (change)="onUpdateCoverImage($event)" #image />
     <div class="d-pointer" style="position: relative"></div>
-    <img src="./assets/admin/cover-img.png" style="position: relative" class="model-image mt-1" width="100%" height="200px" *ngIf="coverImageURL.length == 0" />
+    <img src="{{ hospital.coverImage }}" style="position: relative" class="model-image mt-1" width="100%" height="200px" *ngIf="coverImageURL.length == 0" />
     <span *ngFor="let image of coverImageURL"><img src="{{ image }}" style="position: relative" class="model-image mt-1" width="100%" height="200px" *ngIf="coverImageURL.length != 0" /></span>
     <div style="margin-top: -150px; margin-left: 45%">
       <div class="add-logo" *ngIf="coverImageURL.length == 0">
@@ -15,7 +15,8 @@
         <img src="./assets/admin/logo-text.png" style="position: relative" class="model-image mt-1" width="100%" />
       </div>
       <div class="camera-icon d-pointer" (click)="image.click()">
-        <span class="material-icons d-pointer" style="margin-top: 4px; margin-left: 4px; font-size: 20px"> photo_camera </span>
+        <i class="fa fa-spinner fa-spin" style="margin-top: 4px; margin-left: 4px; font-size: 20px" *ngIf="addLoading"></i>
+        <span class="material-icons d-pointer" style="margin-top: 4px; margin-left: 4px; font-size: 20px" *ngIf="!addLoading"> photo_camera </span>
       </div>
     </div>
   </div>
@@ -33,8 +34,8 @@
             <span class="hospital-address-bold mt-1"> {{ hospital.address }} </span>
           </div>
           <div class="d-flex mt-3">
-            <span class="hospital-address">Hours:</span>&nbsp;
-            <span class="hospital-address-bold mt-1"> {{ hospital.hours }}</span>
+            <span class="hospital-address">Opening Time:</span>&nbsp;
+            <span class="hospital-address-bold mt-1"> {{ hospital.openingTime | date : 'h:mm a' }} to {{ hospital.closingTime | date : 'h:mm a' }}</span>
           </div>
         </div>
         <div style="width: 20%; padding: 10px">
@@ -43,7 +44,9 @@
               <img src="./assets/admin/line.png" />
             </div>
             <div class="col-10 mt-5">
-              <span class="hospital-address">Panel Doctors: <span class="hospital-address-bold">50</span></span>
+              <span class="hospital-address"
+                >Panel Doctors: <span class="hospital-address-bold">{{ doctors.length }}</span></span
+              >
               <br />
               <span class="hospital-address">
                 <span class="d-flex">Phone No:</span>
@@ -95,7 +98,7 @@
               <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
               <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                 <div class="d-flex justify-content-between">
-                  <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true" />
+                  <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true" />
                   <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.fee }}</div>
                   <span class="material-icons mt-1" (click)="DeleteFacilityModel(DeleteFacilityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
                   <span class="material-icons mt-1" (click)="DeleteFacility(i)" *ngIf="element.isAdded != true"> close </span>
@@ -115,13 +118,21 @@
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
       <div class="d-flex justify-content-between">
         <span class="header">Radiology department in {{ hospital.name }}</span>
-        <button class="Add-button d-pointer" (click)="AddDoctorModal(AddDoctorTriggerModel)">Add new doctor</button>
+        <button class="Add-button d-pointer" (click)="AddRadiologyModel(AddRadiologyTriggerModel)">Manage Radiology</button>
       </div>
       <div class="row">
-        <div class="col-12 mt-3">
-          <div class="hospital-container">
-            <div class="row" style="padding: 30px">
-              <div class="col-6" *ngFor="let facility of facilities">
+        <div class="col-12 mt-1">
+          <div class="hospital-container1 mt-3" *ngFor="let category of facilityCategories">
+            <br />
+            <div class="d-flex justify-content-between" style="margin-left: 20px">
+              <span class="profection">{{ category.facilityCategoryName }}</span>
+              <div class="d-flex" style="margin-right: 20px">
+                <span class="material-icons d-pointer" style="color: #179c8c" (click)="EditRadiologyModel(EditRadiologyTriggerModel, category)"> mode_edit_outline </span>
+                &nbsp;&nbsp;<span class="material-icons d-pointer" style="color: #179c8c"> delete_outline </span>
+              </div>
+            </div>
+            <div class="row" style="padding: 10px 30px 30px 30px">
+              <div class="col-6 mt-1" *ngFor="let facility of category.FacilitiesModel">
                 <span class="material-icons" style="font-size: 10px"> fiber_manual_record </span>
                 <span class="profection">{{ facility.name }}</span>
               </div>
@@ -502,6 +513,98 @@
         Wait
         <i class="fa fa-spinner fa-spin"></i>
       </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #AddRadiologyTriggerModel let-modal>
+  <div class="admin-modal" style="min-height: 310px">
+    <br /><br /><br />
+    <div style="padding: 30px; margin-top: -67px" novalidate autocomplete="off">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 input-field">
+            <input placeholder="Enter category name" id="name" type="text" [(ngModel)]="facilityCategoryName" />
+          </div>
+          <div class="col-6 input-field" *ngIf="facilityCategoryName != ''">
+            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px; height: 40px" (click)="onSubmitAddRadiologyFacility()">Save</button>
+            <button type="button" (click)="CancelPopUp()" class="Add-button" style="height: 40px">Cancel</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mt-4">
+            <table mat-table [dataSource]="dataSourceRadiology" multiTemplateDataRows class="mat-elevation-z8" style="margin-bottom: 20px; box-shadow: none !important">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Facilities Name</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+                  <div class="d-flex justify-content-between">
+                    <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" />
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fee">
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+                  <div class="d-flex justify-content-between">
+                    <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" type="number" />
+                    <span class="material-icons mt-1" (click)="DeletRadiologyRow(i)"> close </span>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplayRadiology"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnsToDisplayRadiology"></tr>
+            </table>
+            <div class="city-add-row">
+              <span class="material-icons add-icon d-pointer" (click)="InsertRadiologyRow()"> add_box </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #EditRadiologyTriggerModel let-modal>
+  <div class="admin-modal" style="min-height: 310px">
+    <br /><br /><br />
+    <div style="padding: 30px; margin-top: -67px" novalidate autocomplete="off">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 input-field">
+            <input placeholder="Enter category name" id="name" type="text" [(ngModel)]="facilityCategoryName" />
+          </div>
+          <div class="col-6 input-field" *ngIf="facilityCategoryName != ''">
+            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px; height: 40px" (click)="onSubmitAddRadiologyFacility()">Save</button>
+            <button type="button" (click)="CancelPopUp()" class="Add-button" style="height: 40px">Cancel</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mt-4">
+            <table mat-table [dataSource]="dataSourceRadiology" multiTemplateDataRows class="mat-elevation-z8" style="margin-bottom: 20px; box-shadow: none !important">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Facilities Name</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+                  <div class="d-flex justify-content-between">
+                    <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" />
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="fee">
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+                  <div class="d-flex justify-content-between">
+                    <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" type="number" />
+                    <span class="material-icons mt-1" (click)="DeletRadiologyRow(i)"> close </span>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplayRadiology"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnsToDisplayRadiology"></tr>
+            </table>
+            <div class="city-add-row">
+              <span class="material-icons add-icon d-pointer" (click)="InsertRadiologyRow()"> add_box </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </ng-template>

@@ -9,7 +9,7 @@
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 mt-5" style="margin-bottom: 20px">
     <ng-container matColumnDef="Pname">
       <th mat-header-cell *matHeaderCellDef style="width: 200px" class="table-header-text">Patient’s Name</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/appointments/details']">{{ element.patientName }}</td>
+      <td mat-cell *matCellDef="let element" class="table-body-text color d-pointer" style="border-right: none" [routerLink]="['/admin/appointments/details/', element.appoinmentId]">{{ element.patientName }}</td>
     </ng-container>
     <ng-container matColumnDef="gender">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Gender</th>
