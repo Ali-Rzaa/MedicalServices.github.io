@@ -93,7 +93,12 @@ color='white'
   title = 'Hi! Hiram Khan';
   closeResult: string='';
   modalOptions:NgbModalOptions;
-  
+  EnterSubmit(event:any){
+    if(this.loginForm.valid)
+    {
+      this.onSubmitLogin()
+    }
+  }
   
   open(content:any) {
     this.modalService.open(content, this.modalOptions).result.then((result) => {

@@ -4,7 +4,7 @@
             <img width="100%" height="100%" src="../../../assets/Images/login.png" alt="" srcset="">
         </div>
     </div>
-    <form [formGroup]="loginForm" novalidate class="col-lg-6 col-sm-12 col-md-12 login-form">
+    <form [formGroup]="loginForm" (keydown.enter)="EnterSubmit($event)" novalidate class="col-lg-6 col-sm-12 col-md-12 login-form">
             <img class="logo" src="../../../assets/Images/loginlogo.png" alt="" srcset="">
         <div class="tittle">
             <span>Online Booking of Medical Appointments and Services</span>

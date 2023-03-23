@@ -9,8 +9,9 @@ import { AccountService } from 'src/app/services/Account/account.service';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-
+  email:string = null
   errorMessage = "";
+  emailCheckMessage = "";
   SignupForm!: FormGroup;
   signupLoading: boolean = false;
   signupAsUser = 'true';
@@ -32,9 +33,40 @@ export class SignUpComponent implements OnInit {
       }
       else {
         this.SignupForm.setErrors(null);
+        this.errorMessage = "";
       }
     });
   };
+  setEmail(event: any){
+    this.email = event.target.value
+    this.onBlur()
+  }
+  onBlur(){
+    this.accountService.CheckEmail(this.email).subscribe({
+      next: (v) => {
+        this.emailCheckMessage = '';
+      },
+      error: (e) => {
+        this.emailCheckMessage = e.error.message;
+      },
+      complete: () => {
+        console.info('complete');
+      },
+    })
+  }
+  getClassOfDisable():string{
+    if(this.emailCheckMessage === '' && this.errorMessage === ''){
+      if(this.SignupForm.valid){
+        return 'login-button'
+      }
+      else{
+        return 'disabled-button'
+      }
+    }
+    else{
+      return 'disabled-button'
+    }
+  }
   onSubmit() {
         this.errorMessage = "";
         this.signupLoading = true;

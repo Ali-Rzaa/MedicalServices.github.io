@@ -28,6 +28,7 @@ export class SelectCityComponent implements OnInit {
   }
   submitCity(){
     localStorage.setItem('userCity',this.cityId);
+    localStorage.setItem('userCityName',this.selectedCity);
     this.router.navigateByUrl('/home') 
   }
   loadCities(){

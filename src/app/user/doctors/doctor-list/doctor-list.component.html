@@ -17,7 +17,7 @@
             <span class="nav-item">
                 By Service
             </span>
-            <span class="nav-item">
+            <span class="nav-item active">
                 All Doctors
             </span>
         <!-- </div> -->
@@ -27,19 +27,19 @@
         </div>
         <div *ngIf="doctors" class="second-row row px-3 mt-4">
             <div *ngFor="let doctor of doctors" class="col-lg-4 col-md-6 col-sm-12 px-2">
-                <div routerLink="/doctors/doctorProfile/{{doctor.id}}" class="info-card">
+                <div routerLink="/doctors/doctorProfile/{{doctor.doctorId}}" class="info-card">
                     <div class="card-img-container">
-                        <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                        <img  class="card-img" src="{{doctor.image?doctor.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                     </div>
                     <div class="card-info-container mt-3">
                         <div class="card-name">{{doctor.name}}</div>
-                        <span class="card-specialization">{{doctor.profession}}</span>
+                        <span class="card-specialization">{{doctor.field}}</span>
                         <br>
                         <span><strong>Fee:</strong></span><span class="card-fee"> Rs. {{doctor.fee}}</span>
                         <br>
                         <span><b>Experience:</b></span><span class="card-experience"> {{doctor.experience?doctor.experience:'No experience'}} year</span>
                         <br>
-                        <span class="card-availability">{{doctor.availability}}</span>
+                        <span class="card-availability">{{doctor.availableStatus?'Available':'Not Available'}}</span>
                     </div>
                 </div>
             </div>

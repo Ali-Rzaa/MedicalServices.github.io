@@ -34,6 +34,13 @@ export class AccountService {
       })
     );
   }
+  CheckEmail(email: any) {
+    return this.repositoryService.get('Account/check-email-existance/'+email, false).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
   getToken() {
     return localStorage.getItem('ca_access_token');
   }
