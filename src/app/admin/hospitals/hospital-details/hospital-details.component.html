@@ -98,7 +98,7 @@
               <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
               <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                 <div class="d-flex justify-content-between">
-                  <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true" />
+                  <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true" />
                   <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.fee }}</div>
                   <span class="material-icons mt-1" (click)="DeleteFacilityModel(DeleteFacilityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
                   <span class="material-icons mt-1" (click)="DeleteFacility(i)" *ngIf="element.isAdded != true"> close </span>

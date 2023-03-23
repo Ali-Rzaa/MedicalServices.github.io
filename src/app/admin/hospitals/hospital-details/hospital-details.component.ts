@@ -569,7 +569,7 @@ export class HospitalDetailsComponent {
       modifiedBy: '',
       createdBy: '',
       name: '',
-      fee: '',
+      fee: '0',
       typeId: 2,
       labId: null,
       hospitalId: this.hospitalId,
