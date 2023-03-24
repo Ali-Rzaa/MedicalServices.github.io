@@ -53,9 +53,15 @@ export class AdminService {
       })
     );
   }
-  ///api/Facility/get-hospital-radiology-facilities/{hospitalId}
+  ///api/Facility/get-lab-facilities/{labId}
+  getLabsFacilitiesById(labId: any) {
+    return this.repositoryService.get('Facility/get-lab-facilities/' + labId, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
   getRadiologyFacilities(hospitalId: any) {
-    debugger;
     return this.repositoryService.get('Facility/get-hospital-radiology-facilities/' + hospitalId, true).pipe(
       map((user: any) => {
         return user;
@@ -177,9 +183,15 @@ export class AdminService {
       })
     );
   }
-  //Facilities
   deteleFacility(facilityId: any) {
     return this.repositoryService.delete('Facility/delete-facility/' + facilityId).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  deteleRadiologyCategory(facilityCategoryId: any) {
+    return this.repositoryService.delete('Facility/delete-facilityCategory/' + facilityCategoryId).pipe(
       map((user: any) => {
         return user;
       })
@@ -192,9 +204,30 @@ export class AdminService {
       })
     );
   }
-  AddRadiologyFacility(hospitalId: any, data: any) {
+  UpdateParamedicalFacility(facilityId: any, data: any) {
     debugger;
+    return this.repositoryService.put('Facility/update-facility/' + facilityId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  AddRadiologyFacility(hospitalId: any, data: any) {
     return this.repositoryService.post('Facility/add-radiology-facilities-of-hospital/' + hospitalId, data, true).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  EditRadiologyFacility(facilityId: any, data: any) {
+    return this.repositoryService.putWithOutFile('Facility/update-facility/' + facilityId, data).pipe(
+      map((user: any) => {
+        return user;
+      })
+    );
+  }
+  EditRadiologyFacilityCategory(facilityCategoryId: any, name: any) {
+    return this.repositoryService.putWithOutFile('Facility/update-facilityCategory/' + facilityCategoryId + '?name=' + name, true).pipe(
       map((user: any) => {
         return user;
       })

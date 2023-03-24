@@ -227,6 +227,7 @@ export class DoctorsComponent {
     this.modalService.dismissAll();
   }
   AddDoctorModal(Item: any) {
+    this.ImageFormData = new FormData();
     this.imageURL = [];
     this.AddDoctorForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -313,11 +314,7 @@ export class DoctorsComponent {
     }
   }
   EditDoctorModal(Item: any, data: any) {
-    // if (data.hospitalId == null) {
-    //   this.isClinic = '2';
-    // } else {
-    //   this.isClinic = '1';
-    // }
+    this.ImageFormData = new FormData();
     this.drImage = data.image;
     this.doctorId = data.doctorId;
     this.imageURL = [];

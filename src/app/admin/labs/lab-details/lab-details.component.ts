@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { city, LabModel } from 'src/app/models/admin-models';
@@ -15,6 +16,7 @@ import { MasterTableService } from 'src/app/services/Admin/master-table.service'
 export class LabDetailsComponent {
   coverImageURL: any[] = [];
   labImageURL: any[] = [];
+  labs: LabModel[] = [];
   lab: LabModel = {
     image: '',
     coverImage: '',
@@ -52,6 +54,9 @@ export class LabDetailsComponent {
   dateErrorMessage: string = '';
   errorMessage: string = '';
   Loading: boolean = false;
+  columnsToDisplay: string[] = ['name', 'fee'];
+  showAddCancelBtn: number = 0;
+  dataSource: any;
   constructor(private masterTableService: MasterTableService, private route: ActivatedRoute, private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     const routeParams = this.route.snapshot.paramMap;
     this.labId = routeParams.get('labId');
@@ -129,7 +134,57 @@ export class LabDetailsComponent {
       }
     );
   }
-
+  getFacilitiesByParamedical() {
+    this.adminService.getLabsFacilitiesById(this.labId).subscribe(
+      (dt) => {
+        this.labs = [];
+        let data = dt.data;
+        for (let a = 0; a < data.length; a++) {
+          let facility: LabModel = {
+            image: '',
+            coverImage: '',
+            labId: '',
+            createdDateTime: '',
+            modifiedDateTime: '',
+            modifiedBy: '',
+            createdBy: '',
+            cityName: '',
+            name: '',
+            address: '',
+            phoneNumber: '',
+            openingTime: '',
+            closingTime: '',
+            mon: false,
+            tus: false,
+            wed: false,
+            thur: false,
+            fri: false,
+            sat: false,
+            sun: false,
+            cityId: '',
+            uploadImage: '',
+            hours: '',
+            isAdded: true,
+            isSelected: false,
+          };
+          this.labs.push(facility);
+          this.dataSource = new MatTableDataSource(this.labs);
+        }
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        console.log('Error in getDoctors ' + error.message);
+      }
+    );
+  }
+  cancelBtn() {
+    this.showAddCancelBtn = 0;
+  }
+  onSubmitAddFacility() {}
+  changeIsSelectedFlagInRadiology() {}
   onUpdateCoverImage(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -154,6 +209,8 @@ export class LabDetailsComponent {
     this.modalService.dismissAll();
   }
   EditLabModal(Item: any) {
+    this.coverImageFormData = new FormData();
+    this.labImageFormData = new FormData();
     this.labImage = this.lab.image;
     this.labImageURL = [];
     this.dateErrorMessage = '';

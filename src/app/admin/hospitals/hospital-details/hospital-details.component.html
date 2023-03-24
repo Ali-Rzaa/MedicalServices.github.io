@@ -89,8 +89,9 @@
               <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Facilities Name</th>
               <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                 <div class="d-flex justify-content-between">
-                  <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded != true" />
-                  <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.name }}</div>
+                  <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isSelected == true" />
+                  <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded != true && element.isSelected != true" />
+                  <div class="city-input" *ngIf="element.isAdded == true && element.isSelected != true" (click)="changeIsSelectedFlagInRadiology(element)">{{ element.name }}</div>
                 </div>
               </td>
             </ng-container>
@@ -98,10 +99,17 @@
               <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
               <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                 <div class="d-flex justify-content-between">
-                  <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true" />
-                  <div class="city-input" readonly *ngIf="element.isAdded == true">{{ element.fee }}</div>
-                  <span class="material-icons mt-1" (click)="DeleteFacilityModel(DeleteFacilityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
-                  <span class="material-icons mt-1" (click)="DeleteFacility(i)" *ngIf="element.isAdded != true"> close </span>
+                  <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isSelected == true" />
+                  <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true && element.isSelected != true" />
+                  <div class="city-input" *ngIf="element.isAdded == true && element.isSelected != true" (click)="changeIsSelectedFlagInRadiology(element)">{{ element.fee }}</div>
+                  <div *ngIf="element.isSelected != true">
+                    <span class="material-icons mt-1" (click)="DeleteFacilityModel(DeleteFacilityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
+                    <span class="material-icons mt-1" (click)="DeleteFacility(i)" *ngIf="element.isAdded != true"> close </span>
+                  </div>
+                  <div class="d-flex justify-content-end" *ngIf="element.isSelected == true">
+                    <button class="Add-button" style="height: 30px" (click)="changeDeSelectedFlagInRadiology(element)">Cancel</button>
+                    <button class="Add-button" style="height: 30px; background-color: #179c8c; color: #fff; margin-left: 10px" (click)="EditParamedicalFacility(element)">Save</button>
+                  </div>
                 </div>
               </td>
             </ng-container>
@@ -128,7 +136,7 @@
               <span class="profection">{{ category.facilityCategoryName }}</span>
               <div class="d-flex" style="margin-right: 20px">
                 <span class="material-icons d-pointer" style="color: #179c8c" (click)="EditRadiologyModel(EditRadiologyTriggerModel, category)"> mode_edit_outline </span>
-                &nbsp;&nbsp;<span class="material-icons d-pointer" style="color: #179c8c"> delete_outline </span>
+                &nbsp;&nbsp;<span class="material-icons d-pointer" style="color: #179c8c" (click)="DeleteFacilityCategoryModel(DeleteFacilityCategoryTriggerModel, category)"> delete_outline </span>
               </div>
             </div>
             <div class="row" style="padding: 10px 30px 30px 30px">
@@ -153,7 +161,7 @@
               <div style="width: 30%">
                 <img src="{{ doctor.image }}" class="hospital-img mt-1" height="168px" width="100%" />
               </div>
-              <div class="text-container" style="width: 60%">
+              <div class="text-container" style="width: 50%">
                 <span class="hospital-name">{{ doctor.name }}</span>
                 <br /><br />
                 <span class="hospital-address-bold" style="margin-top: 3px">{{ doctor.field }}</span>
@@ -168,8 +176,9 @@
                 <br />
                 <div class="hospital-name" style="font-size: 16px">{{ doctor.hospitalName }}</div>
               </div>
-              <div style="width: 10%; padding: 10px">
+              <div class="d-flex justify-content-end" style="width: 20%; padding: 10px">
                 <span class="material-icons d-pointer" style="float: right; color: #179c8c; margin-right: 5px" (click)="EditDoctorModal(EditDoctorTriggerModel, doctor)"> edit </span>
+                <span class="material-icons d-pointer" style="color: #179c8c; margin-right: 5px" (click)="DeleteDoctorModel(DeleteDoctorTriggerModel, doctor.doctorId)"> delete_outline </span>
               </div>
             </div>
           </div>
@@ -281,6 +290,7 @@
       </div>
       <div class="d-flex" style="float: right; margin-bottom: 10px">
         <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="button" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="addLoading">Save <i class="fa fa-spinner fa-spin"></i></button>
         <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!AddDoctorForm.valid">Save</button>
         <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="AddDoctorForm.valid && !addLoading">Save</button>
       </div>
@@ -379,6 +389,7 @@
       </div>
       <div class="d-flex" style="float: right; margin-bottom: 10px">
         <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="button" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="editHospitalLoading">Save <i class="fa fa-spinner fa-spin"></i></button>
         <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!EditHospitalForm.valid">Save</button>
         <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="EditHospitalForm.valid && !editHospitalLoading">Save</button>
       </div>
@@ -489,6 +500,7 @@
       </div>
       <div class="d-flex" style="float: right; margin-bottom: 10px">
         <button type="button" (click)="CancelPopUp()" class="Add-button">Cancel</button>
+        <button type="button" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="addLoading">Save <i class="fa fa-spinner fa-spin"></i></button>
         <button type="button" class="Add-button" style="background-color: gray; color: #fff; margin-left: 10px" *ngIf="!EditDoctorForm.valid">Save</button>
         <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="EditDoctorForm.valid && !addLoading">Save</button>
       </div>
@@ -569,21 +581,23 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-6 input-field">
-            <input placeholder="Enter category name" id="name" type="text" [(ngModel)]="facilityCategoryName" />
+            <input placeholder="Enter category name" id="name" type="text" hidden />
+            <input placeholder="Enter category name" id="name" type="text" [(ngModel)]="editRadioLogyCategoryName" (blur)="changeEditFlagInRadiology()" />
           </div>
-          <div class="col-6 input-field" *ngIf="facilityCategoryName != ''">
-            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px; height: 40px" (click)="onSubmitAddRadiologyFacility()">Save</button>
+          <div class="col-6 input-field" *ngIf="editRadioLogyCategoryName != ''">
+            <button type="submit" class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px; height: 40px" (click)="onSubmitEditRadiologyFacilityCategory()">Save</button>
             <button type="button" (click)="CancelPopUp()" class="Add-button" style="height: 40px">Cancel</button>
           </div>
         </div>
         <div class="row">
           <div class="col-12 mt-4">
-            <table mat-table [dataSource]="dataSourceRadiology" multiTemplateDataRows class="mat-elevation-z8" style="margin-bottom: 20px; box-shadow: none !important">
+            <table mat-table [dataSource]="dataSourceEditRadiology" multiTemplateDataRows class="mat-elevation-z8" style="margin-bottom: 20px; box-shadow: none !important">
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Facilities Name</th>
                 <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                   <div class="d-flex justify-content-between">
-                    <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" />
+                    <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" (blur)="changeEditFlagInRadiologyFacility(element.facilityId)" *ngIf="element.isAdded != false" />
+                    <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded == false" />
                   </div>
                 </td>
               </ng-container>
@@ -591,8 +605,10 @@
                 <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
                 <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
                   <div class="d-flex justify-content-between">
-                    <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" type="number" />
-                    <span class="material-icons mt-1" (click)="DeletRadiologyRow(i)"> close </span>
+                    <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" type="number" (blur)="changeEditFlagInRadiologyFacility(element.facilityId)" *ngIf="element.isAdded != false" />
+                    <input placeholder="Enter fee" class="city-input" [(ngModel)]="element.fee" type="number" *ngIf="element.isAdded == false" />
+                    <span class="material-icons mt-1" (click)="deleteFacilityById(element, i)" *ngIf="element.isAdded != false"> close </span>
+                    <span class="material-icons mt-1" (click)="deleteFacilityById($event, i)" *ngIf="element.isAdded == false"> close </span>
                   </div>
                 </td>
               </ng-container>
@@ -600,11 +616,53 @@
               <tr mat-row *matRowDef="let row; columns: columnsToDisplayRadiology"></tr>
             </table>
             <div class="city-add-row">
-              <span class="material-icons add-icon d-pointer" (click)="InsertRadiologyRow()"> add_box </span>
+              <span class="material-icons add-icon d-pointer" (click)="InsertEditRadiologyRow()"> add_box </span>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #DeleteFacilityCategoryTriggerModel let-modal>
+  <div class="modal-body" style="min-height: 200px; background: #fff">
+    <h1 class="modal-title">Please confirm..</h1>
+    <h5>Are you sure that you want to remove this Facility ?</h5>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages != ''">
+      {{ dltErrorMessages }}
+    </div>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages == ''">
+      <span style="color: white">.</span>
+    </div>
+    <div class="d-flex justify-content-end mt-5">
+      <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
+      <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteFacilityCategory()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
+        Wait
+        <i class="fa fa-spinner fa-spin"></i>
+      </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #DeleteDoctorTriggerModel let-modal>
+  <div class="modal-body" style="min-height: 200px; background: #fff">
+    <h1 class="modal-title">Please confirm..</h1>
+    <h5>Are you sure that you want to remove this Doctor ?</h5>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages != ''">
+      {{ dltErrorMessages }}
+    </div>
+    <div class="errorValdation text-center" *ngIf="dltErrorMessages == ''">
+      <span style="color: white">.</span>
+    </div>
+    <div class="d-flex justify-content-end mt-5">
+      <button type="button" class="delete-confirmation-btn cursor-pointer" (click)="CancelPopUp()" *ngIf="dltErrorMessages != ''">OK</button>
+      <button type="button" class="cancel-confirmation-btn cursor-pointer" style="border: none !important" (click)="CancelPopUp()" *ngIf="dltErrorMessages == ''">Cancel</button>
+      <button class="delete-confirmation-btn cursor-pointer" (click)="DeleteDoctor()" *ngIf="deleteLoading != true && dltErrorMessages == ''">Confirm</button>
+      <button type="button" class="delete-confirmation-btn" *ngIf="deleteLoading">
+        Wait
+        <i class="fa fa-spinner fa-spin"></i>
+      </button>
     </div>
   </div>
 </ng-template>

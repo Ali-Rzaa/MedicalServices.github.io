@@ -118,6 +118,7 @@ export class LabsComponent {
     this.modalService.dismissAll();
   }
   AddLabModal(Item: any) {
+    this.ImageFormData = new FormData();
     this.imageURL = [];
     this.dateErrorMessage = '';
     this.errorMessage = '';

@@ -98,6 +98,7 @@ export class ClinicsComponent {
     this.dateErrorMessage = '';
     this.errorMessage = '';
     this.addClinicLoading = false;
+    this.ImageFormData = new FormData();
     this.AddClinicForm = this.formBuilder.group({
       name: ['', Validators.required],
       address: ['', Validators.required],

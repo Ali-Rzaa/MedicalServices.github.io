@@ -35,6 +35,9 @@ export class HospitalDetailsComponent {
   doctors: DoctorModel[] = [];
   _facilities: FacilitiesModel[] = [];
   radiologyFacilities = [];
+  radiologyEditFacilities = [];
+  _doctorId: string = '';
+  doctorIndex: number;
   hospital: HospitalModel = {
     image: '',
     coverImage: '',
@@ -68,14 +71,18 @@ export class HospitalDetailsComponent {
   doctorId: string = '';
   dataSource: any;
   dataSourceRadiology: any;
+  dataSourceEditRadiology: any;
   showAddCancelBtn: number = 0;
   showAddRadiologyCancelBtn: number = 0;
+  showEditRadiologyCancelBtn: number = 0;
   facilityId: string = '';
   facilityIndex: number;
   columnsToDisplay: string[] = ['name', 'fee'];
   columnsToDisplayRadiology: string[] = ['name', 'fee'];
   facilityCategories: FacilitiesCategory[] = [];
   facilityCategoryName: string = '';
+  editRadioLogyCategoryName: string = '';
+  radioCategoryId: string = '';
   constructor(private masterTableService: MasterTableService, private route: ActivatedRoute, private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     const routeParams = this.route.snapshot.paramMap;
     this.hospitalId = routeParams.get('hospitalId');
@@ -187,6 +194,11 @@ export class HospitalDetailsComponent {
   }
   CancelPopUp() {
     this.modalService.dismissAll();
+    this.showAddCancelBtn = 0;
+    this.showAddRadiologyCancelBtn = 0;
+    this.showEditRadiologyCancelBtn = 0;
+
+    this.getRadiologyFacilities();
   }
   getDoctortypes() {
     this.masterTableService.getDoctorTypes().subscribe(
@@ -212,6 +224,9 @@ export class HospitalDetailsComponent {
     );
   }
   AddDoctorModal(Item: any) {
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.hospitalImageFormData = new FormData();
     this.imageURL = [];
     this.AddDoctorForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -292,6 +307,9 @@ export class HospitalDetailsComponent {
     }
   }
   EditDoctorModal(Item: any, data: any) {
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.hospitalImageFormData = new FormData();
     this.drImage = data.image;
     this.doctorId = data.doctorId;
     this.imageURL = [];
@@ -380,6 +398,9 @@ export class HospitalDetailsComponent {
     }
   }
   EditHospitalModal(Item: any) {
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.hospitalImageFormData = new FormData();
     this.hospitaiImage = this.hospital.image;
     this.hospitalImageURL = [];
     this.dateErrorMessage = '';
@@ -504,7 +525,8 @@ export class HospitalDetailsComponent {
               labId: dt.data[b].radiologyFacilities[c].labId,
               hospitalId: dt.data[b].radiologyFacilities[c].hospitalId,
               facilityCategoryId: dt.data[b].radiologyFacilities[c].hospitalId,
-              isAdded: false,
+              isAdded: true,
+              isEdit: false,
             };
             facilities.push(facility);
           }
@@ -513,6 +535,7 @@ export class HospitalDetailsComponent {
             facilityCategoryName: dt.data[b].facilityCategoryName,
             hospitalId: dt.data[b].hospitalId,
             FacilitiesModel: facilities,
+            isEdit: false,
           };
           this.facilityCategories.push(category);
         }
@@ -546,6 +569,7 @@ export class HospitalDetailsComponent {
             hospitalId: dt.data[a].hospitalId,
             facilityCategoryId: dt.data[a].hospitalId,
             isAdded: true,
+            isSelected: false,
           };
           this._facilities.push(facility);
           this.dataSource = new MatTableDataSource(this._facilities);
@@ -574,11 +598,52 @@ export class HospitalDetailsComponent {
       labId: null,
       hospitalId: this.hospitalId,
       isAdded: false,
+      isSelected: false,
       facilityCategoryId: null,
     };
     this._facilities.splice(this._facilities.length + 1, 0, facility);
     this.dataSource = new MatTableDataSource(this._facilities);
     this.addCancelBtn('add');
+  }
+  changeIsSelectedFlagInRadiology(data: any) {
+    for (let i = 0; i < this._facilities.length; i++) {
+      if (this._facilities[i].facilityId == data.facilityId) {
+        this._facilities[i].isSelected = true;
+      } else {
+        this._facilities[i].isSelected = false;
+      }
+    }
+  }
+  changeDeSelectedFlagInRadiology(data: any) {
+    for (let i = 0; i < this._facilities.length; i++) {
+      if (this._facilities[i].facilityId == data.facilityId) {
+        this._facilities[i].isSelected = false;
+      }
+    }
+  }
+  EditParamedicalFacility(facility: any) {
+    this.errorMessage = '';
+    this.addLoading = true;
+    let paramedicalfacility = {
+      name: facility.name,
+      fee: facility.fee,
+    };
+    this.adminService.UpdateParamedicalFacility(facility.facilityId, paramedicalfacility).subscribe(
+      (dt) => {
+        this.changeDeSelectedFlagInRadiology(facility);
+        this.showAddRadiologyCancelBtn = 0;
+        this.addLoading = false;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.addLoading = false;
+        this.errorMessage = error.error.message;
+        this.getFacilitiesByParamedical();
+      }
+    );
   }
   DeletRow(date: any) {
     this.dataSource.data.splice(date, 1);
@@ -630,6 +695,37 @@ export class HospitalDetailsComponent {
       );
     }
   }
+  DeleteFacilityCategoryModel(Item: any, data: any) {
+    this.facilityId = data.facilityCategoryId;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  DeleteFacilityCategory() {
+    this.dltErrorMessages = '';
+    this.deleteLoading = true;
+    this.adminService.deteleRadiologyCategory(this.facilityId).subscribe(
+      (dt) => {
+        this.getRadiologyFacilities();
+        this.deleteLoading = false;
+        this.modalService.dismissAll();
+      },
+      (error) => {
+        this.deleteLoading = false;
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.deleteLoading = false;
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
   cancelBtn() {
     this.getFacilitiesByParamedical();
     this.showAddCancelBtn = 0;
@@ -668,17 +764,6 @@ export class HospitalDetailsComponent {
       }
     );
   }
-  EditRadiologyModel(Item: any, date: any) {
-    debugger;
-    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
-      (res) => {
-        this.closeModal = `Closed with: ${res}`;
-      },
-      (res) => {
-        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
-      }
-    );
-  }
   InsertRadiologyRow() {
     let facility = {
       name: '',
@@ -702,7 +787,6 @@ export class HospitalDetailsComponent {
     }
   }
   onSubmitAddRadiologyFacility() {
-    debugger;
     this.errorMessage = '';
     this.addLoading = true;
     let radiologyfacility = {
@@ -712,6 +796,9 @@ export class HospitalDetailsComponent {
     this.adminService.AddRadiologyFacility(this.hospitalId, radiologyfacility).subscribe(
       (dt) => {
         this.getRadiologyFacilities();
+        this.radiologyFacilities = [];
+        this.dataSourceRadiology = new MatTableDataSource(this.radiologyFacilities);
+        this.facilityCategoryName = '';
         this.modalService.dismissAll();
         this.showAddRadiologyCancelBtn = 0;
         this.addLoading = false;
@@ -726,6 +813,195 @@ export class HospitalDetailsComponent {
       }
     );
   }
+  EditRadiologyModel(Item: any, data: any) {
+    this.radioCategoryId = data.facilityCategoryId;
+    this.editRadioLogyCategoryName = data.facilityCategoryName;
+    this.radiologyEditFacilities = data.FacilitiesModel;
+    this.dataSourceEditRadiology = new MatTableDataSource(this.radiologyEditFacilities);
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  changeEditFlagInRadiology() {
+    for (let i = 0; i < this.facilityCategories.length; i++) {
+      if (this.facilityCategories[i].facilityCategoryId == this.radioCategoryId) {
+        this.facilityCategories[i].isEdit = true;
+      }
+    }
+  }
+  changeEditFlagInRadiologyFacility(id: any) {
+    for (let i = 0; i < this.radiologyEditFacilities.length; i++) {
+      if (this.radiologyEditFacilities[i].facilityId == id) {
+        this.radiologyEditFacilities[i].isEdit = true;
+      }
+    }
+  }
+  InsertEditRadiologyRow() {
+    let facility = {
+      name: '',
+      typeId: 1,
+      fee: 0,
+      isAdded: false,
+      facilityCategoryId: this.radioCategoryId,
+      hospitalId: this.hospitalId,
+    };
+    this.radiologyEditFacilities.splice(this.radiologyEditFacilities.length + 1, 0, facility);
+    this.dataSourceEditRadiology = new MatTableDataSource(this.radiologyEditFacilities);
+    this.addCancelEditRadiologyBtn('add');
+  }
+  DeletEditRadiologyRow(date: any) {
+    this.dataSourceEditRadiology.data.splice(date, 1);
+    this.dataSourceEditRadiology._updateChangeSubscription();
+    this.addCancelEditRadiologyBtn('remove');
+  }
+  addCancelEditRadiologyBtn(type: any) {
+    if (type == 'add') {
+      this.showEditRadiologyCancelBtn++;
+    } else {
+      this.showEditRadiologyCancelBtn--;
+    }
+  }
+  onSubmitEditRadiologyFacilityCategory() {
+    this.errorMessage = '';
+    this.addLoading = true;
+    for (let i = 0; i < this.facilityCategories.length; i++) {
+      if (this.facilityCategories[i].facilityCategoryId == this.radioCategoryId && this.facilityCategories[i].isEdit == true) {
+        this.adminService.EditRadiologyFacilityCategory(this.facilityCategories[i].facilityCategoryId, this.editRadioLogyCategoryName).subscribe(
+          (dt) => {
+            this.getRadiologyFacilities();
+            this.modalService.dismissAll();
+            this.showEditRadiologyCancelBtn = 0;
+            this.addLoading = false;
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.addLoading = false;
+            this.errorMessage = error.error.errors.name;
+          }
+        );
+      } else {
+        this.modalService.dismissAll();
+      }
+    }
+    this.onSubmitEditRadiologyFacility();
+  }
+  onSubmitEditRadiologyFacility() {
+    this.errorMessage = '';
+    this.addLoading = true;
+    for (let i = 0; i < this.radiologyEditFacilities.length; i++) {
+      if (this.radiologyEditFacilities[i].isEdit == true) {
+        let data = {
+          name: this.radiologyEditFacilities[i].name,
+          fee: this.radiologyEditFacilities[i].fee,
+        };
+        this.adminService.EditRadiologyFacility(this.radiologyEditFacilities[i].facilityId, data).subscribe(
+          (dt) => {
+            this.modalService.dismissAll();
+            this.showEditRadiologyCancelBtn = 0;
+            this.addLoading = false;
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.addLoading = false;
+            this.errorMessage = error.error.errors.name;
+          }
+        );
+      }
+    }
+    this.AddRadiologyFacilityByCategory();
+  }
+
+  deleteFacilityById(data: any, index: any) {
+    this.dltErrorMessages = '';
+    if (data.facilityId == undefined) {
+      this.DeletEditRadiologyRow(index);
+    } else {
+      this.deleteLoading = true;
+      this.adminService.deteleFacility(data.facilityId).subscribe(
+        (dt) => {
+          data.facilityId = '';
+          this.DeletEditRadiologyRow(index);
+          this.showAddCancelBtn = 0;
+          this.deleteLoading = false;
+          //this.modalService.dismissAll();
+        },
+        (error) => {
+          this.deleteLoading = false;
+          if (error.status == 401) {
+            this.accountService.doLogout();
+            this.router.navigateByUrl('/signIn');
+          }
+          this.deleteLoading = false;
+          this.errorMessage = error.error.message;
+        }
+      );
+    }
+  }
+  AddRadiologyFacilityByCategory() {
+    this.errorMessage = '';
+    this.addLoading = true;
+    for (let c = 0; c < this.radiologyEditFacilities.length; c++) {
+      if (this.radiologyEditFacilities[c].isAdded == false) {
+        this.adminService.AddFacility(this.radiologyEditFacilities[c]).subscribe(
+          (dt) => {
+            this.getRadiologyFacilities();
+            this.showAddRadiologyCancelBtn = 0;
+            this.addLoading = false;
+            this.modalService.dismissAll();
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.addLoading = false;
+            this.errorMessage = error.error.errors.name;
+          }
+        );
+      }
+    }
+  }
+  //   this.errorMessage = '';
+  //   this.addLoading = true;
+  //   let radioFacility = [];
+  //   for (let i = 0; i < this.radiologyEditFacilities.length; i++) {
+  //     if (this.radiologyEditFacilities[i].isAdded == false) {
+  //       radioFacility.push(this.radiologyEditFacilities[i]);
+  //     }
+  //   }
+  //   let radiologyfacility = {
+  //     facilityCategoryName: this.editRadioLogyCategoryName,
+  //     radiologyFacilities: radioFacility,
+  //   };
+  //   debugger;
+  //   this.adminService.AddRadiologyFacility(this.hospitalId, radiologyfacility).subscribe(
+  //     (dt) => {
+  //       this.getRadiologyFacilities();
+  //       this.modalService.dismissAll();
+  //       this.showAddRadiologyCancelBtn = 0;
+  //       this.addLoading = false;
+  //     },
+  //     (error) => {
+  //       if (error.status == 401) {
+  //         this.accountService.doLogout();
+  //         this.router.navigateByUrl('/signIn');
+  //       }
+  //       this.addLoading = false;
+  //       this.errorMessage = error.error.errors.name;
+  //     }
+  //   );
+  // }
   ///image upload
   onUpdateDoctorImage(event: any) {
     this.imageURL = [];
@@ -818,6 +1094,39 @@ export class HospitalDetailsComponent {
           this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getCities: ' + error.message);
+      }
+    );
+  }
+  DeleteDoctorModel(Item: any, doctorId: any) {
+    this._doctorId = doctorId;
+    this.dltErrorMessages = '';
+    this.deleteLoading = false;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  DeleteDoctor() {
+    this.dltErrorMessages = '';
+    this.deleteLoading = true;
+    this.adminService.deteleDoctor(this._doctorId).subscribe(
+      (dt) => {
+        this.getDoctorsByHospitalId();
+        this.deleteLoading = false;
+        this.modalService.dismissAll();
+      },
+      (error) => {
+        this.deleteLoading = false;
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.deleteLoading = false;
+        this.dltErrorMessages = error.error.message;
       }
     );
   }

@@ -100,6 +100,8 @@ export class HospitalsComponent {
     this.modalService.dismissAll();
   }
   AddHospitalModal(Item: any) {
+    this.hospitalImageFormData = new FormData();
+    this.coverImageFormData = new FormData();
     this.hospitalImageURL = [];
     this.coverImageURL = [];
     this.dateErrorMessage = '';

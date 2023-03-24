@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { city } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { AdminService } from 'src/app/services/Admin/admin.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cities',
@@ -93,8 +94,10 @@ export class CitiesComponent {
               this.accountService.doLogout();
               this.router.navigateByUrl('/signIn');
             }
+            Swal.fire('Cancelled', error.error.message, 'error');
             this.addCityLoading = false;
-            this.errorMessage = error.error.errors.name;
+            this.getCities();
+            // this.errorMessage = error.error.message;
           }
         );
       }
