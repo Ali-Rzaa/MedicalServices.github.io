@@ -55,6 +55,53 @@
       </div>
     </div>
   </div>
+  <!-- <div class="d-flex justify-content-between">
+    <span class="header">Paramedical service in {{ lab.name }}</span>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      <button class="Add-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="showAddCancelBtn != 0" (click)="onSubmitAddFacility()">Save <i class="fa fa-spinner fa-spin" *ngIf="addLoading == true"></i></button>
+      <button class="Add-button" *ngIf="showAddCancelBtn != 0" (click)="cancelBtn()">Cancel</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-3">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="margin-bottom: 20px; box-shadow: none !important">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Facilities Name</th>
+          <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+            <div class="d-flex justify-content-between">
+              <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isSelected == true" />
+              <input placeholder="Enter facility Name" class="city-input" [(ngModel)]="element.name" *ngIf="element.isAdded != true && element.isSelected != true" />
+              <div class="city-input" *ngIf="element.isAdded == true && element.isSelected != true" (click)="changeIsSelectedFlagInRadiology(element)">{{ element.name }}</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fee">
+          <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: left !important" class="table-header-text">Fee</th>
+          <td mat-cell *matCellDef="let element; let i = dataIndex" class="table-body-text d-pointer" style="text-align: left !important">
+            <div class="d-flex justify-content-between">
+              <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isSelected == true" />
+              <input placeholder="Enter fee" type="number" class="city-input" [(ngModel)]="element.fee" *ngIf="element.isAdded != true && element.isSelected != true" />
+              <div class="city-input" *ngIf="element.isAdded == true && element.isSelected != true" (click)="changeIsSelectedFlagInRadiology(element)">{{ element.fee }}</div>
+              <div *ngIf="element.isSelected != true">
+                <span class="material-icons mt-1" (click)="DeleteFacilityModel(DeleteFacilityTriggerModel, element, i)" *ngIf="element.isAdded == true"> close </span>
+                <span class="material-icons mt-1" (click)="DeleteFacility(i)" *ngIf="element.isAdded != true"> close </span>
+              </div>
+              <div class="d-flex justify-content-end" *ngIf="element.isSelected == true">
+                <button class="Add-button" style="height: 30px" (click)="changeDeSelectedFlagInRadiology(element)">Cancel</button>
+                <button class="Add-button" style="height: 30px; background-color: #179c8c; color: #fff; margin-left: 10px" (click)="EditParamedicalFacility(element)">Save</button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+      </table>
+      <div class="city-add-row">
+        <span class="material-icons add-icon d-pointer" (click)="InsertFacilityRow()"> add_box </span>
+      </div>
+    </div>
+  </div> -->
   <br /><br />
 </div>
 <ng-template #EditLabTriggerModel let-modal>

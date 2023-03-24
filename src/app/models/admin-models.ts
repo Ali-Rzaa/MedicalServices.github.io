@@ -106,11 +106,14 @@ export interface FacilitiesModel {
   hospitalId: string;
   isAdded?: boolean;
   facilityCategoryId: string;
+  isEdit?: boolean;
+  isSelected?: boolean;
 }
 export interface FacilitiesCategory {
   facilityCategoryId: string;
   facilityCategoryName: string;
   hospitalId: string;
+  isEdit?: boolean;
   FacilitiesModel: FacilitiesModel[];
 }
 export interface AppointmentModel {
@@ -167,4 +170,6 @@ export interface LabModel {
   cityId: string;
   uploadImage: string;
   hours: string;
+  isSelected?: boolean;
+  isAdded?: boolean;
 }

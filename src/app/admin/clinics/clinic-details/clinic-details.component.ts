@@ -194,6 +194,9 @@ export class ClinicDetailsComponent {
     this.dateErrorMessage = '';
     this.errorMessage = '';
     this.coverImageURL = [];
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.clinicImageFormData = new FormData();
     let splitOpeningTime = this.clinic.openingTime.split('-');
     let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -7);
     let openingTime = substringsplitOpeningTime;
@@ -343,6 +346,9 @@ export class ClinicDetailsComponent {
     this.modalService.dismissAll();
   }
   AddDoctorModal(Item: any) {
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.clinicImageFormData = new FormData();
     this.imageURL = [];
     this.addLoading = false;
     this.errorMessage = '';
@@ -425,6 +431,9 @@ export class ClinicDetailsComponent {
     }
   }
   EditDoctorModal(Item: any, data: any) {
+    this.coverImageFormData = new FormData();
+    this.doctorImageFormData = new FormData();
+    this.clinicImageFormData = new FormData();
     this.drImage = data.image;
     this.doctorId = data.doctorId;
     this.imageURL = [];
