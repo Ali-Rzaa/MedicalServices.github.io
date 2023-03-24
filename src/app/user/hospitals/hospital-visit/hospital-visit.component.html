@@ -28,6 +28,11 @@
                                             Address: 
                                             <span style="color: #179C8C;">{{hospital.address}}</span>
                                         </span>
+                                        <br>
+                                        <br>
+                                        <div class="hospital-card-button">
+                                            <button routerLink="/hospitals/hospitalAppointment/{{hospital.hospitalId}}" class="visit-button" >Book Appointment</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="last-content col-lg-4 col-md-4 col-sm-12">
@@ -42,6 +47,9 @@
                                                 Contact:
                                                 <span style="color: #179C8C;">{{hospital.phoneNumber?hospital.phoneNumber:'No contact'}}</span> 
                                             </span>
+                                            <div class="hospital-card-button2">
+                                                <button routerLink="/hospitals/hospitalAppointment/{{hospital.hospitalId}}" class="visit-button">Book Appointment</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -64,20 +72,31 @@
                 </div> -->
                 <div class="row">
                     <div class="services-container d-flex">
-                        <div class="service mt-3">
+                        <div (click)="option = 'paramedical'" [ngClass]="{'service mt-3':true, 'actve-option':option == 'paramedical'}">
                             Paramedical service
                         </div>
-                        <div class="service mt-3">
+                        <div (click)="option = 'radiology'" [ngClass]="{'service mt-3':true, 'actve-option':option == 'radiology'}">
                             Radiology department
                         </div>
-                        <div class="service mt-3">
+                        <div (click)="option = 'doctor'" [ngClass]="{'service mt-3':true, 'actve-option':option == 'doctor'}" class="service mt-3">
                             Doctor by desease
                         </div>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <span class="doctors-heading">Doctors by Disease in Toba Tek Singh</span>
-                    <div *ngIf="doctors" class="second-row row mt-4">
+                    <span *ngIf="option == ''" class="doctors-heading">Choose option above to book appointment</span>
+                    <span *ngIf="option == 'paramedical'" class="doctors-heading">Paramedical services in {{hospital.name}}</span>
+                    <span *ngIf="option == 'radiology'" class="doctors-heading">Radiology Services in {{hospital.name}}</span>
+                    <span *ngIf="option == 'doctor'" class="doctors-heading">Doctors in {{hospital.name}}</span>
+                    <div *ngIf="option == 'paramedical'" class="services-content second-row row mt-4" >
+                        <div class="hospital-card-button service-booking-button">
+                            <button routerLink="/hospitals/hospitalAppointment/{{hospital.hospitalId}}" class="visit-button" >Book Appointment</button>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+
+                        </div>
+                    </div>
+                    <div *ngIf="doctors && option == 'doctor'" class="second-row row mt-4">
                         <div
                           *ngFor="let doctor of doctors | slice : 0 : 3"
                           class="col-lg-6 col-md-12 col-sm-12"
@@ -115,43 +134,6 @@
                           </div>
                         </div>
                       </div>
-                    <!-- <div class="info-card" *ngFor="let doctor of doctors">
-                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
-                        </div>
-                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <div class="sub-info">
-                                        <span class="card-name">{{doctor.name}}</span>
-                                        <br>
-                                        <span class="card-text">
-                                            <span style="color: #179C8C;"> {{doctor.profession}}</span>
-                                        </span>
-                                        <br>
-                                        <span class="card-text">
-                                            Fee:
-                                            <span style="color: #179C8C;"> {{doctor.fee}}</span>
-                                        </span>
-                                        <br>
-                                        <span class="card-text">
-                                            Experience: 
-                                            <span style="color: #179C8C;">{{doctor.experience}}</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="last-content col-lg-3 col-md-3 col-sm-12">
-                                    <div class="contact-container">
-                                        <div>
-                                            <span class="card-text">
-                                                <span style="color: #179C8C;">{{doctor.availability}}</span> 
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>

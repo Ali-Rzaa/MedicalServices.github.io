@@ -40,7 +40,8 @@
                                 <div class="contact-container">
                                     <div>
                                         <span class="card-text">
-                                            <button routerLink="/doctors/doctorBooking/{{doctor.doctorId}}" class="visit-button" >Book Appointment</button> 
+                                            <button *ngIf="this.selectedDate!='' && selectedTime != ''" routerLink="/doctors/doctorBooking/{{doctor.doctorId}}/{{selectedDate}}/{{selectedTime}}" [ngClass]="appointmentButton()" >Book Appointment</button>
+                                            <button *ngIf="this.selectedDate ==='' || selectedTime === ''" [ngClass]="appointmentButton()" >Book Appointment</button> 
                                         </span>
                                     </div>
                                 </div>
@@ -54,14 +55,14 @@
         <div class="row px-3 mt-2">
             <div class="px-2 col-12">
                 <div class="third-row row p-3">
-                    <div class="col-lg-10 col-md-8 col-sm-12">
-                        <span class="time-block-heading">Available day&time</span>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <span class="time-block-heading">Select Available day&time</span>
                         <br>
                         <br>
                         <div class="card-text">
                             <!-- <span style="color:#179C8C">Morning Time</span> -->
                             <div class="activeHours" >
-                                <button class="timeblock" mat-stroked-button *ngFor="let time of availabilty"><i class='bi bi-clock'></i><span> {{time}}</span></button>
+                                <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of availabilty"><i class='bi bi-clock'></i><span> {{time}}</span></button>
                             </div>
                             <!-- <br><br>
                             <span style="color:#179C8C">Evening Time</span>
@@ -70,7 +71,7 @@
                             </div> -->
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-4 col-sm-12">
+                    <div class="col-lg-3 col-md-4 col-sm-12">
                         hi
                     </div>
                 </div>

@@ -10,6 +10,8 @@
    padding: 20px;
    border-radius: 20px;
    width: 50vh;
+   min-width: 500px;
+   min-height: 400px;
    height: 50vh;
 }
 .heading{
@@ -25,6 +27,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100%;
     padding: 20px;
 }
 .dropdown-container{
@@ -78,4 +82,10 @@
     cursor: not-allowed;
     background: #f3f3f3;
     color: #dadada
+}
+@media(max-width:768px){
+    .select-content{
+        min-width: 200px;
+        min-height: 200px;
+     }
 }

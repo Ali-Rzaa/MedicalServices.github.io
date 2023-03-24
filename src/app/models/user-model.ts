@@ -28,3 +28,22 @@ export interface Cities {
     cityId: string;
     uploadImage: null;
   }
+  export interface radiologyFacility{
+    facilityId:null;
+    createdDateTime: string;
+    modifiedDateTime: string;
+    modifiedBy: string;
+    createdBy: string;
+    facilityCategoryId: null;
+    name: string;
+    fee: null;
+    labId: null;
+    typeId: string;
+    hospitalId: null;
+  }
+  export interface radiologyFacility {
+    facilityCategoryId: null;
+    facilityCategoryName: string;
+    hospitalId: null;
+    radiologyFacilities: []
+  }
