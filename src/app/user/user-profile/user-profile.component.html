@@ -6,61 +6,38 @@
         <div *ngIf="user" class="second-row row px-3 mt-4">
             <div class="col-12 px-2">
                 <div class="row">
-                    <div class="info-card" >
-                        <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{user.imgUrl?user.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
-                        </div>
-                        <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <div class="sub-info">
-                                        <span class="card-name">{{user.name}}</span>
-                                        <br>
-                                        <span class="card-text">
-                                            Age:
-                                            <span style="color: #179C8C;"> {{user.age}}</span>
-                                        </span>
-                                        <br>
-                                        <span class="card-text">
-                                            Gender: 
-                                            <span style="color: #179C8C;">{{user.gender}}</span>
-                                        </span>
-                                        <br>
-                                        <span class="card-text">
-                                            Phone No: 
-                                            <span style="color: #179C8C;">{{user.phoneNo}}</span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="last-content col-lg-3 col-md-3 col-sm-12">
-                                    <div class="contact-container">
-                                        <div>
-                                            <div>
-                                                <button (click)="logout()" class="logout-button" >Logout</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="user-detail col-lg-6 col-md-6 col-sm-12">
+                        <div class="user-image-container">
+                            <img  class="card-img" src="{{user.image?user.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                            <div class="upload-image">
+                                <i (click)="open(content)" class="bi bi-camera-fill "></i>
                             </div>
                         </div>
+                        <span class="card-name">{{user.firstName}} {{user.lastName}}</span>
                     </div>
+                    <div class="user-detail col-lg-6 col-md-6 col-sm-12">
+                        <div class="logout-container">
+                            <button (click)="logout()" class="logout-button" >Logout</button>
+                        </div>   
+                    </div> 
                 </div>
                 <div class="first-row">
                     <span class="doctors-heading">Current Booked Appointments</span>
                 </div>
                 <div class="row mt-1">
-                    <div class="info-card" *ngFor="let doctor of filterUser2(doctors)">
+                    <div class="info-card" *ngFor="let doctor of filterUser2(userAppointment)">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                            <img  class="card-img" src="{{doctor.image? doctor.image : '../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                         </div>
                         <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                             <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="sub-info">
-                                        <span class="card-name">{{doctor.name}}</span>
+                                        <span class="card-name">{{doctor.doctorName? 'Dr.'+doctor.doctorName : doctor.hospitalName? doctor.hospitalName : doctor.labName}}</span>
                                         <br>
-                                        <span class="card-text">
-                                            <span style="color: #179C8C;"> {{doctor.profession}}</span>
+                                        <span *ngIf="doctor.doctorName" class="card-text">
+                                            Hospital:
+                                            <span style="color: #179C8C;"> {{doctor.hospitalName}}</span>
                                         </span>
                                         <br>
                                         <span class="card-text">
@@ -72,34 +49,48 @@
                                             Experience: 
                                             <span style="color: #179C8C;">{{doctor.experience}}</span>
                                         </span>
-                                        <br>
-                                        <span class="card-text">
-                                            <span style="color: #179C8C;">{{doctor.availability}}</span>
-                                        </span>
-                                        <br>
-                                        <br>
-                                        <div class="hospital-card-button">
-                                            <button class="visit-button" >Cancel Appointment</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="last-content col-lg-4 col-md-4 col-sm-12">
-                                    <div style="border: none;" class="contact-container">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div>
+                                        <span class="card-text">Pateint Name: <span style="color: #179C8C;">{{doctor.patientName}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Age: <span style="color: #179C8C;">{{doctor.age}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Gender: <span style="color: #179C8C;">{{doctor.gender}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Phone No: <span style="color: #179C8C;">{{doctor.phoneNo}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Appointment status: <span style="color: #179C8C;">{{doctor.appointmentStatus}}</span></span>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-3 col-md-3 col-sm-12">
+                                    <div class="contact-container">
                                         <div class="row">
-                                            <div class="card-text col-12">
+                                            <div class="selectedDayTime col-12">
                                                 <span style="color: #179C8C;">Selected Day</span> 
-                                                <span class="activeHours" >
-                                                    <span class="timeblock">12/03/2023</span> 
-                                                </span>
+                                                <div class="activeHours" >
+                                                    <span class="timeblock">{{doctor.day}}</span> 
+                                                </div>
                                             </div>
-                                            <div class="card-text col-12">
+                                            <div class="selectedDayTime col-12">
+                                                <span style="color: #179C8C;">Selected Date</span> 
+                                                <div class="activeHours" >
+                                                    <span class="timeblock">{{doctor.onlyDate}}</span> 
+                                                </div>
+                                            </div>
+                                            <div class="selectedDayTime col-12">
                                                 <span style="color: #179C8C;">Selected Time</span> 
-                                                <span class="activeHours" >
-                                                    <span class="timeblock"><i class='bi bi-clock'></i>7:00pm</span> 
-                                                </span>
+                                                <div class="activeHours" >
+                                                    <span class="timeblock"><i class='bi bi-clock'></i>{{doctor.onlyTime}}</span> 
+                                                </div>
                                             </div>
-                                            <div class="hospital-card-button2">
-                                                <button class="visit-button">Cancel Appointment</button>
+                                            <div class="hospital-card-button">
+                                                <button (click)="cancelAppointment(doctor.appoinmentId)" class="visit-button">Cancel</button>
                                             </div>
                                         </div>
                                     </div>
@@ -112,18 +103,19 @@
                     <span class="doctors-heading">Appointments History</span>
                 </div>
                 <div class="row mt-1">
-                    <div class="info-card" *ngFor="let doctor of filterUser(doctors)">
+                    <div class="info-card" *ngFor="let doctor of filterUser(userAppointment)">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{doctor.imgUrl?doctor.imgUrl:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
+                            <img  class="card-img" src="{{doctor.image?doctor.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                         </div>
                         <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                             <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-12">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
                                     <div class="sub-info">
-                                        <span class="card-name">{{doctor.name}}</span>
+                                        <span class="card-name">{{doctor.doctorName? 'Dr.'+doctor.doctorName : doctor.hospitalName? doctor.hospitalName : doctor.labName}}</span>
                                         <br>
-                                        <span class="card-text">
-                                            <span style="color: #179C8C;"> {{doctor.profession}}</span>
+                                        <span *ngIf="doctor.doctorName" class="card-text">
+                                            Hospital:
+                                            <span style="color: #179C8C;"> {{doctor.hospitalName}}</span>
                                         </span>
                                         <br>
                                         <span class="card-text">
@@ -135,34 +127,48 @@
                                             Experience: 
                                             <span style="color: #179C8C;">{{doctor.experience}}</span>
                                         </span>
-                                        <br>
-                                        <span class="card-text">
-                                            <span style="color: #179C8C;">{{doctor.availability}}</span>
-                                        </span>
-                                        <br>
-                                        <br>
-                                        <div class="hospital-card-button">
-                                            <button class="visit-button" >Appointment Complete</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="last-content col-lg-4 col-md-4 col-sm-12">
-                                    <div style="border: none;" class="contact-container">
+                                <div class="col-lg-4 col-md-4 col-sm-12">
+                                    <div>
+                                        <span class="card-text">Pateint Name: <span style="color: #179C8C;">{{doctor.patientName}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Age: <span style="color: #179C8C;">{{doctor.age}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Gender: <span style="color: #179C8C;">{{doctor.gender}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Phone No: <span style="color: #179C8C;">{{doctor.phoneNo}}</span></span>
+                                    </div>
+                                    <div>
+                                        <span class="card-text">Appointment status: <span style="color: #179C8C;">{{doctor.appointmentStatus}}</span></span>
+                                    </div>
+                                </div>
+                                <div class="last-content col-lg-3 col-md-3 col-sm-12">
+                                    <div class="contact-container">
                                         <div class="row">
-                                            <div class="card-text col-12">
+                                            <div class="selectedDayTime col-12">
                                                 <span style="color: #179C8C;">Selected Day</span> 
-                                                <span class="activeHours" >
-                                                    <span class="timeblock">12/03/2023</span> 
-                                                </span>
+                                                <div class="activeHours" >
+                                                    <span class="timeblock">{{doctor.day}}</span> 
+                                                </div>
                                             </div>
-                                            <div class="card-text col-12">
+                                            <div class="selectedDayTime col-12">
+                                                <span style="color: #179C8C;">Selected Date</span> 
+                                                <div class="activeHours" >
+                                                    <span class="timeblock">{{doctor.onlyDate}}</span> 
+                                                </div>
+                                            </div>
+                                            <div class="selectedDayTime col-12">
                                                 <span style="color: #179C8C;">Selected Time</span> 
-                                                <span class="activeHours" >
-                                                    <span class="timeblock"><i class='bi bi-clock'></i>7:00pm</span> 
-                                                </span>
+                                                <div class="activeHours" >
+                                                    <span class="timeblock"><i class='bi bi-clock'></i>{{doctor.onlyTime}}</span> 
+                                                </div>
                                             </div>
-                                            <div class="hospital-card-button2">
-                                                <button class="visit-button">Appointment Complete</button>
+                                            <div class="hospital-card-button">
+                                                <button class="previous-appointment-tag">{{doctor.appointmentStatus}}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -175,3 +181,37 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row ">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="user-image-container">
+                    <img *ngIf="imageURL.length === 0" class="card-img" src="../../../../../assets/navbar/blank-user.jpg" alt="Card Image">
+                    <div *ngFor="let image of imageURL">
+                        <img *ngIf="imageURL.length !== 0" class="card-img" src="{{image}}" alt="Card Image">
+                    </div>
+                    <div class="upload-image">
+                        <i (click)="image.click()" class="bi bi-camera-fill ">
+                            <input style="display: none;" (change)="onUpdateImage($event)" type="file" #image></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="input-field">
+                    <input value="{{user.firstName}}" placeholder="Enter your First Name" type="text">
+                </div>
+                <div class="input-field">
+                    <input value="{{user.lastName}}" placeholder="Enter your Last Name" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    </div>
+</ng-template>

@@ -21,17 +21,72 @@
     width: 100%;
     overflow: scroll;
 }
+.upload-image{
+    position: absolute;
+    font-size: 20px;
+    bottom: 5px;
+    right: 15px;
+    color: #2c6760;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 50px;
+    border: 0.5px solid  #6dbcb4 ;
+    background-color: #fcfcfc;
+    cursor: pointer;
+}
+.input-field input{
+    width: 100%;
+    max-width: 200px;
+    height: 35px;
+    padding: 18px;
+    font-size: 13px;
+    border-style: none;
+    background: #EFFCFA;
+    border: 1px solid #179C8C;
+    padding-left: 20px;
+    margin-top: 10px;
+    padding-right: 20px;
+    border-radius: 40px;
+    outline: none;
+}
+.input-field input:focus{
+    border: 1px solid #107d70;
+    box-shadow: 0px 3px 5px -2px #888;
+    background-color: #fcfcfc;
+}
+.user-detail{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    padding-bottom: 30px;
+}
+.user-detail > span{
+    margin-left: 20px;
+}
+.user-image-container{
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.user-detail > .logout-container{
+    position: absolute;
+    right: 10px;
+    max-width: max-content;
+}
 .info-card{
     border: 1px solid #179C8C;
     background-color: white;
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-    height: max-content;
-    min-height: max-content;
-    margin-right: 15px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    height: min-content;
+    margin: 10px 15px 10px 0;
 }
 
 .card-img-container{
@@ -75,7 +130,7 @@
     white-space: wrap;
 }
 .last-content {
-    height: 200px;
+    // height: 200px;
     display: inline-block;
 }
 .contact-container{
@@ -83,14 +138,30 @@
     display: flex;
     padding-left: 20px;
     flex-direction: column;
+    max-width: 220px;
+    float: right;
     justify-content: center;
 }
-
+.selectedDayTime{
+    width: 100%;
+    font-size: 12px;
+    letter-spacing: 1px;
+    line-height: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+}
+.selectedDayTime > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .hospital-card-button{
     height: max-content;
-}
-.hospital-card-button2{
-    display:none;
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    justify-content:end;
 }
 .activeHours{
     padding-top: 10px;
@@ -102,18 +173,21 @@
     border: 2px solid #179C8C;
     border-radius: 10px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100px;
     height: 40px;
     padding: 5px;
     font-size: 12px;
 }
+.timeblock>i{
+    margin-right: 10px;
+}
 .visit-button, .logout-button{
     border: none;
     font-size: 15px;
     transition: all 0.5s ease-out;
-    width: 200px;
-    height: 50px;
+    width: 100px;
+    height: 35px;
     left: 10px;
     border-radius: 50px;
     background-color: #179C8C;
@@ -124,6 +198,18 @@
     background-color: white;
     box-shadow: 0 4px 6px -1px gray;
     transform: scale(1.05);
+}
+.previous-appointment-tag{
+    border: none;
+    font-size: 15px;
+    transition: all 0.5s ease-out;
+    width: 100px;
+    height: 35px;
+    left: 10px;
+    cursor: default;
+    border-radius: 50px;
+    background-color: #89c6bf;
+    color: white; 
 }
 .logout-button{
     background-color: #ce833d;
@@ -138,7 +224,21 @@
     white-space: wrap;
     overflow: hidden;
 }
+@media (max-width: 1000px){
+    .selectedDayTime{
+        flex-direction: column;
+    }
+    .selectedDayTime>span{
+        margin-top: 10px;
+    }
+}
 @media (max-width: 768px){
+    .user-detail > .logout-container{
+        position: relative;
+    }
+    .user-detail{
+        justify-content: center;
+    }
     .image-container{
         display: none !important;
     }
@@ -173,17 +273,16 @@
         flex-direction: column;
         justify-content: center;
         border-left:none;
+        float: left;
     }
     .last-content {
         height: inherit;
         display: inline-block;
     }
-    .hospital-card-button{
-        display:none;
-    }
     .hospital-card-button2{
         margin-top: 5px;
         display:flex;
         align-items: center;
+        justify-content: center;
     }
 }

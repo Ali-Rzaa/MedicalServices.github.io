@@ -17,6 +17,14 @@ export class UserService {
       })
     );
   }
+  //User Profile
+  GetUserProfile() {
+    return this.repositoryService.get('User/get-user-profile', true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   //Doctors
   GetCityDoctors(cityId: any) {
     return this.repositoryService.get('Doctor/get-doctors-by-city/' + cityId, true).pipe(
@@ -115,6 +123,20 @@ export class UserService {
   //Appointments
   AppointmentByDoctor(doctorId: any,data: any) {
     return this.repositoryService.post('Appointment/book-appointment-by-doctor/' + doctorId, data,true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  GetUserAppointment() {
+    return this.repositoryService.get('Appointment/get-user-appointments',true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  CancelUserAppointment(id:any) {
+    return this.repositoryService.put('Appointment/cancel-appointment/'+id,true).pipe(
       map((response: any) => {
         return response;
       })

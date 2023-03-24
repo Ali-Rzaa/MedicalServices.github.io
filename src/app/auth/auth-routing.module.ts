@@ -6,16 +6,17 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
-      // {path:'', canActivate: [!AuthGuard], children:[
+      // {path:'', canActivate: [(!AuthGuard)], component:SignInComponent, children:[
       //   {
       //     path: '',
       //     redirectTo: 'signIn',
       //     pathMatch: 'full',
       //   },
-        // {path:'', component:SignInComponent},
+        {path:'', component:SignInComponent},
         {path:'signIn', component:SignInComponent},
         {path:'signUp', component:SignUpComponent},
         {path:'selectCity', component:SelectCityComponent},
+      // ]}
 ];
 
 @NgModule({

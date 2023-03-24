@@ -38,12 +38,12 @@
     </div>
     <div *ngIf="!showSearch" routerLink="/userProfile" class="userInfo">
       <div class="userName">
-        <span>Ali Raza</span>
+        <span>{{user.firstName}} {{user.lastName}}</span>
       </div>
       <div class="UserProfile">
         <img
           class="profile-image"
-          src="../../assets/Images/joan.jfif"
+          src="{{ user.image ? user.image : '../../../../assets/navbar/blank-user.jpg' }}"
           alt="user image"
         />
       </div>

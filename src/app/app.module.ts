@@ -16,10 +16,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorInterceptor } from './services/errorhandler/errorhandler.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from './auth/auth.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, UserProfileComponent, SidebarComponent, NotFoundComponent],
-  imports: [BrowserModule, FontAwesomeModule, HttpClientModule,AuthModule, MatTabsModule, UserModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule],
+  imports: [BrowserModule, FontAwesomeModule, HttpClientModule,AuthModule, MatTabsModule, UserModule, AdminModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

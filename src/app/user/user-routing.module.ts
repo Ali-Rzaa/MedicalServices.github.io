@@ -6,13 +6,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserComponent } from './user.component';
 
 const routes: Routes = [
-  // {path:'', component:UserComponent, canActivate: [AuthGuard], children:[
-  //   {
-  //     path: '',
-  //     redirectTo: 'home',
-  //     pathMatch: 'full',
-  //   },
-  {path:'', component:UserComponent, children:[
+  {path:'',canActivate: [AuthGuard], component:UserComponent, children:[
     {path:'', component:HomeComponent},
     {path:'home', component:HomeComponent},
     {path:'userProfile', component:UserProfileComponent},

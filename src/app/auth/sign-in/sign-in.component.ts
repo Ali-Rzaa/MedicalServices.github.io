@@ -35,6 +35,7 @@ color='white'
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+    this.gotoDashboard()
   }
   _loginValues() {
     return this.loginForm.value;
@@ -109,6 +110,17 @@ color='white'
     });
   }
 
+  gotoDashboard() {
+    if (this.accountService.isLoggedIn == true) {
+      if (this.accountService.getUserType() == 'Admin') {
+        this.router.navigateByUrl('/admin/dashboard');
+      } else if (this.accountService.getUserType() == 'User') {
+        this.router.navigateByUrl('/home');
+      } else {
+        this.router.navigateByUrl('/');
+      }
+    }
+  }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

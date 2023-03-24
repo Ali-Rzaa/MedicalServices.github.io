@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { doctors, users } from 'src/app/data';
+import { AppointmentModel, UserModel } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
+import { UserService } from 'src/app/services/user/user.service';
+import {NgbModal, ModalDismissReasons, NgbModalOptions, NgbModalConfig,} from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,20 +12,80 @@ import { AccountService } from 'src/app/services/Account/account.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  constructor(private accountService: AccountService){}
+  imageURL:any[] = []
+  userAppointment:AppointmentModel[]
+  profileFormData:FormData
+  constructor(private accountService: AccountService, private formBuilder: FormBuilder, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService){
+		config.backdrop = 'static';
+		config.keyboard = false;}
   ngOnInit(): void {
-    
-  }
-  user = users[0];
-  doctors = doctors;
-  filterUser(user: any[]): any[] {
-    return user.filter(p => p.experience > 5)
-  }
-  
-  filterUser2(user: any[]): any[] {
-    return user.filter(p => p.experience <= 5)
+    this.loadUser();
+    this.loadAppointments()
   }
 
+	open(content:any) {
+		this.modalService.open(content);
+	}
+  onChangeFirstName(event:any){
+    this.profileFormData.append('FirstName', event.target.value);
+  }
+  onChangeLastName(event:any){
+    this.profileFormData.append('LastName', event.target.value);
+  }
+  onUpdateImage(event: any) {
+    this.imageURL = [];
+    if (event.target.files.length > 0) {
+      debugger
+      const file = event.target.files[0];
+      this.profileFormData.append('UploadImage', file, file.name);
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imageURL.push(reader.result);
+      };
+    }
+  }
+  saveChanges(){
+    
+  }
+  user :UserModel;
+  doctors = doctors;
+  filterUser(appointment: any[]): any[] {
+    return appointment.filter(p => p.appointmentStatus !== 'Pending')
+  }
+  filterUser2(appointment: any[]): any[] {
+    return appointment.filter(p => p.appointmentStatus === 'Pending')
+  }
+  loadUser(){
+    this.userService.GetUserProfile().subscribe({
+      next: (v) => {
+        this.user = v.data;
+      },
+      error: (e) => {
+
+      }
+    })
+  }
+  loadAppointments(){
+    this.userService.GetUserAppointment().subscribe({
+      next: (v) => {
+        this.userAppointment = v.data;
+      },
+      error: (e) => {
+
+      }
+    })
+  }
+  cancelAppointment(id:any){
+    this.userService.CancelUserAppointment(id).subscribe({
+      next: (v)=>{
+        this.loadAppointments()
+      },
+      error: (e)=>{
+
+      }
+    })
+  }
   logout(){
     console.log("logout")
     this.accountService.doLogout();
