@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { city, LabModel } from 'src/app/models/admin-models';
+import { city, FacilitiesModel, LabModel } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 import { MasterTableService } from 'src/app/services/Admin/master-table.service';
@@ -16,7 +16,7 @@ import { MasterTableService } from 'src/app/services/Admin/master-table.service'
 export class LabDetailsComponent {
   coverImageURL: any[] = [];
   labImageURL: any[] = [];
-  labs: LabModel[] = [];
+  labFacilities: FacilitiesModel[] = [];
   lab: LabModel = {
     image: '',
     coverImage: '',
@@ -57,6 +57,11 @@ export class LabDetailsComponent {
   columnsToDisplay: string[] = ['name', 'fee'];
   showAddCancelBtn: number = 0;
   dataSource: any;
+  facilityId: string = '';
+  facilityIndex: number;
+  deleteLoading: boolean = false;
+  dltErrorMessages: string = '';
+  cityId: any;
   constructor(private masterTableService: MasterTableService, private route: ActivatedRoute, private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     const routeParams = this.route.snapshot.paramMap;
     this.labId = routeParams.get('labId');
@@ -71,13 +76,14 @@ export class LabDetailsComponent {
   ngOnInit(): void {
     this.GatLabDetails();
     this.getCities();
+    this.getLabFacilities();
   }
   GatLabDetails() {
     this.adminService.getLabbyId(this.labId).subscribe(
       (dt) => {
         this.lab = {
           image: dt.data.image == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.image,
-          coverImage: dt.data.coverImage,
+          coverImage: dt.data.coverImage == null ? 'https://static.marham.pk/assets/images/hospital-default.jpg' : dt.data.coverImage,
           hours: this.CalculateHours(new Date(dt.data.closingTime), new Date(dt.data.openingTime)),
           labId: dt.data.labId,
           createdDateTime: dt.data.createdDateTime,
@@ -123,6 +129,7 @@ export class LabDetailsComponent {
             index: a + 1,
           };
           this.cities.push(city);
+          this.cityId = this.cities[0];
         }
       },
       (error) => {
@@ -134,41 +141,30 @@ export class LabDetailsComponent {
       }
     );
   }
-  getFacilitiesByParamedical() {
+  getLabFacilities() {
     this.adminService.getLabsFacilitiesById(this.labId).subscribe(
       (dt) => {
-        this.labs = [];
+        this.labFacilities = [];
         let data = dt.data;
         for (let a = 0; a < data.length; a++) {
-          let facility: LabModel = {
-            image: '',
-            coverImage: '',
-            labId: '',
-            createdDateTime: '',
-            modifiedDateTime: '',
-            modifiedBy: '',
-            createdBy: '',
-            cityName: '',
-            name: '',
-            address: '',
-            phoneNumber: '',
-            openingTime: '',
-            closingTime: '',
-            mon: false,
-            tus: false,
-            wed: false,
-            thur: false,
-            fri: false,
-            sat: false,
-            sun: false,
-            cityId: '',
-            uploadImage: '',
-            hours: '',
+          let facility: FacilitiesModel = {
+            type: dt.data[a].type,
+            facilityId: dt.data[a].facilityId,
+            createdDateTime: dt.data[a].createdDateTime,
+            modifiedDateTime: dt.data[a].modifiedDateTime,
+            modifiedBy: dt.data[a].modifiedBy,
+            createdBy: dt.data[a].createdBy,
+            name: dt.data[a].name,
+            fee: dt.data[a].fee,
+            typeId: dt.data[a].typeId,
+            labId: dt.data[a].labId,
+            hospitalId: dt.data[a].hospitalId,
+            facilityCategoryId: dt.data[a].hospitalId,
             isAdded: true,
             isSelected: false,
           };
-          this.labs.push(facility);
-          this.dataSource = new MatTableDataSource(this.labs);
+          this.labFacilities.push(facility);
+          this.dataSource = new MatTableDataSource(this.labFacilities);
         }
       },
       (error) => {
@@ -183,8 +179,141 @@ export class LabDetailsComponent {
   cancelBtn() {
     this.showAddCancelBtn = 0;
   }
-  onSubmitAddFacility() {}
-  changeIsSelectedFlagInRadiology() {}
+  onSubmitAddFacility() {
+    this.errorMessage = '';
+    this.addLoading = true;
+    for (let c = 0; c < this.labFacilities.length; c++) {
+      if (this.labFacilities[c].isAdded == false) {
+        this.adminService.AddFacility(this.labFacilities[c]).subscribe(
+          (dt) => {
+            this.getLabFacilities();
+            this.showAddCancelBtn = 0;
+            this.addLoading = false;
+          },
+          (error) => {
+            if (error.status == 401) {
+              this.accountService.doLogout();
+              this.router.navigateByUrl('/signIn');
+            }
+            this.addLoading = false;
+            this.errorMessage = error.error.errors.name;
+          }
+        );
+      }
+    }
+  }
+  changeIsSelectedFlagInRadiology(data: any) {
+    for (let i = 0; i < this.labFacilities.length; i++) {
+      if (this.labFacilities[i].facilityId == data.facilityId) {
+        this.labFacilities[i].isSelected = true;
+      } else {
+        this.labFacilities[i].isSelected = false;
+      }
+    }
+  }
+  changeDeSelectedFlagInRadiology(data: any) {
+    for (let i = 0; i < this.labFacilities.length; i++) {
+      if (this.labFacilities[i].facilityId == data.facilityId) {
+        this.labFacilities[i].isSelected = false;
+        this.getLabFacilities();
+      }
+    }
+  }
+  DeleteFacilityModel(Item: any, data: any, index: any) {
+    this.facilityId = data.facilityId;
+    this.facilityIndex = index;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  DeleteFacility(index: any) {
+    this.dltErrorMessages = '';
+    if (this.facilityId == '') {
+      this.DeletRow(index);
+    } else {
+      this.deleteLoading = true;
+      this.adminService.deteleFacility(this.facilityId).subscribe(
+        (dt) => {
+          this.facilityId = '';
+          this.DeletRow(this.facilityIndex);
+          this.showAddCancelBtn = 0;
+          this.deleteLoading = false;
+          this.modalService.dismissAll();
+        },
+        (error) => {
+          this.deleteLoading = false;
+          if (error.status == 401) {
+            this.accountService.doLogout();
+            this.router.navigateByUrl('/signIn');
+          }
+          this.deleteLoading = false;
+          this.errorMessage = error.error.message;
+        }
+      );
+    }
+  }
+  InsertFacilityRow() {
+    let facility = {
+      type: '',
+      facilityId: '',
+      createdDateTime: '',
+      modifiedDateTime: '',
+      modifiedBy: '',
+      createdBy: '',
+      name: '',
+      fee: '0',
+      typeId: 2,
+      labId: this.labId,
+      hospitalId: null,
+      isAdded: false,
+      isSelected: false,
+      facilityCategoryId: null,
+    };
+    this.labFacilities.splice(this.labFacilities.length + 1, 0, facility);
+    this.dataSource = new MatTableDataSource(this.labFacilities);
+    this.addCancelBtn('add');
+  }
+  DeletRow(date: any) {
+    this.dataSource.data.splice(date, 1);
+    this.dataSource._updateChangeSubscription();
+    this.addCancelBtn('remove');
+  }
+  addCancelBtn(type: any) {
+    if (type == 'add') {
+      this.showAddCancelBtn++;
+    } else {
+      this.showAddCancelBtn--;
+    }
+  }
+  EditParamedicalFacility(facility: any) {
+    this.errorMessage = '';
+    this.addLoading = true;
+    let paramedicalfacility = {
+      name: facility.name,
+      fee: facility.fee,
+    };
+    this.adminService.UpdateParamedicalFacility(facility.facilityId, paramedicalfacility).subscribe(
+      (dt) => {
+        this.changeDeSelectedFlagInRadiology(facility);
+        this.showAddCancelBtn = 0;
+        this.addLoading = false;
+      },
+      (error) => {
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.addLoading = false;
+        this.errorMessage = error.error.message;
+        this.getLabFacilities();
+      }
+    );
+  }
   onUpdateCoverImage(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];

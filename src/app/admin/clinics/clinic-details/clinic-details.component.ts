@@ -60,6 +60,9 @@ export class ClinicDetailsComponent {
   drImage: any;
   doctorId: any;
   addLoading: boolean = false;
+  _doctorId: string = '';
+  dltErrorMessages: string = '';
+  deleteLoading: boolean = false;
   constructor(private masterTableService: MasterTableService, private route: ActivatedRoute, private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     const routeParams = this.route.snapshot.paramMap;
     this.clinicId = routeParams.get('clinicId');
@@ -580,6 +583,39 @@ export class ClinicDetailsComponent {
           this.router.navigateByUrl('/signIn');
         }
         console.log('Error in getCities: ' + error.message);
+      }
+    );
+  }
+  DeleteDoctorModel(Item: any, doctorId: any) {
+    this._doctorId = doctorId;
+    this.dltErrorMessages = '';
+    this.deleteLoading = false;
+    this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'md' }).result.then(
+      (res) => {
+        this.closeModal = `Closed with: ${res}`;
+      },
+      (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      }
+    );
+  }
+  DeleteDoctor() {
+    this.dltErrorMessages = '';
+    this.deleteLoading = true;
+    this.adminService.deteleDoctor(this._doctorId).subscribe(
+      (dt) => {
+        this.getDoctorsByClinicId();
+        this.deleteLoading = false;
+        this.modalService.dismissAll();
+      },
+      (error) => {
+        this.deleteLoading = false;
+        if (error.status == 401) {
+          this.accountService.doLogout();
+          this.router.navigateByUrl('/signIn');
+        }
+        this.deleteLoading = false;
+        this.dltErrorMessages = error.error.message;
       }
     );
   }
