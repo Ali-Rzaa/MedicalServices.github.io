@@ -49,8 +49,11 @@
       <td mat-cell *matCellDef="let element" class="table-body-text color">{{ element.experience }}</td>
     </ng-container>
     <ng-container matColumnDef="hospital">
-      <th mat-header-cell *matHeaderCellDef style="width: 250px" class="table-header-text">Hospital</th>
-      <td mat-cell *matCellDef="let element" class="table-body-text">{{ element.hospitalName }}</td>
+      <th mat-header-cell *matHeaderCellDef style="width: 250px" class="table-header-text">Hospital/Clinic</th>
+      <td mat-cell *matCellDef="let element" class="table-body-text">
+        <span *ngIf="element.hospitalName != null">{{ element.hospitalName }}</span>
+        <span *ngIf="element.clinicName != null">{{ element.clinicName }}</span>
+      </td>
     </ng-container>
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef style="width: 150px" class="table-header-text">Status</th>

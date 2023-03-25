@@ -139,3 +139,10 @@ body { margin: 0; font-family: Ubuntu, "Helvetica Neue", sans-serif; }
     font-size: 12px;
     font-family: Ubuntu;
   }
+  .text-line {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }

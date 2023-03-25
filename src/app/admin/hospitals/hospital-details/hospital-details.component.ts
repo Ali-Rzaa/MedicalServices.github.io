@@ -618,6 +618,7 @@ export class HospitalDetailsComponent {
     for (let i = 0; i < this._facilities.length; i++) {
       if (this._facilities[i].facilityId == data.facilityId) {
         this._facilities[i].isSelected = false;
+        this.getFacilitiesByParamedical();
       }
     }
   }

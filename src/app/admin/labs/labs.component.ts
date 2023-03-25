@@ -32,6 +32,7 @@ export class LabsComponent {
   deleteLoading: boolean = false;
   labId: string = '';
   labIndex: number;
+  cityId: any;
   constructor(private adminService: AdminService, private formBuilder: FormBuilder, private modalService: NgbModal, private router: Router, private accountService: AccountService) {
     let date = new Date();
     let _date = date.getMonth() + 1;
@@ -103,6 +104,7 @@ export class LabsComponent {
             index: a + 1,
           };
           this.cities.push(city);
+          this.cityId = this.cities[0].cityId;
         }
       },
       (error) => {
@@ -135,7 +137,7 @@ export class LabsComponent {
       fri: [false],
       sat: [false],
       sun: [false],
-      cityId: ['', Validators.required],
+      cityId: [this.cityId, Validators.required],
     });
     this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
       (res) => {
