@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { doctors, users } from 'src/app/data';
 import { AppointmentModel, UserModel } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -13,6 +12,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class UserProfileComponent implements OnInit {
   imageURL:any[] = []
+  firstname = ''
+  lastname = ''
+  userimage = ''
   userAppointment:AppointmentModel[]
   profileFormData:FormData
   constructor(private accountService: AccountService, private formBuilder: FormBuilder, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService){
@@ -27,29 +29,43 @@ export class UserProfileComponent implements OnInit {
 		this.modalService.open(content);
 	}
   onChangeFirstName(event:any){
-    this.profileFormData.append('FirstName', event.target.value);
+    this.firstname = event.target.value;
   }
   onChangeLastName(event:any){
-    this.profileFormData.append('LastName', event.target.value);
+    this.lastname = event.target.value;
   }
   onUpdateImage(event: any) {
+    this.profileFormData = new FormData();
     this.imageURL = [];
     if (event.target.files.length > 0) {
-      debugger
       const file = event.target.files[0];
       this.profileFormData.append('UploadImage', file, file.name);
+      this.userimage = file;
       var reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.imageURL.push(reader.result);
+        console.log(reader.result)
       };
+      console.log(this.imageURL)
+
     }
   }
   saveChanges(){
-    
+    if(this.firstname !== '' || this.lastname !== '' || this.userimage !== ''){
+      this.firstname !== ''? this.profileFormData.append('FirstName', this.firstname) : '';
+      this.lastname !== ''? this.profileFormData.append('LastName', this.lastname) : '';
+      this.userService.UpdateUserProfile(this.profileFormData).subscribe({
+        next: (v)=>{
+          this.loadUser();
+        },
+        error: (e)=> {
+  
+        }
+      })
+    }
   }
   user :UserModel;
-  doctors = doctors;
   filterUser(appointment: any[]): any[] {
     return appointment.filter(p => p.appointmentStatus !== 'Pending')
   }

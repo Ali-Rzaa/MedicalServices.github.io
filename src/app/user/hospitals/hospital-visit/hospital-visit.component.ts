@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { hospitals, doctors } from 'src/app/data';
-import { DoctorModel, HospitalModel } from 'src/app/models/admin-models';
+import { DoctorModel, FacilitiesModel, HospitalModel } from 'src/app/models/admin-models';
+import { radiologyFacility } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -12,14 +13,15 @@ import { UserService } from 'src/app/services/user/user.service';
 export class HospitalVisitComponent implements OnInit{
   hospital :HospitalModel;
   doctors :DoctorModel[]
-  radiology :DoctorModel
-  paramedical = ''
+  radiology :radiologyFacility[]
+  paramedicals : FacilitiesModel[]
   option = ''
   constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
     this.loadHospital(this.route.snapshot.params['id']);
     this.loadDoctors(this.route.snapshot.params['id']);
     this.loadRadiology(this.route.snapshot.params['id']);
+    this.loadParamedical(this.route.snapshot.params['id']);
   }
   loadHospital(id:any){
     this.userService.GetHospital(id).subscribe({
@@ -42,9 +44,9 @@ export class HospitalVisitComponent implements OnInit{
     });
   }
   loadParamedical(id:any){
-    this.userService.GetFacilitiesByCategory(id).subscribe({
+    this.userService.GetFacilitiesByType(2,id).subscribe({
       next:(v) => {
-        this.paramedical = v.data
+        this.paramedicals = v.data
       },
       error:(error) => {
         console.log('Error in loadParamedical: ' + error.message);

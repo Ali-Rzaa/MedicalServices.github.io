@@ -1,0 +1,137 @@
+<div>
+    <div class="home-container">
+      <div class="first-row">
+        <span class="booking-text">Doctors</span>
+      </div>
+      <div *ngIf="doctors" class="second-row row px-3 mt-4">
+        <div
+          *ngFor="let doctor of doctors"
+          class="col-lg-4 col-md-6 col-sm-12 px-2"
+        >
+          <div
+            routerLink="/doctors/doctorProfile/{{ doctor.doctorId }}"
+            class="info-card doctor-card"
+          >
+            <div class="card-img-container">
+              <img
+                class="card-img"
+                src="{{
+                  doctor.image
+                    ? doctor.image
+                    : '../../../../../assets/navbar/blank-user.jpg'
+                }}"
+                alt="Card Image"
+              />
+            </div>
+            <div class="card-info-container mt-3">
+              <div class="card-name">{{ doctor.name }}</div>
+              <span class="card-specialization">{{ doctor.field }}</span>
+              <br />
+              <span><b>Fee:</b></span
+              ><span class="card-fee"> Rs. {{ doctor.fee }}</span>
+              <br />
+              <span><b>Experience:</b></span
+              ><span class="card-experience">
+                {{ doctor.experience ? doctor.experience : "No experience" }}
+                year</span
+              >
+              <br />
+              <span class="card-availability">{{ doctor.availableStatus?'Available':'Not Available' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="first-row">
+        <span class="booking-text">Hospitals</span>
+      </div>
+      <div *ngIf="hospitals" class="second-row row px-3 mt-4">
+        <div
+          *ngFor="let hospital of hospitals"
+          class="col-lg-4 col-md-6 col-sm-12 px-2"
+        >
+          <div class="info-card">
+            <div class="card-img-container">
+              <img
+                class="card-img"
+                src="{{
+                  hospital.image
+                    ? hospital.image
+                    : '../../../../../assets/navbar/blank-user.jpg'
+                }}"
+                alt="Card Image"
+              />
+            </div>
+            <div class="card-info-container mt-3">
+              <div class="card-name">{{ hospital.name }}</div>
+              <span class="card-specialization">{{ hospital.openingTime | date : 'shortTime' }} to {{ hospital.closingTime | date : 'shortTime' }}</span>
+              <!-- <br /> -->
+              <!-- <span><b>Doctors: </b></span> -->
+              <!-- <span class="card-fee">{{ hospital.panel }}</span> -->
+              <br />
+              <span><b>Contact: </b></span
+              ><span class="hospital-card-contact">{{
+                hospital.phoneNumber ? hospital.phoneNumber : "No Contact"
+              }}</span>
+              <br />
+              <div class="hospital-card-button">
+                <button
+                  routerLink="/hospitals/hospitalVisit/{{ hospital.hospitalId }}"
+                  class="visit-button"
+                  mat-stroked-button
+                  color="primary"
+                >
+                  Visit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="first-row">
+        <span class="booking-text">Labs</span>
+      </div>
+      <div *ngIf="labs" class="second-row row px-3 mt-4">
+        <div
+          *ngFor="let lab of labs"
+          class="col-lg-4 col-md-6 col-sm-12 px-2"
+        >
+          <div class="info-card">
+            <div class="card-img-container">
+              <img
+                class="card-img"
+                src="{{
+                  lab.image
+                    ? lab.image
+                    : '../../../../../assets/navbar/blank-user.jpg'
+                }}"
+                alt="Card Image"
+              />
+            </div>
+            <div class="card-info-container mt-3">
+              <div class="card-name">{{ lab.name }}</div>
+              <span class="card-specialization">{{ lab.openingTime | date : 'shortTime' }} to {{ lab.closingTime | date : 'shortTime' }}</span>
+              <br />
+              <!-- <span><b>Doctors: </b></span><span class="card-fee">{{hospital.panel}}</span> -->
+              <!-- <br> -->
+              <span><b>Contact: </b></span
+              ><span class="hospital-card-contact">{{
+                lab.phoneNumber ? lab.phoneNumber : "No Contact"
+              }}</span>
+              <br />
+              <div class="hospital-card-button">
+                <button
+                  routerLink="/labs/labVisit/{{ lab.labId }}"
+                  class="visit-button"
+                  mat-stroked-button
+                  color="primary"
+                >
+                  Visit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

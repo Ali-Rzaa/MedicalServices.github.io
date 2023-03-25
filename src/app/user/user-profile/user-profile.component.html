@@ -10,7 +10,7 @@
                         <div class="user-image-container">
                             <img  class="card-img" src="{{user.image?user.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                             <div class="upload-image">
-                                <i (click)="open(content)" class="bi bi-camera-fill "></i>
+                                <i (click)="open(content)" class="bi bi-pencil-square "></i>
                             </div>
                         </div>
                         <span class="card-name">{{user.firstName}} {{user.lastName}}</span>
@@ -191,27 +191,27 @@
         <div class="row ">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="user-image-container">
-                    <img *ngIf="imageURL.length === 0" class="card-img" src="../../../../../assets/navbar/blank-user.jpg" alt="Card Image">
+                    <img *ngIf="imageURL.length === 0" class="card-img" src="{{user.image? user.image : '../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                     <div *ngFor="let image of imageURL">
                         <img *ngIf="imageURL.length !== 0" class="card-img" src="{{image}}" alt="Card Image">
                     </div>
                     <div class="upload-image">
                         <i (click)="image.click()" class="bi bi-camera-fill ">
-                            <input style="display: none;" (change)="onUpdateImage($event)" type="file" #image></i>
+                            <input style="display: none;" (input)="onUpdateImage($event)" type="file" #image></i>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
                 <div class="input-field">
-                    <input value="{{user.firstName}}" placeholder="Enter your First Name" type="text">
+                    <input (input)="onChangeFirstName($event)" placeholder="{{user.firstName}}" type="text">
                 </div>
                 <div class="input-field">
-                    <input value="{{user.lastName}}" placeholder="Enter your Last Name" type="text">
+                    <input (input)="onChangeLastName($event)" placeholder="{{user.lastName}}" type="text">
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="saveChanges(); c('Save click')">Save</button>
     </div>
 </ng-template>

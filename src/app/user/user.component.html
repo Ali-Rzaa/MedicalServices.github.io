@@ -7,11 +7,13 @@
   <div Align="center" class="search col-4 col-md-4 col-sm-3">
     <input
       type="text"
+      (input)="searchChange($event)"
+      (keyup.enter)="pressedEnter()"
       class="form-control search-input"
       placeholder="Search Doctors,Labs and Hospitals"
     />
     <div class="search-botton">
-      <i class="bi bi-search"></i>
+      <i routerLink="/search/{{searchKey}}" class="bi bi-search"></i>
     </div>
   </div>
   <div class="rightContent col-4 col-md-5 col-sm-7">

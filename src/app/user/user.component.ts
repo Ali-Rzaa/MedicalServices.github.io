@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user/user.service';
 import { UserModel } from '../models/admin-models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -8,7 +9,8 @@ import { UserModel } from '../models/admin-models';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  constructor(private userService:UserService){}
+  constructor(private route:Router, private userService:UserService){}
+  searchKey = '';
   city = '';
   user :UserModel;
   public screenWidth :any;
@@ -20,6 +22,12 @@ export class UserComponent implements OnInit {
     this.city = localStorage.getItem("userCityName")
     this.screenWidth = window.innerWidth
     this.screenHeight = window.innerHeight
+  }
+  searchChange(event:any){
+    this.searchKey = event.target.value
+  }
+  pressedEnter(){
+    this.route.navigateByUrl('/search/'+this.searchKey)
   }
   loadUser(){
     this.userService.GetUserProfile().subscribe({

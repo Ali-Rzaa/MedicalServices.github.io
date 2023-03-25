@@ -17,9 +17,23 @@ export class UserService {
       })
     );
   }
+  SearchResult(cityId:any, searchKey: any) {
+    return this.repositoryService.get('Search/search-hospital-lab-clinic-doctor/'+cityId+'?searchKey='+searchKey, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   //User Profile
   GetUserProfile() {
     return this.repositoryService.get('User/get-user-profile', true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  UpdateUserProfile(data:any) {
+    return this.repositoryService.put('User/update-user-profile', data).pipe(
       map((response: any) => {
         return response;
       })
@@ -145,6 +159,13 @@ export class UserService {
   //Facilities
   GetRadiologyFacilities(hospitalId: any) {
     return this.repositoryService.get('Facility/get-hospital-radiology-facilities/' + hospitalId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  GetFacilitiesByType(typeId:any,hospitalId: any) {
+    return this.repositoryService.get('Facility/get-hospital-facility-by-type/' + typeId + '/' + hospitalId, true).pipe(
       map((response: any) => {
         return response;
       })

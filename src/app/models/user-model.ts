@@ -28,7 +28,7 @@ export interface Cities {
     cityId: string;
     uploadImage: null;
   }
-  export interface radiologyFacility{
+  export interface radiologyFacilities{
     facilityId:null;
     createdDateTime: string;
     modifiedDateTime: string;
@@ -45,5 +45,5 @@ export interface Cities {
     facilityCategoryId: null;
     facilityCategoryName: string;
     hospitalId: null;
-    radiologyFacilities: []
+    radiologyFacilities: radiologyFacilities[]
   }
