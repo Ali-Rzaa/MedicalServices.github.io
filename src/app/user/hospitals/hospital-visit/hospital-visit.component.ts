@@ -15,7 +15,7 @@ export class HospitalVisitComponent implements OnInit{
   doctors :DoctorModel[]
   radiology :radiologyFacility[]
   paramedicals : FacilitiesModel[]
-  option = ''
+  option = 'paramedical'
   constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
     this.loadHospital(this.route.snapshot.params['id']);

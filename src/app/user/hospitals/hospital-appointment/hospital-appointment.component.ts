@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { clinics } from 'src/app/data';
-import { DoctorModel, HospitalModel } from 'src/app/models/admin-models';
+import { DoctorModel, FacilitiesModel, HospitalModel } from 'src/app/models/admin-models';
+import { radiologyFacilities } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -10,36 +12,92 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./hospital-appointment.component.scss']
 })
 export class HospitalAppointmentComponent implements OnInit{
-  constructor(private route:ActivatedRoute, private userService:UserService){}
+  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private userService:UserService){}
   hospital :HospitalModel
-  doctors :DoctorModel[]
-  radiology :DoctorModel
-  paramedical = ''
+  // currentDate = new Date()
+  currentDate = '2023-03-22T10:26:17.54'
+  radiologyTime:string[] = []
+  paramedicalTime:string[] = []
+  fee:number = 0
+  facilityIds:string[] = []
+  doctors :DoctorModel[] = []
+  radiology :radiologyFacilities[] = []
+  selectedRadiology :radiologyFacilities[] = []
+  paramedical : radiologyFacilities[] = []
+  selectedParamedical : radiologyFacilities[] = []
+  pateintForm!: FormGroup;
   option = ''
   selectedTime:string='';
-  suggestions = [
-    {id:0, name:'Blood Test'},
-    {id:1, name:'Basic metabolic panel'},
-    {id:2, name:'Hemoglobin A1C'},
-    {id:3, name:'Lipid profile'},
-    {id:4, name:'Pathology'},
-    {id:5, name:'Complete blood count'},
-    {id:6, name:'Urinalysis'},
-  ]
-  selectedSuggestion = [{id:0, name:'Blood Test'},]
-  selectSuggestion(obj: any){
-    if(this.selectedSuggestion.find((item)=>item.id !== obj.id))
+  
+  ngOnInit(){
+    this.pateintForm = this.formBuilder.group({
+      patientName: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneNo: ['', [Validators.required]],
+      facilityIds: [[], [Validators.required]],
+      timming: [this.currentDate, [Validators.required]],
+    });
+    this.loadHospital(this.route.snapshot.params['id']);
+    if(this.route.snapshot.params['facilityCategory'] !== 'paramedical')
     {
-      this.selectedSuggestion.push(obj)
+      this.loadRadiology(this.route.snapshot.params['facilityCategory']);
+      this.loadRadiologyTime(this.route.snapshot.params['facilityCategory']);
+    }
+    if(this.route.snapshot.params['facilityCategory'] === 'paramedical')
+    {
+      this.loadParamedical(this.route.snapshot.params['id']);
+      this.loadParamedicalTime(this.route.snapshot.params['id']);
     }
   }
-  removeSuggestion(id: any){
-    this.selectedSuggestion = this.selectedSuggestion.filter((item:any)=>item.id !== id)
+  selectSuggestion(obj: any){
+    if(this.radiology.length!==0){
+      if(this.selectedRadiology.length!==0)
+      {
+        if(this.selectedRadiology.find((item)=>item.facilityId === obj.facilityId )){
+
+        }else{
+          this.selectedRadiology.push(obj);
+          this.facilityIds.push(obj.facilityId);
+          this.fee += obj.fee;
+        }
+      }
+      if(this.selectedRadiology.length===0) {
+       this.selectedRadiology.push(obj)
+       this.facilityIds.push(obj.facilityId);
+       this.fee += obj.fee;
+     }
+    }
+    if(this.paramedical.length!==0){
+      if(this.selectedParamedical.length!==0)
+      {
+        if(this.selectedParamedical.find((item)=>item.facilityId === obj.facilityId))
+        {
+        }else{
+          this.selectedParamedical.push(obj);
+          this.facilityIds.push(obj.facilityId);
+          this.fee += obj.fee;
+        }
+      }else {
+        this.selectedParamedical.push(obj);
+        this.facilityIds.push(obj.facilityId);
+        this.fee += obj.fee;
+      }
+    }
   }
-  ngOnInit(){
-    this.loadHospital(this.route.snapshot.params['id']);
-    // this.loadDoctor(this.route.snapshot.params['id']);
-    // this.loadRadiology(this.route.snapshot.params['id']);
+  removeSuggestion(obj: any){
+    if(this.selectedParamedical.length!==0){
+        this.fee -= obj.fee
+        this.facilityIds = this.facilityIds.filter((item:any)=>item !== obj.facilityId)
+      this.selectedParamedical = this.selectedParamedical.filter((item:any)=>item.facilityId !== obj.facilityId)
+    }
+    if(this.selectedRadiology.length!==0){
+        this.fee -= obj.fee
+        this.facilityIds = this.facilityIds.filter((item:any)=>item !== obj.facilityId)
+      this.selectedRadiology = this.selectedRadiology.filter((item:any)=>item.facilityId !== obj.facilityId)
+    }
   }
   loadHospital(id:any){
     this.userService.GetHospital(id).subscribe({
@@ -50,5 +108,65 @@ export class HospitalAppointmentComponent implements OnInit{
         console.log('Error in loadHospital: ' + error.message);
       }
     });
+  }
+  loadRadiology(id:any){
+    this.userService.GetFacilitiesByCategory(id).subscribe({
+      next:(v) => {
+        this.radiology = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadHospital: ' + error.message);
+      }
+    });
+  }
+  loadRadiologyTime(id:any){
+    this.userService.GetHospitalFacilityAvailableTime(id,this.currentDate).subscribe({
+      next:(v) => {
+        this.radiologyTime = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadHospital: ' + error.message);
+      }
+    });
+  }
+  loadParamedical(id:any){
+    this.userService.GetFacilitiesByType(2,id).subscribe({
+      next:(v) => {
+        this.paramedical = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadHospital: ' + error.message);
+      }
+    });
+  }
+  loadParamedicalTime(id:any){
+    this.userService.GetHospitalParamedicalAvailableTime(id,this.currentDate).subscribe({
+      next:(v) => {
+        this.paramedicalTime = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadHospital: ' + error.message);
+      }
+    });
+  }
+  
+  EnterSubmit(event:any){
+    this.submitAppointent();
+  }
+  submitAppointent(){
+    this.pateintForm.patchValue({
+      facilityIds: this.facilityIds
+    });
+    if(window.navigator.onLine){
+      this.userService.AppointmentByFacilities(this.pateintForm.value).subscribe({
+        next:(v)=>{
+          console.log(v.message)
+          alert(v.message)
+        },
+        error:(e)=>{
+          console.log(e.error.message)
+        }
+      })
+    }
   }
 }

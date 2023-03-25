@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row px-3 mt-2">
+                <div class="row px-3 mt-2">
                     <div class="px-2 col-12">
                         <div class="third-row row p-3">
                             <div class="col-lg-9 col-md-8 col-sm-12">
@@ -49,8 +49,11 @@
                                 <br>
                                 <br>
                                 <div class="card-text">
-                                    <div class="activeHours" >
-                                        <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of availabilty"><i class='bi bi-clock'></i><span> {{time}}</span></button>
+                                    <div *ngIf="radiologyTime.length!==0" class="activeHours" >
+                                        <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of radiologyTime"><i class='bi bi-clock'></i><span> {{time}}</span></button>
+                                    </div>
+                                    <div *ngIf="paramedicalTime.length!==0" class="activeHours" >
+                                        <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of paramedicalTime"><i class='bi bi-clock'></i><span> {{time}}</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -59,49 +62,56 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="row mt-4">
                     <div class="third-row col-12">
-                        <form class="row p-3">
+                        <form [formGroup]="pateintForm" (keydown.enter)="EnterSubmit($event)"  class="row p-3">
                             <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                                 <div class="card-text">
                                     <label for="patientname">Patient Full Name</label>
                                     <div class="inputField">
-                                        <input id="patientname" placeholder="Enter Name" type="text">
+                                        <input id="patientname" formControlName="patientName" placeholder="Enter Name" type="text">
                                     </div>
                                     <br><br>
                                     <label for="patientweight">Patient Weight</label>
                                     <div class="inputField">
-                                        <input id="patientweight" placeholder="Enter Weight" type="text">
+                                        <input id="patientweight" formControlName="weight" placeholder="Enter Weight" type="text">
                                     </div>
                                     <br><br>
                                     <label for="patientdisease">Test Type</label>
                                     <div class="inputField test-field">
-                                        <div class="suggestion-container">
-                                            <div *ngFor="let item of selectedSuggestion" class="suggestion">{{item.name}} <i (click)="removeSuggestion(item.id)" class="bi bi-x-circle-fill"></i></div>
+                                        <div *ngIf="selectedRadiology.length!==0" class="suggestion-container">
+                                            <div *ngFor="let item of selectedRadiology" class="suggestion">{{item.name}} <i (click)="removeSuggestion(item)" class="bi bi-x-circle-fill"></i></div>
+                                        </div>
+                                        <div *ngIf="selectedParamedical.length!==0" class="suggestion-container">
+                                            <div *ngFor="let item of selectedParamedical" class="suggestion">{{item.name}} {{selectedParamedical.length}}<i (click)="removeSuggestion(item)" class="bi bi-x-circle-fill"></i></div>
                                         </div>
                                     </div>
-                                    <div class="suggestion-container">
+                                    <div *ngIf="radiology.length!==0" class="suggestion-container">
                                         <span>Suggested: </span>
-                                        <div (click)="selectSuggestion(item)" *ngFor="let item of suggestions" class="suggestion">{{item.name}}</div>
+                                        <div (click)="selectSuggestion(item)" *ngFor="let item of radiology" class="suggestion">{{item.name}}</div>
+                                    </div>
+                                    <div *ngIf="paramedical.length!==0" class="suggestion-container">
+                                        <span>Suggested: </span>
+                                        <div (click)="selectSuggestion(item)" *ngFor="let item of paramedical" class="suggestion">{{item.name}}</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                                 <div class="card-text">
-                                    <label for="patientage">Patient Age</label>
+                                    <label for="patientage">Patient Date of Birth</label>
                                     <div class="inputField">
-                                        <input id="patientage" placeholder="Enter Age" type="text">
+                                        <input id="patientage" formControlName="dob" placeholder="Enter Age" type="date">
                                     </div>
                                     <br><br>
                                     <label for="patientemail">Patient Email</label>
                                     <div class="inputField">
-                                        <input id="patientemail" placeholder="Enter Email" type="text">
+                                        <input id="patientemail" formControlName="email" placeholder="Enter Email" type="text">
                                     </div>
                                     <br><br>
                                     <label for="patientdisease">Fee</label>
                                     <div class="inputField">
-                                        <input ng-model="myTextarea" placeholder="Enter Test Fee" id="patientdisease" type="text">
+                                        <input value="{{fee}}" ng-model="myTextarea" placeholder="Enter Test Fee" id="patientdisease" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -109,15 +119,15 @@
                                 <div class="card-text">
                                     <label for="patientgender">Gender</label>
                                     <div class="inputField">
-                                        <input id="patientgender" placeholder="Enter Gender" type="text">
+                                        <input id="patientgender" formControlName="gender" placeholder="Enter Gender" type="text">
                                     </div>
                                     <br><br>
                                     <label for="patientphone">Patient Phone No</label>
                                     <div class="inputField">
-                                        <input id="patientphone" placeholder="Enter Phone No" type="text">
+                                        <input id="patientphone" formControlName="phoneNo" placeholder="Enter Phone No" type="text">
                                     </div>
                                     <br><br>
-                                    <button type="submit" class="visit-button" >
+                                    <button (click)="submitAppointent()" type="submit" class="visit-button" >
                                         Confirm Appointment
                                     </button>
                                 </div>

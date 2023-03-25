@@ -7,7 +7,7 @@ import { HospitalVisitComponent } from './hospital-visit/hospital-visit.componen
 const routes: Routes = [
     {path:'', component:HospitalListComponent},
     {path:'hospitalVisit/:id', component:HospitalVisitComponent},
-    {path:'hospitalAppointment/:id', component:HospitalAppointmentComponent}
+    {path:'hospitalAppointment/:id/:facilityCategory', component:HospitalAppointmentComponent}
 ];
 
 @NgModule({

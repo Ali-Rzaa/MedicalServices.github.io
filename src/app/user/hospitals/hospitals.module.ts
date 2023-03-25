@@ -6,6 +6,7 @@ import { HospitalListComponent } from './hospital-list/hospital-list.component';
 import { HospitalVisitComponent } from './hospital-visit/hospital-visit.component';
 import { MatButtonModule } from '@angular/material/button';
 import { HospitalAppointmentComponent } from './hospital-appointment/hospital-appointment.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { HospitalAppointmentComponent } from './hospital-appointment/hospital-ap
   imports: [
     CommonModule,
     HospitalsRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class HospitalsModule {

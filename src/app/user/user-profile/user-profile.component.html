@@ -45,7 +45,7 @@
                                             <span style="color: #179C8C;"> {{doctor.fee}}</span>
                                         </span>
                                         <br>
-                                        <span class="card-text">
+                                        <span *ngIf="doctor.doctorName" class="card-text">
                                             Experience: 
                                             <span style="color: #179C8C;">{{doctor.experience}}</span>
                                         </span>
@@ -123,7 +123,7 @@
                                             <span style="color: #179C8C;"> {{doctor.fee}}</span>
                                         </span>
                                         <br>
-                                        <span class="card-text">
+                                        <span *ngIf="doctor.doctorName" class="card-text">
                                             Experience: 
                                             <span style="color: #179C8C;">{{doctor.experience}}</span>
                                         </span>

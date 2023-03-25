@@ -90,15 +90,15 @@ export class UserService {
       })
     );
   }
-  GetHospitalParamedicalAvailableTime(hospitalId: any) {
-    return this.repositoryService.get('Hospital/get-paramedical-department-available-time/' + hospitalId, true).pipe(
+  GetHospitalParamedicalAvailableTime(hospitalId: any,date:any) {
+    return this.repositoryService.get('Hospital/get-paramedical-department-available-time/' + hospitalId+'?date='+date, true).pipe(
       map((response: any) => {
         return response;
       })
     );
   }
-  GetHospitalFacilityAvailableTime(facilityCategoryId: any) {
-    return this.repositoryService.get('Hospital/get-radiology-department-available-time/' + facilityCategoryId, true).pipe(
+  GetHospitalFacilityAvailableTime(facilityCategoryId: any, date:any) {
+    return this.repositoryService.get('Hospital/get-radiology-department-available-time/' + facilityCategoryId+'?date='+date, true).pipe(
       map((response: any) => {
         return response;
       })
@@ -137,6 +137,13 @@ export class UserService {
   //Appointments
   AppointmentByDoctor(doctorId: any,data: any) {
     return this.repositoryService.post('Appointment/book-appointment-by-doctor/' + doctorId, data,true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  AppointmentByFacilities(data: any) {
+    return this.repositoryService.post('Appointment/book-appointment-by-facilities', data,true).pipe(
       map((response: any) => {
         return response;
       })
