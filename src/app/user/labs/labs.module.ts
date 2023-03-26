@@ -6,6 +6,7 @@ import { LabListComponent } from './lab-list/lab-list.component';
 import { LabVisitComponent } from './lab-visit/lab-visit.component';
 import { MatButtonModule } from '@angular/material/button';
 import { LabAppointmentComponent } from './lab-appointment/lab-appointment.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { LabAppointmentComponent } from './lab-appointment/lab-appointment.compo
   imports: [
     CommonModule,
     LabsRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule, 
+    ReactiveFormsModule
   ]
 })
 export class LabsModule { 

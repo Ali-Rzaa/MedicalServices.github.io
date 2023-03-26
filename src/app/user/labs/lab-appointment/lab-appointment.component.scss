@@ -84,7 +84,7 @@
     white-space: wrap;
 }
 .last-content {
-    height: 200px;
+    height: 170px;
     display: inline-block;
 }
 .contact-container{
@@ -128,6 +128,11 @@
     height: fit-content !important;
     word-wrap: break-word;
 }
+.test-field{
+    // padding-top: 10px;
+    height: fit-content !important;
+    word-wrap: break-word;
+}
 .suggestion-container{
     font-size: 12px;
     width: 100%;
@@ -136,7 +141,7 @@
     flex-wrap: wrap;
     flex-direction: row;
 }
-.larger-field .suggestion-container .suggestion{
+.test-field .suggestion-container .suggestion{
     background-color: #e6f2f1;
 }
 .suggestion{

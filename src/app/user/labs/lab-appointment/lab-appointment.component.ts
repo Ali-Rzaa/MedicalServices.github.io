@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { clinics} from 'src/app/data';
+import { FacilitiesModel } from 'src/app/models/admin-models';
+import { LabModel } from 'src/app/models/user-model';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-lab-appointment',
@@ -8,7 +12,15 @@ import { clinics} from 'src/app/data';
   styleUrls: ['./lab-appointment.component.scss']
 })
 export class LabAppointmentComponent implements OnInit{
-  constructor(private route:ActivatedRoute){}
+  fee:number = 0
+  lab :LabModel;
+  pateintForm!: FormGroup;
+  currentDate = new Date()
+  availableTime: string[] = [];
+  labFacilities:FacilitiesModel[] = [];
+  selectedLabFacilities:FacilitiesModel[] = [];
+  facilityIds:string[] = []
+  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService){}
   clinic = clinics[0];
   suggestions = [
     {id:0, name:'Blood Test'},
@@ -21,18 +33,90 @@ export class LabAppointmentComponent implements OnInit{
   ]
   selectedSuggestion = [{id:0, name:'Blood Test'},]
   selectSuggestion(obj: any){
-    if(this.selectedSuggestion.find((item)=>item.id !== obj.id))
-    {
-      this.selectedSuggestion.push(obj)
+      if(this.selectedLabFacilities.length!==0)
+      {
+        if(this.selectedLabFacilities.find((item)=>item.facilityId === obj.facilityId )){
+
+        }else{
+          this.selectedLabFacilities.push(obj);
+          this.facilityIds.push(obj.facilityId);
+          this.fee += obj.fee;
+        }
+      }
+      if(this.selectedLabFacilities.length===0) {
+       this.selectedLabFacilities.push(obj)
+       this.facilityIds.push(obj.facilityId);
+       this.fee += obj.fee;
+     }
+  }
+  removeSuggestion(obj: any){
+    if(this.selectedLabFacilities.length!==0){
+        this.fee -= obj.fee
+        this.facilityIds = this.facilityIds.filter((item:any)=>item !== obj.facilityId)
+      this.selectedLabFacilities = this.selectedLabFacilities.filter((item:any)=>item.facilityId !== obj.facilityId)
     }
   }
-  removeSuggestion(id: any){
-    this.selectedSuggestion = this.selectedSuggestion.filter((item:any)=>item.id !== id)
-  }
-  paramId = null
+  // selectSuggestion(obj: any){
+  //   if(this.selectedSuggestion.find((item)=>item.id !== obj.id))
+  //   {
+  //     this.selectedSuggestion.push(obj)
+  //   }
+  // }
+  // removeSuggestion(id: any){
+  //   this.selectedSuggestion = this.selectedSuggestion.filter((item:any)=>item.id !== id)
+  // }
   ngOnInit(){
-    this.paramId = this.route.snapshot.params['id'];
-    this.clinic = clinics.filter(p=>p.id==this.paramId)[0];
+    this.pateintForm = this.formBuilder.group({
+      patientName: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneNo: ['', [Validators.required]],
+      facilityIds: [[], [Validators.required]],
+      timming: [this.currentDate, [Validators.required]],
+    });
+    this.loadLab(this.route.snapshot.params['id']);
+    this.loadFacilities(this.route.snapshot.params['id']);
+  }
+  loadLab(id:any){
+    this.userService.GetLab(id).subscribe({
+      next:(v) => {
+        this.lab = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadLab: ' + error.message);
+      }
+    });
+  }
+  loadFacilities(id:any){
+    this.userService.GetLabFacilities(id).subscribe({
+      next:(v) => {
+        this.labFacilities = v.data
+      },
+      error:(error) => {
+        console.log('Error in loadLab: ' + error.message);
+      }
+    });
+  }
+  EnterSubmit(event:any){
+    this.submitAppointent();
+  }
+  submitAppointent(){
+    this.pateintForm.patchValue({
+      facilityIds: this.facilityIds
+    });
+    if(window.navigator.onLine){
+      this.userService.AppointmentByFacilities(this.pateintForm.value).subscribe({
+        next:(v)=>{
+          console.log(v.message)
+          alert(v.message)
+        },
+        error:(e)=>{
+          console.log(e.error.message)
+        }
+      })
+    }
   }
 
 }

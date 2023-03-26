@@ -134,6 +134,13 @@ export class UserService {
       })
     );
   }
+  GetLabAvailableTime(labId: any) {
+    return this.repositoryService.get('Lab/get-lab-available-time/' + labId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
   //Appointments
   AppointmentByDoctor(doctorId: any,data: any) {
     return this.repositoryService.post('Appointment/book-appointment-by-doctor/' + doctorId, data,true).pipe(
@@ -180,6 +187,13 @@ export class UserService {
   }
   GetFacilitiesByCategory(facilityCategoryId: any) {
     return this.repositoryService.get('Facility/get-facilities-by-facilityCategory/' + facilityCategoryId, true).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+  GetLabFacilities(labId:any) {
+    return this.repositoryService.get('Facility/get-lab-facilities/' + labId, true).pipe(
       map((response: any) => {
         return response;
       })
