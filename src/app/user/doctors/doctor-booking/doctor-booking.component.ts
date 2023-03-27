@@ -11,8 +11,6 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./doctor-booking.component.scss'],
 })
 export class DoctorBookingComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService) {}
-  // doctor = doctors[0];
   selectedDateAndTime = '';
   selectedDay = '';
   doctorId = '';
@@ -20,6 +18,18 @@ export class DoctorBookingComponent implements OnInit {
   pateintForm!: FormGroup;
   date: any;
   time: any;
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
+    this.doctorId = this.route.snapshot.params['id'];
+    this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
+    let splitOpeningTime = this.selectedDateAndTime.split('-');
+    debugger;
+    let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -8);
+    let splitOpeningDate = this.selectedDateAndTime.split('T');
+    this.date = splitOpeningDate[0];
+    this.time = substringsplitOpeningTime;
+  }
+  // doctor = doctors[0];
+
   ngOnInit() {
     this.pateintForm = this.formBuilder.group({
       patientName: ['', [Validators.required]],
@@ -29,18 +39,10 @@ export class DoctorBookingComponent implements OnInit {
       email: ['', [Validators.required]],
       phoneNo: ['', [Validators.required]],
       disease: ['', [Validators.required]],
-      timming: ['2023-03-23T09:45:22.751Z', [Validators.required]],
+      timming: [this.selectedDateAndTime, [Validators.required]],
       diseaseInPast: ['', [Validators.required]],
     });
     this.loadDoctor(this.route.snapshot.params['id']);
-    this.doctorId = this.route.snapshot.params['id'];
-    this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
-    let splitOpeningTime = this.selectedDateAndTime.split('-');
-    debugger;
-    let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -8);
-    let splitOpeningDate = this.selectedDateAndTime.split('T');
-    this.date = splitOpeningDate[0];
-    this.time = substringsplitOpeningTime;
   }
   EnterSubmit(event: any) {
     this.submitAppointent();
