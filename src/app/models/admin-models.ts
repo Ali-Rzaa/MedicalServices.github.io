@@ -66,7 +66,9 @@ export interface DoctorModel {
 }
 export interface AvailableModel {
   time: string;
-  isSelected: boolean;
+  bgColor: string;
+  index: number;
+  border: string;
 }
 export interface Type {
   id: string;

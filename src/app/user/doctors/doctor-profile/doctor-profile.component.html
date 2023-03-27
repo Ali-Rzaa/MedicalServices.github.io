@@ -65,8 +65,8 @@
             <div class="card-text">
               <!-- <span style="color:#179C8C">Morning Time</span> -->
               <div class="activeHours">
-                <button (click)="getAppointmentDateTime(time)" class="timeblock" mat-stroked-button *ngFor="let time of availabilty; let i = index">
-                  <i class="bi bi-clock d-pointer"></i><span> {{ time }}</span>
+                <button (click)="getAppointmentDateTime(time)" [ngStyle]="{ 'background-color': time.bgColor, border: time.border }" class="timeblock" mat-stroked-button *ngFor="let time of AvailableTime; let i = index">
+                  <i class="bi bi-clock d-pointer"></i><span> {{ time.time }}</span>
                 </button>
               </div>
             </div>

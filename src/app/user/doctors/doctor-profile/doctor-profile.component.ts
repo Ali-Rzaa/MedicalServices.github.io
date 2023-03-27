@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DoctorModel } from 'src/app/models/admin-models';
+import { AvailableModel, DoctorModel } from 'src/app/models/admin-models';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class DoctorProfileComponent implements OnInit {
   doctor: DoctorModel;
   availabilty: string[];
+  AvailableTime: AvailableModel[] = [];
   selectedDate: string = '';
   selectedTime: string = '';
   selected: Date | null;
@@ -42,8 +43,17 @@ export class DoctorProfileComponent implements OnInit {
     });
   }
 
-  getAppointmentDateTime(time: any) {
-    this.selectedTime = time;
+  getAppointmentDateTime(data: any) {
+    for (let i = 0; i < this.AvailableTime.length; i++) {
+      if (this.AvailableTime[i].index == data.index) {
+        this.AvailableTime[i].bgColor = '#EFFCFA';
+        this.AvailableTime[i].border = '2px solid #179C8C';
+      } else {
+        this.AvailableTime[i].bgColor = '';
+        this.AvailableTime[i].border = '2px solid #E0E0E0';
+      }
+    }
+    this.selectedTime = data.time;
     this.bookingDateTime = this._selectedDate + 'T' + this.selectedTime + ':00.772Z';
   }
   dateFilter: (date: Date | null) => boolean = (date: Date | null) => {
@@ -81,8 +91,16 @@ export class DoctorProfileComponent implements OnInit {
     }
     this.userService.GetDoctorAvailableTime(this.doctorId, this._selectedDate).subscribe({
       next: (v) => {
-        this.availabilty = [];
-        this.availabilty = v.data;
+        this.AvailableTime = [];
+        for (let a = 0; a < v.data.length; a++) {
+          let time: AvailableModel = {
+            time: v.data[a],
+            bgColor: '',
+            index: a,
+            border: '',
+          };
+          this.AvailableTime.push(time);
+        }
       },
       error: (error) => {
         console.log('Error in loadDoctorAvailablity: ' + error.message);
