@@ -58,7 +58,6 @@
           <div class="col-lg-9 col-md-8 col-sm-12">
             <div class="d-flex justify-content-between">
               <span class="time-block-heading">Select Available day & time</span>
-              <span *ngIf="count == 0" class="errorValdation"> Please select date</span>
             </div>
             <br />
             <br />
@@ -72,8 +71,10 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-12">
+            <span *ngIf="count == 0" class="errorValdation"> Please select date</span>
+            <span *ngIf="appointmentMsg == ''" class="errorValdation">{{ appointmentMsg }}</span>
             <div class="calender">
-              <mat-calendar #calendar [dateFilter]="dateFilter" [(selected)]="selected" (selectedChange)="getDoctorAvailablity($event)"></mat-calendar>
+              <mat-calendar #calendar [minDate]="minDate" [dateFilter]="dateFilter" [(selected)]="selected" (selectedChange)="getDoctorAvailablity($event)"></mat-calendar>
             </div>
           </div>
         </div>

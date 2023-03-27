@@ -19,6 +19,8 @@ export class DoctorProfileComponent implements OnInit {
   doctorId: any;
   _selectedDate: any;
   count: number = 0;
+  minDate = new Date();
+  appointmentMsg: string = '';
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {}
   ngOnInit() {
     this.loadDoctor(this.route.snapshot.params['id']);
@@ -91,6 +93,12 @@ export class DoctorProfileComponent implements OnInit {
     }
     this.userService.GetDoctorAvailableTime(this.doctorId, this._selectedDate).subscribe({
       next: (v) => {
+        if (v.data.length == 0) {
+          this.appointmentMsg;
+        } else {
+          this.appointmentMsg = 'Opps: Oppointment is not available on this date.';
+        }
+
         this.AvailableTime = [];
         for (let a = 0; a < v.data.length; a++) {
           let time: AvailableModel = {
