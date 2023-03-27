@@ -8,7 +8,7 @@ import { AccountService } from './services/Account/account.service';
 export class AuthGuard implements CanActivate {
   constructor(private accountService: AccountService, private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.accountService.isLoggedIn !== true) {
+    if (this.accountService.isLoggedIn !== true || this.accountService.getUserCity() === null) {
       this.router.navigate(['/']);
     }
     return true;
@@ -24,10 +24,10 @@ export class AdminAuthGuard implements CanActivate {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.accountService.isLoggedIn == true && this.UserType == 'Admin') {
+        return true;
+      } else {
+        this.router.navigate(['/']);
+      }
       return true;
-    } else {
-      this.router.navigate(['/']);
     }
-    return true;
-  }
 }

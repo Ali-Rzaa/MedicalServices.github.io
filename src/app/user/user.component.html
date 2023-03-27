@@ -38,7 +38,7 @@
       <i class="bi bi-geo-alt-fill location-icon"></i>
       <span>{{city}}</span>
     </div>
-    <div *ngIf="!showSearch" routerLink="/userProfile" class="userInfo">
+    <div *ngIf="!showSearch && user" routerLink="/userProfile" class="userInfo">
       <div class="userName">
         <span>{{user.firstName}} {{user.lastName}}</span>
       </div>

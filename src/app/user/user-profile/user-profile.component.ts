@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentModel, UserModel } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
-import {NgbModal, ModalDismissReasons, NgbModalOptions, NgbModalConfig,} from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {NgbModal, NgbModalConfig,} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,13 +10,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-  imageURL:any[] = []
-  firstname = ''
-  lastname = ''
-  userimage = ''
-  userAppointment:AppointmentModel[]
-  profileFormData:FormData
-  constructor(private accountService: AccountService, private formBuilder: FormBuilder, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService){
+  imageURL:any[] = [];
+  firstname = '';
+  lastname = '';
+  userimage = '';
+  user :UserModel;
+  userAppointment:AppointmentModel[] = [];
+  profileFormData:FormData = new FormData();
+  constructor(private accountService: AccountService, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService){
 		config.backdrop = 'static';
 		config.keyboard = false;}
   ngOnInit(): void {
@@ -52,7 +52,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
   saveChanges(){
-    if(this.firstname !== '' || this.lastname !== '' || this.userimage !== ''){
       this.firstname !== ''? this.profileFormData.append('FirstName', this.firstname) : '';
       this.lastname !== ''? this.profileFormData.append('LastName', this.lastname) : '';
       this.userService.UpdateUserProfile(this.profileFormData).subscribe({
@@ -63,9 +62,7 @@ export class UserProfileComponent implements OnInit {
   
         }
       })
-    }
   }
-  user :UserModel;
   filterUser(appointment: any[]): any[] {
     return appointment.filter(p => p.appointmentStatus !== 'Pending')
   }

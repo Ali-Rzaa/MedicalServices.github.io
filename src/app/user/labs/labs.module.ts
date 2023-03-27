@@ -7,6 +7,8 @@ import { LabVisitComponent } from './lab-visit/lab-visit.component';
 import { MatButtonModule } from '@angular/material/button';
 import { LabAppointmentComponent } from './lab-appointment/lab-appointment.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LabsRoutingModule,
     MatButtonModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class LabsModule { 

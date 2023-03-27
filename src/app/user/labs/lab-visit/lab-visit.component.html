@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="lab">
     <div class="image-container">
         <img class="slider-img" src="{{lab.coverImage?lab.coverImage:'../../../assets/Images/labSlider.png'}}" alt="">
     </div>
@@ -6,12 +6,12 @@
         <div class="first-row">
             <span class="booking-text">{{lab.name}}</span>
         </div>
-        <div *ngIf="lab" class="second-row row px-3 mt-4">
+        <div class="second-row row px-3 mt-4">
             <div class="col-12 px-2">
                 <div class="row">
                     <div class="info-card">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{lab.image?lab.image:'../../../assets/Images/labSlider.png'}}" alt="Card Image">
+                            <img  class="card-img" src="{{lab.image?lab.image:'../../../assets/navbar/image_not_available.jpg'}}" alt="Card Image">
                         </div>
                         <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                             <div class="row">
@@ -31,7 +31,7 @@
                                         <br>
                                         <br>
                                         <div class="hospital-card-button">
-                                            <button routerLink="/labs/labAppointment/{{lab.labId}}" class="visit-button" >Book Appointment</button>
+                                            <button routerLink="/labs/labAppointment/{{lab.labId}}/{{bookingDateTime}}" [ngClass]="appointmentButton()">Book Appointment</button>
                                         </div>
                                     </div>
                                 </div>
@@ -65,19 +65,25 @@
                 <div class="row  mt-2">
                     <div class="px-2 col-12">
                         <div class="third-row row p-3">
-                            <div class="col-lg-10 col-md-8 col-sm-12">
+                            <div class="col-lg-9 col-md-8 col-sm-12">
                                 <span class="doctors-heading">Available day&time</span>
                                 <br>
                                 <br>
                                 <div class="card-text">
                                     <!-- <span style="color:#179C8C">Morning Time</span> -->
                                     <div class="activeHours" >
-                                        <button class="timeblock" mat-stroked-button *ngFor="let time of availableTime"><i class='bi bi-clock'></i><span> {{time}}</span></button>
+                                        <button (click)="getAppointmentDateTime(time)" [ngStyle]="{ 'background-color': time.bgColor, border: time.border }" class="timeblock" mat-stroked-button *ngFor="let time of AvailableTime; let i = index">
+                                            <i class="bi bi-clock d-pointer"></i><span> {{ time.time }}</span>
+                                          </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-4 col-sm-12">
-                                hi
+                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                <span *ngIf="count == 0" class="errorValdation"> Please select date</span>
+                                <span *ngIf="appointmentMsg == ''" class="errorValdation">{{ appointmentMsg }}</span>
+                                <div class="calender">
+                                  <mat-calendar #calendar [minDate]="minDate" [dateFilter]="dateFilter" [(selected)]="selected" (selectedChange)="loadAvailableTime($event)"></mat-calendar>
+                                </div>
                             </div>
                         </div>
                     </div>

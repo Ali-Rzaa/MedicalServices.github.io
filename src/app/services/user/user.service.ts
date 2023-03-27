@@ -133,8 +133,8 @@ export class UserService {
       })
     );
   }
-  GetLabAvailableTime(labId: any) {
-    return this.repositoryService.get('Lab/get-lab-available-time/' + labId, true).pipe(
+  GetLabAvailableTime(labId: any, date:any) {
+    return this.repositoryService.get('Lab/get-lab-available-time/' + labId + '?date=' + date, true).pipe(
       map((response: any) => {
         return response;
       })

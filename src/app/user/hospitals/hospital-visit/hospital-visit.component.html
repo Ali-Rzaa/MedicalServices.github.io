@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="hospital">
     <div class="image-container">
         <img class="slider-img" src="{{hospital.coverImage?hospital.coverImage:'../../../assets/Images/clinicSlider.png'}}" alt="">
     </div>
@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="info-card">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{hospital.image?hospital.image:'../../../assets/Images/clinicSlider.png'}}" alt="Card Image">
+                            <img  class="card-img" src="{{hospital.image?hospital.image:'../../../assets/navbar/image_not_available.jpg'}}" alt="Card Image">
                         </div>
                         <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                             <div class="row">
@@ -80,7 +80,7 @@
                     <span *ngIf="option == 'paramedical'" class="doctors-heading">Paramedical services in {{hospital.name}}</span>
                     <span *ngIf="option == 'radiology'" class="doctors-heading">Radiology Services in {{hospital.name}}</span>
                     <span *ngIf="option == 'doctor'" class="doctors-heading">Doctors in {{hospital.name}}</span>
-                    <div *ngIf="option == 'paramedical'" class="services-content second-row row mt-4" >
+                    <div *ngIf="paramedicals && paramedicals.length !==0 && option == 'paramedical'" class="services-content second-row row mt-4" >
                         <div class="hospital-card-button service-booking-button">
                             <button routerLink="/hospitals/hospitalAppointment/{{hospital.hospitalId}}/paramedical" class="visit-button" >Book Appointment</button>
                         </div>
@@ -90,9 +90,9 @@
                             </ul>
                         </div>
                     </div>
-                    <div *ngIf="option == 'radiology'" >
+                    <div *ngIf="radiology && option == 'radiology'" >
                         <div *ngFor="let facility of radiology" class="row second-row services-content mt-4">
-                            <div class="hospital-card-button service-booking-button">
+                            <div  class="hospital-card-button service-booking-button">
                                 <button routerLink="/hospitals/hospitalAppointment/{{hospital.hospitalId}}/{{facility.facilityCategoryId}}" class="visit-button" >Book Appointment</button>
                             </div>
                             <div>

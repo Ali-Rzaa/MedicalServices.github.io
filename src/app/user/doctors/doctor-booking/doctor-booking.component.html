@@ -63,7 +63,7 @@
     <div class="row px-3 mt-2">
       <span class="card-name">Patient Details</span>
       <div class="px-2 col-12">
-        <form [formGroup]="pateintForm" (keydown.enter)="EnterSubmit($event)" class="third-row row p-3">
+        <form [formGroup]="pateintForm" (ngSubmit)="submitAppointent()" novalidate autocomplete="off" (keydown.enter)="EnterSubmit($event)" class="third-row row p-3">
           <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
             <div class="card-text">
               <label for="patientname">Patient Full Name</label>
@@ -73,7 +73,7 @@
               <br /><br />
               <label for="patientweight">Patient Weight</label>
               <div class="inputField">
-                <input id="patientweight" formControlName="weight" placeholder="Enter Weight" type="text" />
+                <input id="patientweight" formControlName="weight" placeholder="Enter Weight" type="number" />
               </div>
               <br /><br />
               <label for="patientdisease">Disease</label>
@@ -114,7 +114,9 @@
               <br /><br />
               <label for=""></label>
               <div class="button-wrapper">
-                <button (click)="submitAppointent()" type="submit" class="visit-button">Confirm Appointment</button>
+                <button type="submit"*ngIf="pateintForm.valid && !addLoading" class="visit-button">Confirm Appointment</button>
+                <button type="button" class="visit-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="addLoading">Confirm Appointment <i class="fa fa-spinner fa-spin"></i></button>
+                <button type="button" class="disabled-button" *ngIf="!pateintForm.valid">Confirm Appointment</button>
               </div>
             </div>
           </div>

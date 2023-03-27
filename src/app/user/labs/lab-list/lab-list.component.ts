@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./lab-list.component.scss']
 })
 export class LabListComponent implements OnInit{
+  city = localStorage.getItem('userCityName')
   constructor(private router: Router, private userService: UserService){
   }
   ngOnInit(): void {

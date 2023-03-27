@@ -56,7 +56,12 @@ export class DoctorProfileComponent implements OnInit {
       }
     }
     this.selectedTime = data.time;
-    this.bookingDateTime = this._selectedDate + 'T' + this.selectedTime + ':00.772Z';
+    let splittedTime = this.selectedTime.split(':')
+    if(splittedTime[0] >'10'){
+      this.bookingDateTime = this._selectedDate + 'T' + '0' + this.selectedTime + ':00.772Z';
+    } else {
+      this.bookingDateTime = this._selectedDate + 'T' + this.selectedTime + ':00.772Z';
+    }
   }
   dateFilter: (date: Date | null) => boolean = (date: Date | null) => {
     if (!date) {

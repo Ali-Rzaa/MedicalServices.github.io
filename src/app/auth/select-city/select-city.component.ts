@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cities } from 'src/app/models/user-model';
+import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -10,11 +11,13 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class SelectCityComponent implements OnInit {
 
-  constructor(private router: Router, private userService: UserService){}
+  constructor(private router: Router, private userService: UserService, private accountService: AccountService){}
   ngOnInit(): void {
-    this.loadCities()
+    this.loadCities();
+    this.loadUser();
+    this.gotoDashboard();
   }
-  userName = "Hira Akram"
+  userName = ""
   selectedCity = 'Select City...'
   cities:Cities[] = []
   showDropdown = false
@@ -40,5 +43,33 @@ export class SelectCityComponent implements OnInit {
         console.log('cities error: '+er)
       }
     })
+  }
+  loadUser(){
+    this.userService.GetUserProfile().subscribe({
+      next: (vl)=>{
+        this.userName = vl.data.firstName + ' ' + vl.data.lastName;
+      },
+      error:(er)=>{
+        console.log('load User error: '+er)
+      }
+    })
+  }
+  gotoDashboard() {
+    if (this.accountService.isLoggedIn == true) {
+      if (this.accountService.getUserType() == 'Admin') {
+        // this.router.navigateByUrl('/admin/dashboard');
+        this.router.navigateByUrl('/admin/doctors');
+      }
+      if(this.accountService.getUserCity() !== null)
+      {
+         if (this.accountService.getUserType() == 'User') {
+          this.router.navigateByUrl('/home');
+        } else {
+          this.router.navigateByUrl('/signIn');
+        }
+      }
+    } else {
+      this.router.navigateByUrl('/signIn');
+    }
   }
 }

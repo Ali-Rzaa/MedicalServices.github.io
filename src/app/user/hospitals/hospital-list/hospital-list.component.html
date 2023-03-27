@@ -4,7 +4,7 @@
     </div>
     <div class="hospital-container">
         <div class="first-row">
-            <span class="booking-text">Hospitals in Toba Tek Singh</span>
+            <span class="booking-text">Hospitals in {{city}}</span>
         </div>
         <div *ngIf="hospitals" class="second-row row px-3 mt-4">
             <div *ngFor="let hospital of hospitals" class="col-12 px-2">

@@ -50,6 +50,9 @@ export class AccountService {
   getUserType() {
     return localStorage.getItem('user_type');
   }
+  getUserCity() {
+    return localStorage.getItem('userCity');
+  }
   get isLoggedIn(): boolean {
     let authToken = localStorage.getItem('ca_access_token');
     return authToken !== null ? true : false;

@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="clinic">
     <div class="image-container">
         <img class="slider-img" src="{{clinic.coverImage?clinic.coverImage:'../../../assets/Images/clinicSlider.png'}}" alt="">
     </div>
@@ -6,12 +6,12 @@
         <div class="first-row">
             <span class="booking-text">{{clinic.name}}</span>
         </div>
-        <div *ngIf="clinic" class="second-row row px-3 mt-4">
+        <div class="second-row row px-3 mt-4">
             <div class="col-12 px-2">
                 <div class="row">
                     <div class="info-card">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                            <img  class="card-img" src="{{clinic.image?clinic.image:'../../../assets/Images/clinicSlider.png'}}" alt="Card Image">
+                            <img  class="card-img" src="{{clinic.image?clinic.image:'../../../assets/navbar/image_not_available.jpg'}}" alt="Card Image">
                         </div>
                         <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
                             <div class="row">

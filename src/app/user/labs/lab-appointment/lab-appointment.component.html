@@ -1,9 +1,9 @@
 <div>
-    <div class="hospital-container">
+    <div *ngIf="lab" class="hospital-container">
         <div class="first-row">
             <span class="booking-text">{{lab.name}}</span>
         </div>
-        <div *ngIf="lab" class="second-row row px-3 mt-4">
+        <div class="second-row row px-3 mt-4">
             <div class="col-12 px-2">
                 <div class="row">
                     <div class="info-card">
@@ -25,15 +25,28 @@
                                             Address: 
                                             <span style="color: #179C8C;">{{lab.address}}</span>
                                         </span>
+                                        <br>
+                                        <span class="card-text">
+                                            Contact: 
+                                            <span style="color: #179C8C;">{{lab.phoneNumber?lab.phoneNumber:'No contact'}}</span>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="last-content col-lg-4 col-md-4 col-sm-12">
                                     <div class="contact-container">
-                                        <div>
-                                            <span class="card-text">
-                                                Contact:
-                                                <span style="color: #179C8C;">{{lab.phoneNumber?lab.phoneNumber:'No contact'}}</span> 
-                                            </span>
+                                        <div class="row">
+                                          <div class="selectedDayTime col-12">
+                                            <span style="color: #179c8c">Selected Day</span>
+                                            <div class="activeHours">
+                                              <span class="timeblock">{{ this.date }}</span>
+                                            </div>
+                                          </div>
+                                          <div class="selectedDayTime col-12">
+                                            <span style="color: #179c8c">Selected Time</span>
+                                            <div class="activeHours">
+                                              <span class="timeblock"><i class="bi bi-clock"></i>{{ time }}</span>
+                                            </div>
+                                          </div>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +105,7 @@
         </div> -->
         <div class="row mt-4">
             <div class="third-row col-12">
-                <form [formGroup]="pateintForm" (keydown.enter)="EnterSubmit($event)"  class="row p-3">
+                <form [formGroup]="pateintForm" (ngSubmit)="submitAppointent()" novalidate autocomplete="off" (keydown.enter)="EnterSubmit($event)"  class="row p-3">
                     <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
                         <div class="card-text">
                             <label for="patientname">Patient Full Name</label>
@@ -146,10 +159,11 @@
                             <div class="inputField">
                                 <input id="patientphone" formControlName="phoneNo" placeholder="Enter Phone No" type="text">
                             </div>
-                            <br><br>
-                            <button (click)="submitAppointent()" type="submit" class="visit-button" >
-                                Confirm Appointment
-                            </button>
+                            <div class="button-wrapper">
+                              <button type="submit" *ngIf="pateintForm.valid && !addLoading" class="visit-button">Confirm Appointment</button>
+                              <button type="button" class="visit-button" style="background-color: #179c8c; color: #fff; margin-left: 10px" *ngIf="addLoading">Confirm Appointment <i class="fa fa-spinner fa-spin"></i></button>
+                              <button type="button" class="disabled-button" *ngIf="!pateintForm.valid">Confirm Appointment</button>
+                            </div>
                         </div>
                     </div>
                 </form>

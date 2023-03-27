@@ -77,7 +77,7 @@
     font-size: 17px;
     display: inline-block;
     position: absolute;
-    right: 190px;
+    right: 280px;
 }
 .location-icon{
     color: #179C8C;
@@ -104,6 +104,7 @@
 }
 .userName{
     margin-right: 10px;
+    width: max-content;
     font-size: 17px;
     font-weight: 400;
 }
@@ -119,10 +120,16 @@
 }
 @media (max-width:780px){
     .location{
-        right: 170px;
+        right: 180px;
     }
     .userInfo{
         right: 15px;
+    }
+    .userName{
+        width: 100px;
+        white-space:nowrap ;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }
 @media (max-width:680px) {
@@ -138,7 +145,7 @@
 }
 @media (max-width:580px) {
     .searchToggle{
-        right: 170px;
+        right: 180px;
     }
     .rightContent{
         width: 200px;
@@ -147,6 +154,9 @@
         display: none;
     }
     .userName{
-        min-width:max-content;
+        width: 100px;
+        white-space:nowrap ;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 }

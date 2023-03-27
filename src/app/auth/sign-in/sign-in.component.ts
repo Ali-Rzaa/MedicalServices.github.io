@@ -54,9 +54,10 @@ color='white'
           //     console.log('cities error: '+er)
           //   }
           // })
-          // this.open(content);
+          // this.open(content);doctors
           if (localStorage.getItem('user_type')== 'Admin') {
-            this.router.navigateByUrl('/admin/dashboard');
+            // this.router.navigateByUrl('/admin/dashboard');
+            this.router.navigateByUrl('/admin/doctors');
           } else {
             this.router.navigateByUrl('/selectCity');
           }
@@ -91,7 +92,7 @@ color='white'
   // mouseleave(){
   //   this.showDropdown = false
   // }
-  title = 'Hi! Hiram Khan';
+  title = '';
   closeResult: string='';
   modalOptions:NgbModalOptions;
   EnterSubmit(event:any){
@@ -112,12 +113,18 @@ color='white'
 
   gotoDashboard() {
     if (this.accountService.isLoggedIn == true) {
-      if (this.accountService.getUserType() == 'Admin') {
-        this.router.navigateByUrl('/admin/dashboard');
-      } else if (this.accountService.getUserType() == 'User') {
-        this.router.navigateByUrl('/home');
+      if(this.accountService.getUserCity() !== null)
+      {
+        if (this.accountService.getUserType() == 'Admin') {
+          // this.router.navigateByUrl('/admin/dashboard');
+          this.router.navigateByUrl('/admin/doctors');
+        } else if (this.accountService.getUserType() == 'User') {
+          this.router.navigateByUrl('/home');
+        } else {
+          this.router.navigateByUrl('/');
+        }
       } else {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/selectCity');
       }
     }
   }

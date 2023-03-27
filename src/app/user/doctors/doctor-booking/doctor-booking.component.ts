@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { doctors } from 'src/app/data';
 import { DoctorModel } from 'src/app/models/admin-models';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-doctor-booking',
@@ -18,12 +19,13 @@ export class DoctorBookingComponent implements OnInit {
   pateintForm!: FormGroup;
   date: any;
   time: any;
+  addLoading:boolean = false
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
     this.doctorId = this.route.snapshot.params['id'];
     this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
     let splitOpeningTime = this.selectedDateAndTime.split('-');
-    debugger;
-    let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -8);
+    let substringsplitOpeningTime = this.selectedDateAndTime.length===22? splitOpeningTime[2].slice(2, -8) : splitOpeningTime[2].slice(3, -8);
+    console.log(this.selectedDateAndTime.length)
     let splitOpeningDate = this.selectedDateAndTime.split('T');
     this.date = splitOpeningDate[0];
     this.time = substringsplitOpeningTime;
@@ -48,13 +50,17 @@ export class DoctorBookingComponent implements OnInit {
     this.submitAppointent();
   }
   submitAppointent() {
+    this.addLoading = true
     if (window.navigator.onLine) {
       this.userService.AppointmentByDoctor(this.doctorId, this.pateintForm.value).subscribe({
         next: (v) => {
-          console.log(v.message);
+          Swal.fire('Success!', v.message, 'success');
+          this.addLoading = false
         },
         error: (e) => {
-          console.log(e.error.message);
+          debugger
+          this.addLoading = false
+          Swal.fire('Opps:', e.error.title, 'error');
         },
       });
     }

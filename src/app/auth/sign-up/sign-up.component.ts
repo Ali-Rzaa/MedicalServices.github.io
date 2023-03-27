@@ -36,6 +36,7 @@ export class SignUpComponent implements OnInit {
         this.errorMessage = "";
       }
     });
+    this.gotoDashboard();
   };
   setEmail(event: any){
     this.email = event.target.value
@@ -104,5 +105,22 @@ export class SignUpComponent implements OnInit {
             },
           });
         }
+    }
+    gotoDashboard() {
+      if (this.accountService.isLoggedIn == true) {
+        if(this.accountService.getUserCity() !== null)
+        {
+          if (this.accountService.getUserType() == 'Admin') {
+            // this.router.navigateByUrl('/admin/dashboard');
+            this.router.navigateByUrl('/admin/doctors');
+          } else if (this.accountService.getUserType() == 'User') {
+            this.router.navigateByUrl('/home');
+          } else {
+            this.router.navigateByUrl('/');
+          }
+        } else {
+          this.router.navigateByUrl('/selectCity');
+        }
+      }
     }
 }

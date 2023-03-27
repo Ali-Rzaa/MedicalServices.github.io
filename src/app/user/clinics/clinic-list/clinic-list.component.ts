@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./clinic-list.component.scss']
 })
 export class ClinicListComponent implements OnInit{
+  city = localStorage.getItem('userCityName')
   constructor(private router: Router, private userService: UserService){
   }
   ngOnInit(): void {

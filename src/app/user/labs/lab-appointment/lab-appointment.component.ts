@@ -5,6 +5,7 @@ import { clinics} from 'src/app/data';
 import { FacilitiesModel } from 'src/app/models/admin-models';
 import { LabModel } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lab-appointment',
@@ -14,13 +15,28 @@ import { UserService } from 'src/app/services/user/user.service';
 export class LabAppointmentComponent implements OnInit{
   fee:number = 0
   lab :LabModel;
+  labId = ''
   pateintForm!: FormGroup;
   currentDate = new Date()
   availableTime: string[] = [];
   labFacilities:FacilitiesModel[] = [];
   selectedLabFacilities:FacilitiesModel[] = [];
   facilityIds:string[] = []
-  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService){}
+  selectedDateAndTime = '';
+  selectedDay = '';
+  date: any;
+  time: any;
+  addLoading:boolean = false
+  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService){
+    this.labId = this.route.snapshot.params['id'];
+    this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
+    let splitOpeningTime = this.selectedDateAndTime.split('-');
+    let substringsplitOpeningTime = this.selectedDateAndTime.length===22? splitOpeningTime[2].slice(2, -8) : splitOpeningTime[2].slice(3, -8);
+    console.log(this.selectedDateAndTime.length)
+    let splitOpeningDate = this.selectedDateAndTime.split('T');
+    this.date = splitOpeningDate[0];
+    this.time = substringsplitOpeningTime;
+  }
   clinic = clinics[0];
   suggestions = [
     {id:0, name:'Blood Test'},
@@ -40,12 +56,18 @@ export class LabAppointmentComponent implements OnInit{
         }else{
           this.selectedLabFacilities.push(obj);
           this.facilityIds.push(obj.facilityId);
+          this.pateintForm.patchValue({
+            facilityIds: this.facilityIds
+          });
           this.fee += obj.fee;
         }
       }
       if(this.selectedLabFacilities.length===0) {
        this.selectedLabFacilities.push(obj)
        this.facilityIds.push(obj.facilityId);
+       this.pateintForm.patchValue({
+         facilityIds: this.facilityIds
+       });
        this.fee += obj.fee;
      }
   }
@@ -53,6 +75,9 @@ export class LabAppointmentComponent implements OnInit{
     if(this.selectedLabFacilities.length!==0){
         this.fee -= obj.fee
         this.facilityIds = this.facilityIds.filter((item:any)=>item !== obj.facilityId)
+        this.pateintForm.patchValue({
+          facilityIds: this.facilityIds
+        });
       this.selectedLabFacilities = this.selectedLabFacilities.filter((item:any)=>item.facilityId !== obj.facilityId)
     }
   }
@@ -74,7 +99,7 @@ export class LabAppointmentComponent implements OnInit{
       email: ['', [Validators.required]],
       phoneNo: ['', [Validators.required]],
       facilityIds: [[], [Validators.required]],
-      timming: [this.currentDate, [Validators.required]],
+      timming: [this.selectedDateAndTime, [Validators.required]],
     });
     this.loadLab(this.route.snapshot.params['id']);
     this.loadFacilities(this.route.snapshot.params['id']);
@@ -106,14 +131,16 @@ export class LabAppointmentComponent implements OnInit{
     this.pateintForm.patchValue({
       facilityIds: this.facilityIds
     });
+    this.addLoading = true
     if(window.navigator.onLine){
       this.userService.AppointmentByFacilities(this.pateintForm.value).subscribe({
         next:(v)=>{
-          console.log(v.message)
-          alert(v.message)
+          this.addLoading = false
+          Swal.fire('Success!', v.message, 'success');
         },
         error:(e)=>{
-          console.log(e.error.message)
+          this.addLoading = false
+          Swal.fire('Opps:', e.error? e.error.title : e.message, 'error');
         }
       })
     }

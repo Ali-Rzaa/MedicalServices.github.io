@@ -19,7 +19,4 @@ import { MatButtonModule } from '@angular/material/button';
   ]
 })
 export class ClinicsModule { 
-  constructor(){
-    console.log('clinic module')
-  }
 }

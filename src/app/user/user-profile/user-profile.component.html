@@ -3,10 +3,10 @@
         <div class="first-row">
             <span class="booking-text">User Profile</span>
         </div>
-        <div *ngIf="user" class="second-row row px-3 mt-4">
+        <div class="second-row row px-3 mt-4">
             <div class="col-12 px-2">
                 <div class="row">
-                    <div class="user-detail col-lg-6 col-md-6 col-sm-12">
+                    <div *ngIf="user" class="user-detail col-lg-6 col-md-6 col-sm-12">
                         <div class="user-image-container">
                             <img  class="card-img" src="{{user.image?user.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
                             <div class="upload-image">
@@ -21,10 +21,10 @@
                         </div>   
                     </div> 
                 </div>
-                <div class="first-row">
+                <div *ngIf="user" class="first-row">
                     <span class="doctors-heading">Current Booked Appointments</span>
                 </div>
-                <div class="row mt-1">
+                <div *ngIf="user" class="row mt-1">
                     <div class="info-card" *ngFor="let doctor of filterUser2(userAppointment)">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
                             <img  class="card-img" src="{{doctor.image? doctor.image : '../../../../../assets/navbar/image_not_available.jpg'}}" alt="Card Image">
@@ -99,10 +99,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="first-row">
+                <div *ngIf="user" class="first-row">
                     <span class="doctors-heading">Appointments History</span>
                 </div>
-                <div class="row mt-1">
+                <div *ngIf="user" class="row mt-1">
                     <div class="info-card" *ngFor="let doctor of filterUser(userAppointment)">
                         <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
                             <img  class="card-img" src="{{doctor.image?doctor.image:'../../../../../assets/navbar/image_not_available.jpg'}}" alt="Card Image">
@@ -187,7 +187,7 @@
         <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
-    <div class="modal-body">
+    <div *ngIf="user" class="modal-body">
         <div class="row ">
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <div class="user-image-container">
