@@ -40,7 +40,7 @@
                   <div class="contact-container">
                     <div>
                       <span class="card-text">
-                        <button *ngIf="this.selectedDate != '' && selectedTime != ''" routerLink="/doctors/doctorBooking/{{ doctor.doctorId }}/{{ selectedDate }}/{{ selectedTime }}" [ngClass]="appointmentButton()">Book Appointment</button>
+                        <button *ngIf="this.selectedDate != '' && selectedTime != ''" routerLink="/doctors/doctorBooking/{{ doctor.doctorId }}/{{ bookingDateTime }}" [ngClass]="appointmentButton()">Book Appointment</button>
                         <button *ngIf="this.selectedDate === '' || selectedTime === ''" [ngClass]="appointmentButton()">Book Appointment</button>
                       </span>
                     </div>
@@ -56,25 +56,25 @@
       <div class="px-2 col-12">
         <div class="third-row row p-3">
           <div class="col-lg-9 col-md-8 col-sm-12">
-            <span class="time-block-heading">Select Available day&time</span>
+            <div class="d-flex justify-content-between">
+              <span class="time-block-heading">Select Available day & time</span>
+              <span *ngIf="count == 0" class="errorValdation"> Please select date</span>
+            </div>
             <br />
             <br />
             <div class="card-text">
               <!-- <span style="color:#179C8C">Morning Time</span> -->
               <div class="activeHours">
-                <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of availabilty">
-                  <i class="bi bi-clock"></i><span> {{ time }}</span>
+                <button (click)="getAppointmentDateTime(time)" class="timeblock" mat-stroked-button *ngFor="let time of availabilty; let i = index">
+                  <i class="bi bi-clock d-pointer"></i><span> {{ time }}</span>
                 </button>
               </div>
-              <!-- <br><br>
-                            <span style="color:#179C8C">Evening Time</span>
-                            <div class="activeHours" >
-                                <button class="timeblock" mat-stroked-button *ngFor="let morningT of doctor.eveningActiveHours"><i class='bi bi-clock'></i><span> {{morningT}}</span></button>
-                            </div> -->
             </div>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-12">
-            <mat-calendar #calendar></mat-calendar>
+            <div class="calender">
+              <mat-calendar #calendar [dateFilter]="dateFilter" [(selected)]="selected" (selectedChange)="getDoctorAvailablity($event)"></mat-calendar>
+            </div>
           </div>
         </div>
       </div>

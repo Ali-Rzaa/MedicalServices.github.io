@@ -5,13 +5,13 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { DoctorProfileComponent } from './doctor-profile/doctor-profile.component';
 
 const routes: Routes = [
-    {path:'', component:DoctorListComponent},
-    {path:'doctorBooking/:id/:selectedDate/:selectedTime', component:DoctorBookingComponent},
-    {path:'doctorProfile/:id', component:DoctorProfileComponent}
+  { path: '', component: DoctorListComponent },
+  { path: 'doctorBooking/:id/:selectedDateAndTime', component: DoctorBookingComponent },
+  { path: 'doctorProfile/:id', component: DoctorProfileComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DoctorsRoutingModule { }
+export class DoctorsRoutingModule {}

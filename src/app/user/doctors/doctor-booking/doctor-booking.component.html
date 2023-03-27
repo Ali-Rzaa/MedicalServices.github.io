@@ -1,128 +1,125 @@
 <div>
-    <div class="hospital-container">
-        <div class="first-row">
-            <span class="booking-text">Doctor Appointment</span>
-        </div>
-        <div *ngIf="doctor" class="second-row row px-3 mt-4">
-            <div class="col-12 px-2">
-                <div class="row">
-                <div class="info-card">
-                    <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
-                        <img  class="card-img" src="{{doctor.image?doctor.image:'../../../../../assets/navbar/blank-user.jpg'}}" alt="Card Image">
-                    </div>
-                    <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="sub-info">
-                                    <span class="card-name">{{doctor.name}}</span>
-                                    <br>
-                                    <span class="card-text">
-                                        <span style="color: #179C8C;"> {{doctor.field}}</span>
-                                    </span>
-                                    <br>
-                                    <span class="card-text">
-                                        Fee: 
-                                        <span style="color: #179C8C;">{{doctor.fee}}</span>
-                                    </span>
-                                    <br>
-                                    <span class="card-text">
-                                        Experiance: 
-                                        <span style="color: #179C8C;">{{doctor.experience}}</span>
-                                    </span>
-                                    <br>
-                                    <span class="card-text">
-                                        <span style="color: #179C8C;">{{doctor.availableStatus? 'Available':'Not Available'}}</span>
-                                    </span>
-                                </div>
-                                <br>
-                            </div>
-                            <div class="last-content col-lg-6 col-md-6 col-sm-12">
-                                <div class="contact-container">
-                                    <div class="row">
-                                        <div class="selectedDayTime col-12">
-                                            <span style="color: #179C8C;">Selected Day</span> 
-                                            <div class="activeHours" >
-                                                <span class="timeblock">{{selectedDay | date: 'dd/MM/yyyy'}}</span> 
-                                            </div>
-                                        </div>
-                                        <div class="selectedDayTime col-12">
-                                            <span style="color: #179C8C;">Selected Time</span> 
-                                            <div class="activeHours" >
-                                                <span class="timeblock"><i class='bi bi-clock'></i>{{selectedTime}}</span> 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-        <div class="row px-3 mt-2">
-            <span class="card-name">Patient Details</span>
-            <div class="px-2 col-12">
-                <form [formGroup]="pateintForm" (keydown.enter)="EnterSubmit($event)" class="third-row row p-3">
-                    <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
-                        <div class="card-text">
-                            <label for="patientname">Patient Full Name</label>
-                            <div class="inputField">
-                                <input id="patientname" formControlName="patientName" placeholder="Enter Name" type="text">
-                            </div>
-                            <br><br>
-                            <label for="patientweight">Patient Weight</label>
-                            <div class="inputField">
-                                <input id="patientweight" formControlName="weight" placeholder="Enter Weight" type="text">
-                            </div>
-                            <br><br>
-                            <label for="patientdisease">Disease</label>
-                            <div class="inputField larger-field">
-                                <textarea ng-model="myTextarea" formControlName="disease" id="patientdisease" type="text"> </textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
-                        <div class="card-text">
-                            <label for="patientage">Patient Date of Birth</label>
-                            <div class="inputField">
-                                <input id="patientage" formControlName="dob" placeholder="Enter Age" type="date">
-                            </div>
-                            <br><br>
-                            <label for="patientemail">Patient Email</label>
-                            <div class="inputField">
-                                <input id="patientemail" formControlName="email" placeholder="Enter Email" type="text">
-                            </div>
-                            <br><br>
-                            <label for="patienthistory">Disease in History</label>
-                            <div class="inputField larger-field">
-                                <textarea ng-model="myTextarea" formControlName="diseaseInPast" id="patienthistory" type="text"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
-                        <div class="card-text">
-                            <label for="patientgender">Gender</label>
-                            <div class="inputField">
-                                <input id="patientgender" formControlName="gender" placeholder="Enter Gender" type="text">
-                            </div>
-                            <br><br>
-                            <label for="patientphone">Patient Phone No</label>
-                            <div class="inputField">
-                                <input id="patientphone" formControlName="phoneNo" placeholder="Enter Phone No" type="text">
-                            </div>
-                            <br><br>
-                            <label for=""></label>
-                            <div class="button-wrapper">
-                                <button (click)="submitAppointent()" type="submit" class="visit-button">
-                                    Confirm Appointment
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-        </div>
+  <div class="hospital-container">
+    <div class="first-row">
+      <span class="booking-text">Doctor Appointment</span>
     </div>
+    <div *ngIf="doctor" class="second-row row px-3 mt-4">
+      <div class="col-12 px-2">
+        <div class="row">
+          <div class="info-card">
+            <div class="card-img-container col-lg-2 col-md-2 col-sm-12">
+              <img class="card-img" src="{{ doctor.image ? doctor.image : '../../../../../assets/navbar/blank-user.jpg' }}" alt="Card Image" />
+            </div>
+            <div class="card-info-container col-lg-10 col-md-10 col-sm-12 pt-3">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="sub-info">
+                    <span class="card-name">{{ doctor.name }}</span>
+                    <br />
+                    <span class="card-text">
+                      <span style="color: #179c8c"> {{ doctor.field }}</span>
+                    </span>
+                    <br />
+                    <span class="card-text">
+                      Fee:
+                      <span style="color: #179c8c">{{ doctor.fee }}</span>
+                    </span>
+                    <br />
+                    <span class="card-text">
+                      Experiance:
+                      <span style="color: #179c8c">{{ doctor.experience }}</span>
+                    </span>
+                    <br />
+                    <span class="card-text">
+                      <span style="color: #179c8c">{{ doctor.availableStatus ? 'Available' : 'Not Available' }}</span>
+                    </span>
+                  </div>
+                  <br />
+                </div>
+                <div class="last-content col-lg-6 col-md-6 col-sm-12">
+                  <div class="contact-container">
+                    <div class="row">
+                      <div class="selectedDayTime col-12">
+                        <span style="color: #179c8c">Selected Day</span>
+                        <div class="activeHours">
+                          <span class="timeblock">{{ this.date }}</span>
+                        </div>
+                      </div>
+                      <div class="selectedDayTime col-12">
+                        <span style="color: #179c8c">Selected Time</span>
+                        <div class="activeHours">
+                          <span class="timeblock"><i class="bi bi-clock"></i>{{ time }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-3 mt-2">
+      <span class="card-name">Patient Details</span>
+      <div class="px-2 col-12">
+        <form [formGroup]="pateintForm" (keydown.enter)="EnterSubmit($event)" class="third-row row p-3">
+          <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+            <div class="card-text">
+              <label for="patientname">Patient Full Name</label>
+              <div class="inputField">
+                <input id="patientname" formControlName="patientName" placeholder="Enter Name" type="text" />
+              </div>
+              <br /><br />
+              <label for="patientweight">Patient Weight</label>
+              <div class="inputField">
+                <input id="patientweight" formControlName="weight" placeholder="Enter Weight" type="text" />
+              </div>
+              <br /><br />
+              <label for="patientdisease">Disease</label>
+              <div class="inputField larger-field">
+                <textarea ng-model="myTextarea" formControlName="disease" id="patientdisease" type="text"> </textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+            <div class="card-text">
+              <label for="patientage">Patient Date of Birth</label>
+              <div class="inputField">
+                <input id="patientage" formControlName="dob" placeholder="Enter Age" type="date" />
+              </div>
+              <br /><br />
+              <label for="patientemail">Patient Email</label>
+              <div class="inputField">
+                <input id="patientemail" formControlName="email" placeholder="Enter Email" type="text" />
+              </div>
+              <br /><br />
+              <label for="patienthistory">Disease in History</label>
+              <div class="inputField larger-field">
+                <textarea ng-model="myTextarea" formControlName="diseaseInPast" id="patienthistory" type="text"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+            <div class="card-text">
+              <label for="patientgender">Gender</label>
+              <div class="inputField">
+                <input id="patientgender" formControlName="gender" placeholder="Enter Gender" type="text" />
+              </div>
+              <br /><br />
+              <label for="patientphone">Patient Phone No</label>
+              <div class="inputField">
+                <input id="patientphone" formControlName="phoneNo" placeholder="Enter Phone No" type="text" />
+              </div>
+              <br /><br />
+              <label for=""></label>
+              <div class="button-wrapper">
+                <button (click)="submitAppointent()" type="submit" class="visit-button">Confirm Appointment</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

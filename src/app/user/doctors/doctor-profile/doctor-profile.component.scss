@@ -160,6 +160,16 @@
 .about-content{
     word-wrap: break-word;
 }
+//calender style
+.calender{
+       /* width: 300px; */
+    /* border-radius: 0px !important; */
+    box-shadow: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    padding: 0px !important;
+    border-radius: 10px;
+    background-color: #EFFCFA;
+}
 @media (max-width: 768px){
     .info-card{
         height: max-content;

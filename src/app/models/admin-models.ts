@@ -64,6 +64,10 @@ export interface DoctorModel {
   hospitalName: string;
   availableStatus: string;
 }
+export interface AvailableModel {
+  time: string;
+  isSelected: boolean;
+}
 export interface Type {
   id: string;
   type: string;

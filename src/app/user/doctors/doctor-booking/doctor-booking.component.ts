@@ -8,17 +8,19 @@ import { UserService } from 'src/app/services/user/user.service';
 @Component({
   selector: 'app-doctor-booking',
   templateUrl: './doctor-booking.component.html',
-  styleUrls: ['./doctor-booking.component.scss']
+  styleUrls: ['./doctor-booking.component.scss'],
 })
-export class DoctorBookingComponent implements OnInit{
-  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService){}
+export class DoctorBookingComponent implements OnInit {
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router, private userService: UserService) {}
   // doctor = doctors[0];
-  selectedTime = '';
+  selectedDateAndTime = '';
   selectedDay = '';
   doctorId = '';
-  doctor :DoctorModel;
+  doctor: DoctorModel;
   pateintForm!: FormGroup;
-  ngOnInit(){
+  date: any;
+  time: any;
+  ngOnInit() {
     this.pateintForm = this.formBuilder.group({
       patientName: ['', [Validators.required]],
       dob: ['', [Validators.required]],
@@ -32,32 +34,37 @@ export class DoctorBookingComponent implements OnInit{
     });
     this.loadDoctor(this.route.snapshot.params['id']);
     this.doctorId = this.route.snapshot.params['id'];
-    this.selectedTime = this.route.snapshot.params['selectedTime'];
-    this.selectedDay = this.route.snapshot.params['selectedDate'];
+    this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
+    let splitOpeningTime = this.selectedDateAndTime.split('-');
+    debugger;
+    let substringsplitOpeningTime = splitOpeningTime[2].slice(3, -8);
+    let splitOpeningDate = this.selectedDateAndTime.split('T');
+    this.date = splitOpeningDate[0];
+    this.time = substringsplitOpeningTime;
   }
-  EnterSubmit(event:any){
+  EnterSubmit(event: any) {
     this.submitAppointent();
   }
-  submitAppointent(){
-    if(window.navigator.onLine){
-      this.userService.AppointmentByDoctor(this.doctorId,this.pateintForm.value).subscribe({
-        next:(v)=>{
-          console.log(v.message)
+  submitAppointent() {
+    if (window.navigator.onLine) {
+      this.userService.AppointmentByDoctor(this.doctorId, this.pateintForm.value).subscribe({
+        next: (v) => {
+          console.log(v.message);
         },
-        error:(e)=>{
-          console.log(e.error.message)
-        }
-      })
+        error: (e) => {
+          console.log(e.error.message);
+        },
+      });
     }
   }
-  loadDoctor(id:any){
+  loadDoctor(id: any) {
     this.userService.GetDoctor(id).subscribe({
-      next:(v) => {
-        this.doctor = v.data
+      next: (v) => {
+        this.doctor = v.data;
       },
-      error:(error) => {
+      error: (error) => {
         console.log('Error in loadDoctor: ' + error.message);
-      }
+      },
     });
   }
 }
