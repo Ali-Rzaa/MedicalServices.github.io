@@ -251,17 +251,6 @@ export class HospitalAppointmentComponent implements OnInit{
       }
     });
   }
-  // loadParamedicalTime(id:any){
-  //   this.userService.GetHospitalParamedicalAvailableTime(id,this.currentDate).subscribe({
-  //     next:(v) => {
-  //       this.paramedicalTime = v.data
-  //     },
-  //     error:(error) => {
-  //       console.log('Error in loadHospital: ' + error.message);
-  //     }
-  //   });
-  // }
-  
   EnterSubmit(event:any){
     if(this.pateintForm.valid){
       this.submitAppointent();

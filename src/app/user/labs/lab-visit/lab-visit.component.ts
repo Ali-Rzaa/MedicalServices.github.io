@@ -103,16 +103,6 @@ export class LabVisitComponent implements OnInit {
 
     // 1 means monday, 0 means sunday, etc.
   };
-  // loadAvailableTime(id:any){
-  //   this.userService.GetLabAvailableTime(id, this.date).subscribe({
-  //     next:(v) => {
-  //       this.availableTime = v.data
-  //     },
-  //     error:(error) => {
-  //       console.log('Error in loadLab: ' + error.message);
-  //     }
-  //   });
-  // }
   loadAvailableTime(date: any){
     this.count = 1;
     let _date = date.getMonth() + 1;

@@ -30,8 +30,6 @@ export class DoctorBookingComponent implements OnInit {
     this.date = splitOpeningDate[0];
     this.time = substringsplitOpeningTime;
   }
-  // doctor = doctors[0];
-
   ngOnInit() {
     this.pateintForm = this.formBuilder.group({
       patientName: ['', [Validators.required]],
@@ -47,7 +45,9 @@ export class DoctorBookingComponent implements OnInit {
     this.loadDoctor(this.route.snapshot.params['id']);
   }
   EnterSubmit(event: any) {
-    this.submitAppointent();
+    if(this.pateintForm.valid){
+      this.submitAppointent();
+    }
   }
   submitAppointent() {
     this.addLoading = true

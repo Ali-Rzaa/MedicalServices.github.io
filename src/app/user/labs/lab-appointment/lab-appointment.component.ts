@@ -37,17 +37,20 @@ export class LabAppointmentComponent implements OnInit{
     this.date = splitOpeningDate[0];
     this.time = substringsplitOpeningTime;
   }
-  clinic = clinics[0];
-  suggestions = [
-    {id:0, name:'Blood Test'},
-    {id:1, name:'Basic metabolic panel'},
-    {id:2, name:'Hemoglobin A1C'},
-    {id:3, name:'Lipid profile'},
-    {id:4, name:'Pathology'},
-    {id:5, name:'Complete blood count'},
-    {id:6, name:'Urinalysis'},
-  ]
-  selectedSuggestion = [{id:0, name:'Blood Test'},]
+  ngOnInit(){
+    this.pateintForm = this.formBuilder.group({
+      patientName: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      weight: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      phoneNo: ['', [Validators.required]],
+      facilityIds: [[], [Validators.required]],
+      timming: [this.selectedDateAndTime, [Validators.required]],
+    });
+    this.loadLab(this.route.snapshot.params['id']);
+    this.loadFacilities(this.route.snapshot.params['id']);
+  }
   selectSuggestion(obj: any){
       if(this.selectedLabFacilities.length!==0)
       {
@@ -81,29 +84,6 @@ export class LabAppointmentComponent implements OnInit{
       this.selectedLabFacilities = this.selectedLabFacilities.filter((item:any)=>item.facilityId !== obj.facilityId)
     }
   }
-  // selectSuggestion(obj: any){
-  //   if(this.selectedSuggestion.find((item)=>item.id !== obj.id))
-  //   {
-  //     this.selectedSuggestion.push(obj)
-  //   }
-  // }
-  // removeSuggestion(id: any){
-  //   this.selectedSuggestion = this.selectedSuggestion.filter((item:any)=>item.id !== id)
-  // }
-  ngOnInit(){
-    this.pateintForm = this.formBuilder.group({
-      patientName: ['', [Validators.required]],
-      dob: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      weight: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      phoneNo: ['', [Validators.required]],
-      facilityIds: [[], [Validators.required]],
-      timming: [this.selectedDateAndTime, [Validators.required]],
-    });
-    this.loadLab(this.route.snapshot.params['id']);
-    this.loadFacilities(this.route.snapshot.params['id']);
-  }
   loadLab(id:any){
     this.userService.GetLab(id).subscribe({
       next:(v) => {
@@ -125,7 +105,9 @@ export class LabAppointmentComponent implements OnInit{
     });
   }
   EnterSubmit(event:any){
-    this.submitAppointent();
+    if(this.pateintForm.valid){
+      this.submitAppointent();
+    }
   }
   submitAppointent(){
     this.pateintForm.patchValue({
@@ -145,5 +127,4 @@ export class LabAppointmentComponent implements OnInit{
       })
     }
   }
-
 }
