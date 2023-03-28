@@ -3,6 +3,9 @@ import { AppointmentModel, UserModel } from 'src/app/models/admin-models';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 import {NgbModal, NgbModalConfig,} from '@ng-bootstrap/ng-bootstrap';
+import {Store} from '@ngrx/store'
+import { userStateModel } from 'src/app/NGRX/reducers/user-reducer';
+import { updateUserProfileAction } from 'src/app/NGRX/actions/user-action';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +20,7 @@ export class UserProfileComponent implements OnInit {
   user :UserModel;
   userAppointment:AppointmentModel[] = [];
   profileFormData:FormData = new FormData();
-  constructor(private accountService: AccountService, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService){
+  constructor(private accountService: AccountService, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService, private store: Store<{userReducer:userStateModel}>){
 		config.backdrop = 'static';
 		config.keyboard = false;}
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.UpdateUserProfile(this.profileFormData).subscribe({
         next: (v)=>{
           this.loadUser();
+          this.store.dispatch(updateUserProfileAction({userProfile:this.user}))
         },
         error: (e)=> {
   
@@ -73,6 +77,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.GetUserProfile().subscribe({
       next: (v) => {
         this.user = v.data;
+        this.store.dispatch(updateUserProfileAction({userProfile:v.data}))
       },
       error: (e) => {
 

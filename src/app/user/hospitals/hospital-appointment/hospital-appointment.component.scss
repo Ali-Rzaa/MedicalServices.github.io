@@ -219,7 +219,7 @@ textarea {
 .suggestion {
   margin: 0 5px 5px;
   width: fit-content;
-  height: 25px;
+  min-height: fit-content;
   border-radius: 50px;
   background-color: #cce3e1;
   padding: 3px 10px;
@@ -232,53 +232,24 @@ textarea {
 }
 .activeHours {
   padding-top: 10px;
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-// .activeHours{
-//     padding-top: 10px;
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap:wrap ;
-// }
-// .timeblock{
-//     margin-left: 10px;
-//     display: flex;
-//     border: 2px solid #179C8C;
-//     border-radius: 10px;
-//     align-items: center;
-//     justify-content: space-between;
-//     width: 100px;
-//     height: 40px;
-//     padding: 5px;
-//     font-size: 14px;
-// }
-// .timeblock{
-//     margin-right: 10px;
-//     margin-top: 10px;
-//     display: flex;
-//     border: 2px solid #179C8C;
-//     border-radius: 10px;
-//     align-items: center;
-//     justify-content: space-between;
-//     width: 90px;
-//     height: 40px;
-//     padding: 5px;
-//     font-size: 12px;
-// }
-
 .timeblock {
-  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
   display: flex;
   border: 2px solid #179c8c;
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: 90px;
   height: 40px;
   padding: 5px;
   font-size: 12px;
 }
-.timeblock > i {
+.timeblock > .bi-clock {
   margin-right: 10px;
 }
 @media (max-width: 768px) {

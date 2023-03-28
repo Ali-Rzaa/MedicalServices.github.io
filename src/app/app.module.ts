@@ -17,10 +17,12 @@ import { HttpErrorInterceptor } from './services/errorhandler/errorhandler.servi
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
+import { StoreModule } from '@ngrx/store';
+import { getUserProfileReducer } from './NGRX/reducers/user-reducer';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, UserProfileComponent, SidebarComponent, NotFoundComponent],
-  imports: [BrowserModule, FontAwesomeModule, HttpClientModule,AuthModule, MatTabsModule, UserModule, AdminModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule],
+  imports: [BrowserModule, FontAwesomeModule, HttpClientModule,AuthModule, MatTabsModule, UserModule, AdminModule, NgbModule, BrowserAnimationsModule, MatButtonModule, AppRoutingModule, MatIconModule, StoreModule.forRoot({userReducer:getUserProfileReducer})],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

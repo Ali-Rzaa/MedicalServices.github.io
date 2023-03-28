@@ -31,6 +31,7 @@ export class HospitalAppointmentComponent implements OnInit{
   selectedTime:string='';
   count: number = 0;
   _selectedDate: any;
+  time: any;
   hospitalId: any;
   facilityId: any;
   minDate = new Date();
@@ -140,16 +141,18 @@ export class HospitalAppointmentComponent implements OnInit{
     }
     this.selectedTime = data.time;
     let splittedTime = this.selectedTime.split(':')
-    if(splittedTime[0] >'10'){
+    if(parseInt(splittedTime[0]) < 10){
       this.pateintForm.patchValue({
         timming: this._selectedDate + 'T' + '0' + this.selectedTime + ':00.772Z'
       });
       this.bookingDateTime = this._selectedDate + 'T' + '0' + this.selectedTime + ':00.772Z';
+      this.time = '0' + this.selectedTime;
     } else {
       this.pateintForm.patchValue({
         timming: this._selectedDate + 'T' + this.selectedTime + ':00.772Z'
       });
       this.bookingDateTime = this._selectedDate + 'T' + this.selectedTime + ':00.772Z';
+      this.time = this.selectedTime;
     }
   }
   dateFilter: (date: Date | null) => boolean = (date: Date | null) => {
@@ -260,7 +263,9 @@ export class HospitalAppointmentComponent implements OnInit{
   // }
   
   EnterSubmit(event:any){
-    this.submitAppointent();
+    if(this.pateintForm.valid){
+      this.submitAppointent();
+    }
   }
   submitAppointent(){
     this.addLoading = true

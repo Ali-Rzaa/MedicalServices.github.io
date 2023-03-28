@@ -40,7 +40,7 @@
                                         <div class="selectedDayTime col-12">
                                             <span style="color: #179C8C;">Selected Time</span> 
                                             <div class="activeHours" >
-                                                <span class="timeblock"><i class='bi bi-clock'></i>{{selectedTime}}</span> 
+                                                <span class="timeblock"><i class='bi bi-clock'></i>{{time}}</span> 
                                             </div>
                                         </div>
                                     </div>
@@ -68,15 +68,11 @@
                                 <br>
                                 <br>
                                 <div class="card-text">
-                                    <!-- <div *ngIf="radiologyTime.length!==0" class="activeHours" >
-                                        <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of radiologyTime"><i class='bi bi-clock'></i><span> {{time}}</span></button>
-                                    </div>
-                                    <div *ngIf="paramedicalTime.length!==0" class="activeHours" >
-                                        <button (click)="selectedTime = time" class="timeblock" mat-stroked-button *ngFor="let time of paramedicalTime"><i class='bi bi-clock'></i><span> {{time}}</span></button>
-                                    </div> -->
+                                    <div class="activeHours">
                                     <button (click)="getAppointmentDateTime(time)" [ngStyle]="{ 'background-color': time.bgColor, border: time.border }" class="timeblock" mat-stroked-button *ngFor="let time of AvailableTime; let i = index">
                                         <i class="bi bi-clock d-pointer"></i><span> {{ time.time }}</span>
                                       </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12">
