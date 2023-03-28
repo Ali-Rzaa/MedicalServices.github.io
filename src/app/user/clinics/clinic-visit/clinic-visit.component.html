@@ -51,7 +51,7 @@
                     <span class="doctors-heading">Doctors in {{clinic.name}}</span>
                     <div *ngIf="doctors" class="second-row row mt-4">
                         <div
-                            *ngFor="let doctor of doctors | slice : 0 : 3"
+                            *ngFor="let doctor of doctors"
                             class="col-lg-6 col-md-12 col-sm-12"
                         >
                             <div
