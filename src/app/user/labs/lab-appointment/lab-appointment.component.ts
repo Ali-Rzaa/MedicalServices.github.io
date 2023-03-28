@@ -118,7 +118,13 @@ export class LabAppointmentComponent implements OnInit{
       this.userService.AppointmentByFacilities(this.pateintForm.value).subscribe({
         next:(v)=>{
           this.addLoading = false
-          Swal.fire('Success!', v.message, 'success');
+          setTimeout(()=>{
+            Swal.fire('Success!', v.message, 'success'); 
+          },1000);
+          setTimeout(()=>{
+            this.pateintForm.reset();
+            this.router.navigateByUrl('/labs/labVisit/'+this.labId)
+          },3000);
         },
         error:(e)=>{
           this.addLoading = false

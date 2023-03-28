@@ -54,8 +54,14 @@ export class DoctorBookingComponent implements OnInit {
     if (window.navigator.onLine) {
       this.userService.AppointmentByDoctor(this.doctorId, this.pateintForm.value).subscribe({
         next: (v) => {
-          Swal.fire('Success!', v.message, 'success');
           this.addLoading = false
+          setTimeout(()=>{
+            Swal.fire('Success!', v.message, 'success'); 
+          },1000);
+          setTimeout(()=>{
+            this.pateintForm.reset();
+            this.router.navigateByUrl('/doctors/doctorProfile/'+this.doctorId)
+          },3000);
         },
         error: (e) => {
           debugger

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { clinics } from 'src/app/data';
 import { AvailableModel, DoctorModel, FacilitiesModel, HospitalModel } from 'src/app/models/admin-models';
 import { radiologyFacilities } from 'src/app/models/user-model';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./hospital-appointment.component.scss']
 })
 export class HospitalAppointmentComponent implements OnInit{
-  constructor(private route:ActivatedRoute, private formBuilder: FormBuilder, private userService:UserService){}
+  constructor(private route:ActivatedRoute, private router:Router, private formBuilder: FormBuilder, private userService:UserService){}
   hospital :HospitalModel
   addLoading:boolean = false
   radiologyTime:string[] = []
@@ -252,6 +252,7 @@ export class HospitalAppointmentComponent implements OnInit{
     });
   }
   EnterSubmit(event:any){
+    this.pateintForm.reset();
     if(this.pateintForm.valid){
       this.submitAppointent();
     }
@@ -265,7 +266,12 @@ export class HospitalAppointmentComponent implements OnInit{
       this.userService.AppointmentByFacilities(this.pateintForm.value).subscribe({
         next:(v)=>{
           this.addLoading = false
-          Swal.fire('Success!', v.message, 'success');
+          setTimeout(()=>{
+            Swal.fire('Success!', v.message, 'success'); 
+          },1000);
+          setTimeout(()=>{
+            window.location.reload ();
+          },3000);
         },
         error:(e)=>{
           this.addLoading = false

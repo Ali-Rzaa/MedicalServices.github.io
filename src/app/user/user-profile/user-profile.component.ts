@@ -50,9 +50,13 @@ export class UserProfileComponent implements OnInit {
         this.imageURL.push(reader.result);
         console.log(reader.result)
       };
-      console.log(this.imageURL)
-
     }
+  }
+  clear(){
+    this.firstname = '';
+    this.lastname = '';
+    this.profileFormData.delete('UploadImage');
+    this.imageURL = [];
   }
   saveChanges(){
       this.firstname !== ''? this.profileFormData.append('FirstName', this.firstname) : '';
