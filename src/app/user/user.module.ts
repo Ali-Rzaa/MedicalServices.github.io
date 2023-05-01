@@ -4,6 +4,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { SearchComponent } from './search/search.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     CommonModule,
     UserRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ]
 })
 export class UserModule {

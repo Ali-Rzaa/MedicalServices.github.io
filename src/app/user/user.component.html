@@ -51,10 +51,12 @@
         <span>{{user.firstName}} {{user.lastName}}</span>
       </div>
       <div class="UserProfile">
+        <mat-icon *ngIf='!loggedIn' class="profile-image login">login</mat-icon>
         <img
-          class="profile-image"
-          src="{{ user.image ? user.image : '../../../../assets/navbar/blank-user.jpg' }}"
-          alt="user image"
+        *ngIf='loggedIn'
+        class="profile-image"
+        src="{{ user.image ? user.image : '../../../../assets/navbar/blank-user.jpg' }}"
+        alt="user image"
         />
       </div>
     </div>

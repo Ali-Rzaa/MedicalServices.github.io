@@ -6,6 +6,7 @@ import {NgbModal, NgbModalConfig,} from '@ng-bootstrap/ng-bootstrap';
 import {Store} from '@ngrx/store'
 import { userStateModel } from 'src/app/NGRX/reducers/user-reducer';
 import { updateUserProfileAction } from 'src/app/NGRX/actions/user-action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,15 +16,20 @@ import { updateUserProfileAction } from 'src/app/NGRX/actions/user-action';
 export class UserProfileComponent implements OnInit {
   imageURL:any[] = [];
   firstname = '';
+  isLogged: any;
   lastname = '';
   userimage = '';
   user :UserModel;
   userAppointment:AppointmentModel[] = [];
   profileFormData:FormData = new FormData();
-  constructor(private accountService: AccountService, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService, private store: Store<{userReducer:userStateModel}>){
+  constructor(private router : Router, private accountService: AccountService, config: NgbModalConfig, private modalService: NgbModal, private userService: UserService, private store: Store<{userReducer:userStateModel}>){
 		config.backdrop = 'static';
 		config.keyboard = false;}
   ngOnInit(): void {
+    if(!this.accountService.isLoggedIn)
+    {
+      this.router.navigateByUrl('/');
+    };
     this.loadUser();
     this.loadAppointments()
   }
