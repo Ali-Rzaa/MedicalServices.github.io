@@ -48,7 +48,6 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.imageURL.push(reader.result);
-        console.log(reader.result)
       };
     }
   }

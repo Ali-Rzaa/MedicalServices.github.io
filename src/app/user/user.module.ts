@@ -16,8 +16,5 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ]
 })
-export class UserModule { 
-  constructor(){
-    console.log('user module')
-  }
+export class UserModule {
 }

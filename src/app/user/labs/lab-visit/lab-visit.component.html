@@ -31,7 +31,7 @@
                                         <br>
                                         <br>
                                         <div class="hospital-card-button">
-                                            <button routerLink="/labs/labAppointment/{{lab.labId}}/{{bookingDateTime}}" [ngClass]="appointmentButton()">Book Appointment</button>
+                                            <button [routerLink]="isLogged? '/labs/labAppointment/{{lab.labId}}/{{bookingDateTime}}' : '/signIn'" [ngClass]="appointmentButton()">Book Appointment</button>
                                         </div>
                                     </div>
                                 </div>

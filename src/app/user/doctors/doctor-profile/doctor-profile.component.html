@@ -40,7 +40,7 @@
                   <div class="contact-container">
                     <div>
                       <span class="card-text">
-                        <button *ngIf="this.selectedDate != '' && selectedTime != ''" routerLink="/doctors/doctorBooking/{{ doctor.doctorId }}/{{ bookingDateTime }}" [ngClass]="appointmentButton()">Book Appointment</button>
+                        <button *ngIf="this.selectedDate != '' && selectedTime != ''" [routerLink]="isLogged? '/doctors/doctorBooking/{{ doctor.doctorId }}/{{ bookingDateTime }}' : '/signIn'" [ngClass]="appointmentButton()">Book Appointment</button>
                         <button *ngIf="this.selectedDate === '' || selectedTime === ''" [ngClass]="appointmentButton()">Book Appointment</button>
                       </span>
                     </div>

@@ -36,9 +36,17 @@
     </div>
     <div *ngIf="!showSearch" class="location">
       <i class="bi bi-geo-alt-fill location-icon"></i>
-      <span>{{city}}</span>
+      <div (mouseleave)="mouseleave()" class="dropdown dropdown-container">
+        <div (click)="showDropdown = !showDropdown" [ngStyle]="{'color':selectedCity==='Select City...'?'#dccccc':'black'}" class="dropdown-field">{{this.city? this.city : selectedCity}}</div>
+        <div *ngIf="showDropdown" class="dropdown-list">
+            <div class="dropdown-content">
+              <div class="list-item" (click)="selectCtiy('All','null')">All</div>
+              <div class="list-item" (click)="selectCtiy(city.name,city.cityId)" *ngFor="let city of cities">{{city.name}}</div>
+            </div>
+        </div>
     </div>
-    <div *ngIf="!showSearch && user" routerLink="/userProfile" class="userInfo">
+    </div>
+    <div *ngIf="!showSearch && user" [routerLink]="loggedIn? ['/userProfile'] : ['/signIn']" class="userInfo">
       <div class="userName">
         <span>{{user.firstName}} {{user.lastName}}</span>
       </div>

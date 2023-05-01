@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { doctors, hospitals } from 'src/app/data';
 import { ClinicModel, DoctorModel, HospitalModel } from 'src/app/models/admin-models';
 import { LabModel } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
@@ -21,7 +20,6 @@ export class HomeComponent implements OnInit{
   }
   doctors :DoctorModel[];
   hospitals :HospitalModel[];
-  // doctors = doctors;
   clinics :ClinicModel[];
   labs :LabModel[];
   loadDoctors(){

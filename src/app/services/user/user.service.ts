@@ -39,8 +39,9 @@ export class UserService {
     );
   }
   //Doctors
+  
   GetCityDoctors(cityId: any) {
-    return this.repositoryService.get('Doctor/get-doctors-by-city/' + cityId, true).pipe(
+    return this.repositoryService.get(`Doctor/get-doctors-by-city${cityId? '?cityId=' + cityId : ''}`, true).pipe(
       map((response: any) => {
         return response;
       })
@@ -76,7 +77,7 @@ export class UserService {
   }
   //Hospitals
   GetCityHospitals(cityId: any) {
-    return this.repositoryService.get('Hospital/get-hospitals/' + cityId, true).pipe(
+    return this.repositoryService.get(`Hospital/get-hospitals-by-city${cityId? '?cityId=' + cityId : ''}`, true).pipe(
       map((response: any) => {
         return response;
       })
@@ -105,7 +106,7 @@ export class UserService {
   }
   //Clinics
   GetCityClinics(cityId: any) {
-    return this.repositoryService.get('Clinic/get-clinics/' + cityId, true).pipe(
+    return this.repositoryService.get(`Clinic/get-clinics-by-city${cityId? '?cityId=' + cityId : ''}`, true).pipe(
       map((response: any) => {
         return response;
       })
@@ -120,7 +121,7 @@ export class UserService {
   }
   //Labs
   GetCityLabs(cityId: any) {
-    return this.repositoryService.get('Lab/get-labs/' + cityId, true).pipe(
+    return this.repositoryService.get(`Lab/get-labs-by-city${cityId? '?cityId=' + cityId : ''}`, true).pipe(
       map((response: any) => {
         return response;
       })

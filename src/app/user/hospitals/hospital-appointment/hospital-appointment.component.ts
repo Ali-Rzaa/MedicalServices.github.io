@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { clinics } from 'src/app/data';
 import { AvailableModel, DoctorModel, FacilitiesModel, HospitalModel } from 'src/app/models/admin-models';
 import { radiologyFacilities } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
@@ -192,7 +191,6 @@ export class HospitalAppointmentComponent implements OnInit{
     {
       this.userService.GetHospitalParamedicalAvailableTime(this.hospitalId,this._selectedDate).subscribe({
         next:(v) => {
-          // this.radiologyTime = v.data
           if (v.data.length == 0) {
             this.appointmentMsg;
           } else {
@@ -217,7 +215,6 @@ export class HospitalAppointmentComponent implements OnInit{
     } else {
       this.userService.GetHospitalFacilityAvailableTime(this.facilityId,this._selectedDate).subscribe({
         next:(v) => {
-          // this.radiologyTime = v.data
           if (v.data.length == 0) {
             this.appointmentMsg;
           } else {

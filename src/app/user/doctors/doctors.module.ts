@@ -15,7 +15,4 @@ import { MatNativeDateModule } from '@angular/material/core';
   imports: [CommonModule, DoctorsRoutingModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule],
 })
 export class DoctorsModule {
-  constructor() {
-    console.log('doctor module');
-  }
 }

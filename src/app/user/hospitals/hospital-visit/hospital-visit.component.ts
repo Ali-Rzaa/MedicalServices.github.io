@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { hospitals, doctors } from 'src/app/data';
 import { DoctorModel, FacilitiesModel, HospitalModel } from 'src/app/models/admin-models';
 import { radiologyFacility } from 'src/app/models/user-model';
+import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -12,12 +12,14 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class HospitalVisitComponent implements OnInit{
   hospital :HospitalModel;
-  doctors :DoctorModel[]
-  radiology :radiologyFacility[]
-  paramedicals : FacilitiesModel[]
-  option = 'paramedical'
-  constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
+  doctors :DoctorModel[];
+  isLogged: any;
+  radiology :radiologyFacility[];
+  paramedicals : FacilitiesModel[];
+  option = 'paramedical';
+  constructor(private accountService: AccountService, private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
+    this.isLogged = this.accountService.isLoggedIn;
     this.loadHospital(this.route.snapshot.params['id']);
     this.loadDoctors(this.route.snapshot.params['id']);
     this.loadRadiology(this.route.snapshot.params['id']);

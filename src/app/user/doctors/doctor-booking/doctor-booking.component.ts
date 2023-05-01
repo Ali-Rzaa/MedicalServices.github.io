@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { doctors } from 'src/app/data';
 import { DoctorModel } from 'src/app/models/admin-models';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
@@ -25,7 +24,6 @@ export class DoctorBookingComponent implements OnInit {
     this.selectedDateAndTime = this.route.snapshot.params['selectedDateAndTime'];
     let splitOpeningTime = this.selectedDateAndTime.split('-');
     let substringsplitOpeningTime = this.selectedDateAndTime.length===22? splitOpeningTime[2].slice(2, -8) : splitOpeningTime[2].slice(3, -8);
-    console.log(this.selectedDateAndTime.length)
     let splitOpeningDate = this.selectedDateAndTime.split('T');
     this.date = splitOpeningDate[0];
     this.time = substringsplitOpeningTime;

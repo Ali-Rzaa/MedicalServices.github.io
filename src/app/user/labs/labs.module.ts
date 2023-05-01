@@ -28,7 +28,5 @@ import { MatNativeDateModule } from '@angular/material/core';
   ]
 })
 export class LabsModule { 
-  constructor(){
-    console.log('lab module')
-  }
+ 
 }

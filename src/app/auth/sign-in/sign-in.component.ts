@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
-import { Cities } from 'src/app/models/user-model';
 import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -21,21 +20,17 @@ export class SignInComponent {
       backdropClass:'customBackdrop'
     }
   }
-  // cities:Cities[] = []
-  // selectedCity = 'Select City...'
-  // cityId: any
-  // showDropdown = false
   loginForm!: FormGroup;
   submitted = false;
   errorMessage: string = '';
   loginLoading: boolean = false;
-color='white'
+  color='white'
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
-    this.gotoDashboard()
+    // this.gotoDashboard()
   }
   _loginValues() {
     return this.loginForm.value;
@@ -56,10 +51,9 @@ color='white'
           // })
           // this.open(content);doctors
           if (localStorage.getItem('user_type')== 'Admin') {
-            // this.router.navigateByUrl('/admin/dashboard');
             this.router.navigateByUrl('/admin/doctors');
           } else {
-            this.router.navigateByUrl('/selectCity');
+            this.router.navigateByUrl(localStorage.getItem('prevLocation'));
           }
           this.loginLoading = false;
         },
@@ -74,24 +68,6 @@ color='white'
       });
     }
   }
-  // selectCtiy(name: string, id:any){
-  //   this.selectedCity = name
-  //   this.cityId = id
-  // }
-  // saveCity(){
-  //   if(this.selectedCity!== '')
-  //   {
-  //     localStorage.setItem('userCity', this.cityId)
-  //     if (localStorage.getItem('user_type')== 'Admin') {
-  //       this.router.navigateByUrl('/admin/dashboard');
-  //     } else {
-  //       this.router.navigateByUrl('/home');
-  //     }
-  //   }
-  // }
-  // mouseleave(){
-  //   this.showDropdown = false
-  // }
   title = '';
   closeResult: string='';
   modalOptions:NgbModalOptions;
@@ -105,29 +81,27 @@ color='white'
   open(content:any) {
     this.modalService.open(content, this.modalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult)
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 
-  gotoDashboard() {
-    if (this.accountService.isLoggedIn == true) {
-      if(this.accountService.getUserCity() !== null)
-      {
-        if (this.accountService.getUserType() == 'Admin') {
-          // this.router.navigateByUrl('/admin/dashboard');
-          this.router.navigateByUrl('/admin/doctors');
-        } else if (this.accountService.getUserType() == 'User') {
-          this.router.navigateByUrl('/home');
-        } else {
-          this.router.navigateByUrl('/');
-        }
-      } else {
-        this.router.navigateByUrl('/selectCity');
-      }
-    }
-  }
+  // gotoDashboard() {
+  //   if (this.accountService.isLoggedIn == true) {
+  //     if(this.accountService.getUserCity() !== null)
+  //     {
+  //       if (this.accountService.getUserType() == 'Admin') {
+  //         this.router.navigateByUrl('/admin/doctors');
+  //       } else if (this.accountService.getUserType() == 'User') {
+  //         this.router.navigateByUrl('/home');
+  //       } else {
+  //         this.router.navigateByUrl('/');
+  //       }
+  //     } else {
+  //       this.router.navigateByUrl('/selectCity');
+  //     }
+  //   }
+  // }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

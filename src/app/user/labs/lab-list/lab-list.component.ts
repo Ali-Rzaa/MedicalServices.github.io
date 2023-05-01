@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { hospitals } from 'src/app/data';
 import { LabModel } from 'src/app/models/user-model';
 import { UserService } from 'src/app/services/user/user.service';
 

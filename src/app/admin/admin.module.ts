@@ -32,7 +32,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule, NgbModule, MatRadioModule, CommonModule, MatSelectModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, AdminRoutingModule, MatIconModule, MatTableModule, MatMenuModule, MatTabsModule],
 })
 export class AdminModule {
-  constructor() {
-    console.log('admin module');
-  }
 }

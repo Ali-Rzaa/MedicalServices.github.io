@@ -28,7 +28,4 @@ import { MatNativeDateModule } from '@angular/material/core';
   ]
 })
 export class HospitalsModule {
-  constructor(){
-    console.log('hospital module')
-  }
  }

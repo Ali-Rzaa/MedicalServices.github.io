@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AvailableModel, FacilitiesModel } from 'src/app/models/admin-models';
 import { LabModel } from 'src/app/models/user-model';
+import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -20,18 +21,19 @@ export class LabVisitComponent implements OnInit {
   count: number = 0;
   _selectedDate: any;
   labId: any;
+  isLogged: any;
   facilityId: any;
   minDate = new Date();
   appointmentMsg: string = '';
   bookingDateTime: string = '';
   selected: Date | null;
   AvailableTime: AvailableModel[] = [];
-  constructor(private route:ActivatedRoute, private router: Router, private userService: UserService){}
+  constructor(private accountService: AccountService, private route:ActivatedRoute, private router: Router, private userService: UserService){}
   ngOnInit(){
+    this.isLogged = this.accountService.isLoggedIn;
     this.labId = this.route.snapshot.params['id']
     this.loadLab(this.route.snapshot.params['id']);
     this.loadFacilities(this.route.snapshot.params['id']);
-    // this.loadAvailableTime(this.route.snapshot.params['id']);
   }
   loadLab(id:any){
     this.userService.GetLab(id).subscribe({
@@ -113,7 +115,6 @@ export class LabVisitComponent implements OnInit {
     }
     this.userService.GetLabAvailableTime(this.labId,this._selectedDate).subscribe({
       next:(v) => {
-        // this.radiologyTime = v.data
         if (v.data.length == 0) {
           this.appointmentMsg;
         } else {

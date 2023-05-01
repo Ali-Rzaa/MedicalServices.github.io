@@ -97,7 +97,6 @@ export class CitiesComponent {
             Swal.fire('Cancelled', error.error.message, 'error');
             this.addCityLoading = false;
             this.getCities();
-            // this.errorMessage = error.error.message;
           }
         );
       }

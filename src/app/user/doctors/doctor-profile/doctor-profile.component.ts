@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AvailableModel, DoctorModel } from 'src/app/models/admin-models';
+import { AccountService } from 'src/app/services/Account/account.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class DoctorProfileComponent implements OnInit {
   doctor: DoctorModel;
+  isLogged: any;
   availabilty: string[];
   AvailableTime: AvailableModel[] = [];
   selectedDate: string = '';
@@ -21,8 +23,9 @@ export class DoctorProfileComponent implements OnInit {
   count: number = 0;
   minDate = new Date();
   appointmentMsg: string = '';
-  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {}
+  constructor(private accountService: AccountService, private route: ActivatedRoute, private router: Router, private userService: UserService) {}
   ngOnInit() {
+    this.isLogged = this.accountService.isLoggedIn;
     this.loadDoctor(this.route.snapshot.params['id']);
     this.doctorId = this.route.snapshot.params['id'];
   }

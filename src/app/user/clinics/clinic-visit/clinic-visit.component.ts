@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { clinics, doctors } from 'src/app/data';
 import { ClinicModel, DoctorModel } from 'src/app/models/admin-models';
 import { UserService } from 'src/app/services/user/user.service';
 

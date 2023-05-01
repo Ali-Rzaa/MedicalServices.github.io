@@ -7,7 +7,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserComponent } from './user.component';
 
 const routes: Routes = [
-  {path:'',canActivate: [AuthGuard], component:UserComponent, children:[
+  // {path:'',canActivate: [AuthGuard], component:UserComponent, children:[
+    {path:'', component:UserComponent, children:[
     {path:'', component:HomeComponent},
     {path:'home', component:HomeComponent},
     {path:'search/:searchKey', component:SearchComponent},
