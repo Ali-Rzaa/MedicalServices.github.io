@@ -64,6 +64,7 @@ export class AccountService {
     let removeUserCity = localStorage.removeItem('userCity');
     let removeUserCityName = localStorage.removeItem('userCityName');
     if (removeToken == null && removeUserID == null && removeUserType == null && removeUserCity == null && removeUserCityName == null) {
+      // window.location.reload();
       this.router.navigate(['/signIn']);
     }
   }

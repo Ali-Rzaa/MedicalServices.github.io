@@ -30,6 +30,7 @@ export class DoctorProfileComponent implements OnInit {
     this.doctorId = this.route.snapshot.params['id'];
   }
   appointmentButton() {
+    console.log(this.bookingDateTime)
     if (this.selectedDate != '' && this.selectedTime != '') {
       return 'visit-button';
     } else {

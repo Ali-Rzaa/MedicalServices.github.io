@@ -82,7 +82,7 @@
                     <span *ngIf="option == 'doctor'" class="doctors-heading">Doctors in {{hospital.name}}</span>
                     <div *ngIf="paramedicals && paramedicals.length !==0 && option == 'paramedical'" class="services-content second-row row mt-4" >
                         <div class="hospital-card-button service-booking-button">
-                            <button [routerLink]="isLogged? '/hospitals/hospitalAppointment/{{hospital.hospitalId}}/paramedical' : '/signIn'" class="visit-button" >Book Appointment</button>
+                            <button [routerLink]="isLogged? '/hospitals/hospitalAppointment/'+hospital.hospitalId+'/paramedical' : '/signIn'" class="visit-button" >Book Appointment</button>
                         </div>
                         <div *ngFor="let facility of paramedicals" class="col-lg-3 col-md-6 col-sm-6 mt-4">
                             <ul>
@@ -93,7 +93,7 @@
                     <div *ngIf="radiology && option == 'radiology'" >
                         <div *ngFor="let facility of radiology" class="row second-row services-content mt-4">
                             <div  class="hospital-card-button service-booking-button">
-                                <button [routerLink]="isLogged? '/hospitals/hospitalAppointment/{{hospital.hospitalId}}/{{facility.facilityCategoryId}}' : '/signIn'" class="visit-button" >Book Appointment</button>
+                                <button [routerLink]="isLogged? '/hospitals/hospitalAppointment/'+hospital.hospitalId+'/'+facility.facilityCategoryId : '/signIn'" class="visit-button" >Book Appointment</button>
                             </div>
                             <div>
                                 <span class="mt-3 fw-bold">{{facility.facilityCategoryName}}</span>
