@@ -30,7 +30,6 @@ export class SignInComponent {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
-    // this.gotoDashboard()
   }
   _loginValues() {
     return this.loginForm.value;
@@ -41,15 +40,6 @@ export class SignInComponent {
       this.loginLoading = true;
       this.accountService.login(this._loginValues()).subscribe({
         next: (v) => {
-          // this.userService.GetCities().subscribe({
-          //   next: (vl)=>{
-          //     this.cities = vl.data
-          //   },
-          //   error:(er)=>{
-          //     console.log('cities error: '+er)
-          //   }
-          // })
-          // this.open(content);doctors
           if (localStorage.getItem('user_type')== 'Admin') {
             this.router.navigateByUrl('/admin/doctors');
           } else {
@@ -86,22 +76,6 @@ export class SignInComponent {
     });
   }
 
-  // gotoDashboard() {
-  //   if (this.accountService.isLoggedIn == true) {
-  //     if(this.accountService.getUserCity() !== null)
-  //     {
-  //       if (this.accountService.getUserType() == 'Admin') {
-  //         this.router.navigateByUrl('/admin/doctors');
-  //       } else if (this.accountService.getUserType() == 'User') {
-  //         this.router.navigateByUrl('/home');
-  //       } else {
-  //         this.router.navigateByUrl('/');
-  //       }
-  //     } else {
-  //       this.router.navigateByUrl('/selectCity');
-  //     }
-  //   }
-  // }
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

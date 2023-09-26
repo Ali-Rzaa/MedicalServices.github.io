@@ -224,19 +224,6 @@
                   <option [value]="type.id" selected class="dropdown-option" *ngFor="let type of types">{{ type.type }}</option>
                 </select>
               </div>
-              <!-- <div class="col-6 input-field mt-3">
-                <mat-radio-group aria-label="Select an option" style="margin-top: -10px" (change)="HospiatlOrClinic($event)">
-                  <mat-radio-button value="1" [checked]="true"><span class="radio-label">Hospital</span></mat-radio-button>
-                  <mat-radio-button value="2"><span class="radio-label">Clinic</span></mat-radio-button>
-                </mat-radio-group>
-                <br />
-                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '1'" formControlName="hospitalId">
-                  <option [value]="hospital.hospitalId" selected class="dropdown-option" *ngFor="let hospital of hospitals">{{ hospital.name }}</option>
-                </select>
-                <select class="form-select rounded-pill" aria-label="Disabled select example" *ngIf="isClinic == '2'" formControlName="clinicId">
-                  <option [value]="clinic.clinicId" selected class="dropdown-option" *ngFor="let clinic of clinics">{{ clinic.name }}</option>
-                </select>
-              </div> -->
             </div>
             <div class="row">
               <div class="col-6 input-field mt-4">

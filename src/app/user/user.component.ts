@@ -13,7 +13,9 @@ import { Cities } from '../models/user-model';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  constructor(private route:Router, private accountService: AccountService, private userService:UserService, private store: Store<{userReducer:userStateModel}>){}
+  constructor(private route:Router, private accountService: AccountService,private router: Router, private userService:UserService, private store: Store<{userReducer:userStateModel}>){
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
   searchKey = '';
   city = '';
   selectedCity = ''
@@ -41,6 +43,7 @@ export class UserComponent implements OnInit {
     this.searchKey = event.target.value
   }
   pressedEnter(){
+    debugger
     this.route.navigateByUrl('/search/'+this.searchKey)
   }
   loadUser(){

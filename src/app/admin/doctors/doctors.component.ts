@@ -176,7 +176,7 @@ export class DoctorsComponent {
           this.accountService.doLogout();
           this.router.navigateByUrl('/signIn');
         }
-        console.log('Error in getHospital ' + error.message);
+        console.log('Error in getDoctors ' + error.message);
       }
     );
   }
@@ -345,8 +345,6 @@ export class DoctorsComponent {
       sat: [data.sat],
       sun: [data.sun],
       typeId: [data.typeId],
-      // hospitalId: [data.hospitalId],
-      // clinicId: [data.clinicId],
     });
     this.modalService.open(Item, { ariaLabelledBy: 'modal-basic-title', size: 'xl' }).result.then(
       (res) => {
@@ -360,15 +358,8 @@ export class DoctorsComponent {
   onSubmitEditDoctor() {
     this.errorMessage = '';
     let values = this.EditDoctorForm.value;
-    // let _hospitalId = '';
-    // let _clinicId = '';
     values.openingTime = this.shortDate + 'T' + values.openingTime + ':00.772Z';
     values.closingTime = this.shortDate + 'T' + values.closingTime + ':00.772Z';
-    // if (this.isClinic == '1') {
-    //   _hospitalId = values.hospitalId;
-    // } else {
-    //   _clinicId = values.clinicId;
-    // }
     if (this.EditDoctorForm.valid) {
       this.ImageFormData.append('Name', this.EditDoctorForm.get('name').value);
       this.ImageFormData.append('Fee', this.EditDoctorForm.get('fee').value);
@@ -386,8 +377,7 @@ export class DoctorsComponent {
       this.ImageFormData.append('Sat', this.EditDoctorForm.get('sat').value);
       this.ImageFormData.append('Sun', this.EditDoctorForm.get('sun').value);
       this.ImageFormData.append('TypeId', this.EditDoctorForm.get('typeId').value);
-      // this.ImageFormData.append('HospitalId', _hospitalId);
-      // this.ImageFormData.append('ClinicId', _clinicId);
+   
       if (values.openingTime > values.closingTime) {
         this.dateErrorMessage = 'Start time sholud be greated then End time';
       } else {

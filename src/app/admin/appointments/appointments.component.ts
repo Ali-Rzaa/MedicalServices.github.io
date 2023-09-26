@@ -59,7 +59,7 @@ export class AppointmentsComponent {
           this.accountService.doLogout();
           this.router.navigateByUrl('/signIn');
         }
-        console.log('Error in getHospital ' + error.message);
+        console.log('Error in getAppointments ' + error.message);
       }
     );
   }

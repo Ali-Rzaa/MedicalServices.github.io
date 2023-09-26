@@ -39,7 +39,7 @@
             <div class="input-field-container">
                 <label class="label" for="email">E-mail</label>
                 <div class="input-field">
-                    <input formControlName="email" [(ngModel)]="email" (input)="setEmail($event)" (blur)="onBlur()" placeholder="Enter your email" id="email" type="text">
+                    <input formControlName="email" [(ngModel)]="email" (input)="setEmail($event)" placeholder="Enter your email" id="email" type="text">
                     <span style="color: red; margin-top: 20px;" *ngIf=" emailCheckMessage !== '' ">{{emailCheckMessage}}</span>
                 </div>
             </div>
